@@ -29,13 +29,13 @@
             <!-- Left: Navigation Links -->
             <div class="hidden md:flex items-center gap-12">
                 <a class="text-zinc-950 dark:text-zinc-50 font-semibold border-b border-zinc-950/10 Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
-                    href="#">Home</a>
+                    href="index.html">Home</a>
                 <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
-                    href="#">Collections</a>
+                    href="shop.html">Collection</a>
                 <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
-                    href="#">Our Story</a>
+                    href="#our-story">Our Story</a>
                 <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
-                    href="#">Contact</a>
+                    href="#footer">Contact</a>
             </div>
             <!-- Center: Logo -->
             <div class="absolute left-1/2 -translate-x-1/2">
@@ -47,6 +47,8 @@
                         class="material-symbols-outlined">search</span></button>
                 <button class="scale-100 active:scale-95 transition-transform"><span
                         class="material-symbols-outlined">person</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined">shopping_bag</span></button>
             </div>
         </div>
     </nav>
@@ -64,7 +66,7 @@
                 <h2 class="serif-headline text-5xl md:text-8xl font-light italic tracking-tighter mb-12 drop-shadow-sm">
                     The Architecture of Silence</h2>
                 <div class="flex justify-center gap-8">
-                    <button
+                    <button onclick="window.location.href='shop.html'"
                         class="bg-primary text-on-primary px-10 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors duration-500">Discover
                         Series</button>
                 </div>
@@ -80,11 +82,11 @@
                             the modern atelier</p>
                     </div>
                     <a class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 pb-1 hover:border-primary transition-all"
-                        href="#">View All</a>
+                        href="shop.html">View All</a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
                     <!-- Product 1 -->
-                    <div class="group cursor-pointer">
+                    <div class="group cursor-pointer" onclick="window.location.href='product.html'">
                         <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 data-alt="Minimalist beige silk dress on model"
@@ -96,7 +98,7 @@
                         <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Silk Slip Dress</h4>
                     </div>
                     <!-- Product 2 -->
-                    <div class="group cursor-pointer">
+                    <div class="group cursor-pointer" onclick="window.location.href='product.html'">
                         <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 data-alt="Oversized wool blazer in charcoal grey"
@@ -105,7 +107,7 @@
                         <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Sculpted Wool Blazer</h4>
                     </div>
                     <!-- Product 3 -->
-                    <div class="group cursor-pointer">
+                    <div class="group cursor-pointer" onclick="window.location.href='product.html'">
                         <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 data-alt="Wide leg linen trousers in ivory"
@@ -114,7 +116,7 @@
                         <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Pleated Linen Trouser</h4>
                     </div>
                     <!-- Product 4 -->
-                    <div class="group cursor-pointer">
+                    <div class="group cursor-pointer" onclick="window.location.href='product.html'">
                         <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
                             <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                 data-alt="Minimalist black leather handbag"
@@ -138,13 +140,13 @@
                             <h3 class="serif-headline text-6xl mb-4">L'Ete Infini</h3>
                             <p class="font-label text-[10px] uppercase tracking-[0.3em] mb-8 opacity-80">The resort
                                 capsule collection</p>
-                            <button
+                            <button onclick="window.location.href='shop.html'"
                                 class="border border-white/40 text-white px-8 py-3 font-label text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">Explore
                                 Series</button>
                         </div>
                     </div>
                     <div class="md:col-span-4 flex flex-col gap-12">
-                        <div class="flex-1 group relative overflow-hidden bg-surface-container-high cursor-pointer">
+                        <div class="flex-1 group relative overflow-hidden bg-surface-container-high cursor-pointer" onclick="window.location.href='shop.html'">
                             <img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-1000"
                                 data-alt="Close up of high quality fabric textures"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbdi2WRzhHN4RVsBoSqvp8Awdr9KiG0iBUarFmDAMwBqj_B36r-vd3En5SGUF0BvNCrHhxQKJWJKvpdfBwIrcaYnHS9MlFhvm0qlcmq7y2EslXFUxr9M4Q70YYYebb4Di-Vtr5kY6hr8xTwNX6OShZk4Zh8VuvyZPXGTK8Bd_NpaZJYYnvfSulnZchNKmDCPjRUADPvGkxynJ_Q6e9VIhOCbYMHAjPrJkUjcuanVscFFtvRPWpyK9b7wDePRqijY529CY2yQRckXo" />
@@ -171,7 +173,7 @@
             </div>
         </section>
         <!-- Our Story Teaser -->
-        <section class="py-48 px-12 bg-surface-container-low overflow-hidden">
+        <section id="our-story" class="py-48 px-12 bg-surface-container-low overflow-hidden">
             <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-24 items-center">
                 <div class="relative">
                     <div class="w-full aspect-[4/5] bg-surface-container-highest relative z-10">
@@ -189,7 +191,7 @@
                         commitment to longevity, and every silhouette is designed to empower through understatement.
                     </p>
                     <div class="pt-8">
-                        <button
+                        <button onclick="document.getElementById('our-story').scrollIntoView({behavior: 'smooth'})"
                             class="bg-primary text-on-primary px-12 py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity">Read
                             Our Story</button>
                     </div>

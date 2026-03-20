@@ -39,7 +39,7 @@ function renderSupabaseProducts(products) {
         if (index === 3) extraClass = 'lg:-mt-12';
         
         const cardHTML = `
-        <div class="group ${extraClass}">
+        <div class="group ${extraClass} cursor-pointer" onclick="window.location.href='product.html'">
             <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
                 <img alt="${product.name}"
                     class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -76,25 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Mobile menu toggle logic
-    const menuToggle = document.querySelector('.material-symbols-outlined:contains("menu")');
-    const mobileNav = document.createElement('div');
-    // Basic functionality can be expanded later
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            alert("Mobile menu clicked");
-        });
-    }
+    // Mobile menu toggle logic is handled by findMenuToggle below
 
-    // Connect top navigation links properly
-    const links = document.querySelectorAll('nav a');
-    links.forEach(link => {
-        const text = link.textContent.trim().toLowerCase();
-        if (text === 'home') link.href = 'index.html';
-        else if (text === 'shop' || text === 'collections') link.href = 'shop.html';
-        else if (text === 'our story') link.href = '#';
-        else link.href = '#';
-    });
 });
 
 // Since :contains doesn't exist in standard DOM, here is a custom function
@@ -379,10 +362,10 @@ document.addEventListener('DOMContentLoaded', () => {
             openCartFn(); 
         }
         
-        // Add to cart
         const addBtn = e.target.closest('.add-to-cart-btn');
         if (addBtn) {
             e.preventDefault();
+            e.stopPropagation();
             const data = addBtn.dataset;
             // if product page logic where size selector exists but size is not chosen yet
             if (!data.size && document.querySelector('.grid.grid-cols-4.gap-2')) {

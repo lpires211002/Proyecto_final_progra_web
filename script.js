@@ -1,6 +1,81 @@
 tailwind.config = {}
 
+// --- SUPABASE CONFIGURATION ---
+// PASTE YOUR SUPABASE URL AND ANON KEY HERE TO ENABLE DYNAMIC PRODUCTS
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_API_KEY';
+
+let supabaseClient = null;
+if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+}
+
+async function fetchProducts() {
+    if (!supabaseClient) return null;
+    try {
+        const { data, error } = await supabaseClient
+            .from('products')
+            .select('*')
+            .order('created_at', { ascending: false });
+        if (error) throw error;
+        return data;
+    } catch (e) {
+        console.error("Supabase Error:", e.message);
+        return null;
+    }
+}
+
+function renderSupabaseProducts(products) {
+    const grid = document.querySelector('section.grid');
+    if (!grid) return;
+    
+    // Clear hardcoded products
+    grid.innerHTML = '';
+    
+    products.forEach((product, index) => {
+        // Retain the hybrid standard/asymmetric editorial layout
+        let extraClass = '';
+        if (index === 1 || index === 5) extraClass = 'mt-0 lg:mt-12';
+        if (index === 3) extraClass = 'lg:-mt-12';
+        
+        const cardHTML = `
+        <div class="group ${extraClass}">
+            <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                <img alt="${product.name}"
+                    class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    src="${product.image_url}" />
+                <button class="add-to-cart-btn absolute bottom-6 right-6 lg:left-1/2 lg:-translate-x-1/2 bg-white text-primary py-3 px-6 font-label text-[10px] uppercase tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-xl whitespace-nowrap z-10"
+                    data-name="${product.name}" 
+                    data-price="${product.price}" 
+                    data-img="${product.image_url}" 
+                    data-size="M">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="flex justify-between items-start">
+                <div>
+                    <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">${product.name}</h3>
+                    <p class="font-label text-[10px] uppercase tracking-widest text-outline">${product.color || 'Standard'}</p>
+                    <p class="product-price font-body font-bold text-sm mt-1">$${product.price}</p>
+                </div>
+            </div>
+        </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', cardHTML);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Fetch Map Products BEFORE DOM logic starts parsing them statically
+    fetchProducts().then(products => {
+        if (products && products.length > 0) {
+            console.log("Loaded products from Supabase");
+            renderSupabaseProducts(products);
+        } else {
+            console.log("Using fallback static HTML products");
+        }
+    });
+
     // Mobile menu toggle logic
     const menuToggle = document.querySelector('.material-symbols-outlined:contains("menu")');
     const mobileNav = document.createElement('div');

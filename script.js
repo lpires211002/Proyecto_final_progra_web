@@ -2,8 +2,8 @@ tailwind.config = {}
 
 // --- SUPABASE CONFIGURATION ---
 // PASTE YOUR SUPABASE URL AND ANON KEY HERE TO ENABLE DYNAMIC PRODUCTS
-const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
-const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_API_KEY';
+const SUPABASE_URL = 'https://pqimnilolgjsalzrziqq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxaW1uaWxvbGdqc2FsenJ6aXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NjI4NDIsImV4cCI6MjA4OTUzODg0Mn0.WiU3tWRf1i9xlZw6DLydb8po19j6sP4B6JMPm3dw6Ic';
 
 let supabaseClient = null;
 if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Ensure Shopping Bag icon is in Navbar
     const navs = document.querySelectorAll('nav');
     navs.forEach(nav => {
-        const container = nav.parentElement.querySelector('.flex.items-center.space-x-8, .flex.items-center.space-x-6, .flex.items-center.gap-8');
+        const container = nav.querySelector('.flex.items-center.space-x-8, .flex.items-center.space-x-6, .flex.items-center.gap-8');
         if (container) {
             // Check if already has shopping_bag
             let hasBag = false;
@@ -158,6 +158,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
+            
+            // Link placeholder buttons (search/person)
+            container.querySelectorAll('span').forEach(s => {
+                if (s.textContent.trim() === 'search') {
+                    s.parentElement.addEventListener('click', (e) => { e.preventDefault(); alert('Search functionality coming soon!'); });
+                }
+                if (s.textContent.trim() === 'person') {
+                    s.parentElement.addEventListener('click', (e) => { e.preventDefault(); alert('User authentication coming soon!'); });
+                }
+            });
         }
     });
 
@@ -338,17 +348,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 5. Connect UI
-    const sidebar = document.getElementById('cart-sidebar');
-    const overlay = document.getElementById('cart-overlay');
-    const closeBtn = document.getElementById('close-cart');
-
     function openCartFn() {
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('cart-overlay');
         if(sidebar) sidebar.classList.remove('translate-x-full');
         if(overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
         document.body.style.overflow = 'hidden';
     }
 
     function closeCartFn() {
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('cart-overlay');
         if(sidebar) sidebar.classList.add('translate-x-full');
         if(overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
         document.body.style.overflow = '';
@@ -388,8 +398,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    if(closeBtn) closeBtn.addEventListener('click', closeCartFn);
-    if(overlay) overlay.addEventListener('click', closeCartFn);
+    // Delegate close button manually since it's injected dynamically
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'close-cart') {
+            closeCartFn();
+        }
+    });
+    
+    // Delegate overlay click
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'cart-overlay') {
+            closeCartFn();
+        }
+    });
 
     // Initialize
     renderCart();

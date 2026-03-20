@@ -1,0 +1,279 @@
+<!-- Detalle Promocional - taiko.nina -->
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+</head>
+
+<body class="text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+    <!-- TopNavBar -->
+    <header
+        class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
+        <div class="flex justify-between items-center w-full px-12 py-8 max-w-[1600px] mx-auto">
+            <!-- Mobile Menu Toggle -->
+            <div class="md:hidden">
+                <span class="material-symbols-outlined text-zinc-950">menu</span>
+            </div>
+            <!-- Left Navigation (Desktop) -->
+            <nav class="hidden md:flex items-center space-x-12">
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50 transition-all duration-500 scale-100 active:scale-95"
+                    href="#">Home</a>
+                <a class="text-zinc-950 dark:text-zinc-50 font-semibold border-b border-zinc-950/10 tracking-[0.15em] text-[11px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50 transition-all duration-500 scale-100 active:scale-95"
+                    href="#">Shop</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50 transition-all duration-500 scale-100 active:scale-95"
+                    href="#">Our Story</a>
+            </nav>
+            <!-- Logo -->
+            <div class="text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50">
+                taiko.nina
+            </div>
+            <!-- Trailing Actions -->
+            <div class="flex items-center space-x-8">
+                <nav class="hidden md:flex items-center mr-8">
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50 transition-all duration-500 scale-100 active:scale-95"
+                        href="#">Contact</a>
+                </nav>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-zinc-950 dark:text-zinc-50">search</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-zinc-950 dark:text-zinc-50">person</span></button>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-[1600px] mx-auto px-12 py-16">
+        <!-- Collection Header -->
+        <section class="mb-20 text-center">
+            <h1 class="font-serif text-5xl md:text-7xl mb-6 tracking-tight text-on-surface">Atelier Collection</h1>
+            <p class="max-w-2xl mx-auto font-body text-secondary text-sm leading-relaxed tracking-wide">
+                A curation of sculptural silhouettes and noble materials. Designed in our studio, crafted for the modern
+                minimalist.
+            </p>
+        </section>
+        <!-- Filters & Sorting Bar -->
+        <section
+            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8 border-b-0 pb-6">
+            <div class="flex flex-wrap gap-10">
+                <!-- Filter Category -->
+                <div class="group relative">
+                    <button
+                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
+                        Category <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                    </button>
+                </div>
+                <!-- Filter Size -->
+                <div class="group relative">
+                    <button
+                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
+                        Size <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                    </button>
+                </div>
+                <!-- Filter Color -->
+                <div class="group relative">
+                    <button
+                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
+                        Color <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">Sort By</span>
+                <button
+                    class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
+                    New Arrivals <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                </button>
+            </div>
+        </section>
+        <!-- Product Grid (Asymmetric/Standard Hybrid) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-20 gap-x-12">
+            <!-- Product 1 (Large Editorial) -->
+            <div class="group">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Woman in silk slip dress"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Elegant woman in cream silk dress standing against neutral wall"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuw98CIhy-IsIpmgcg5G7nRmkjX_fW8wNjS-rFX6jRPUwLkIc_8VzETEFwtHHAONZvTYCW3kzKlKCYkijdzrmdMCCe7tk-HH9goWE5Tbd4f_9LZlMW1YYDIj6atAG4yWgdw6jQhDMr5o3PKge7-Ed0wJ04Uv7F85uBPoPTimhbrKKQa-SDZ_eKWmMrOULFb23SLUaiNX0ZTKmJeTGqPaooni9mtTRFM19kV26OKwNP-fgGVLQykUW5fvrhrlDiWI3cmhFepg-iCHI" />
+                    <button
+                        class="absolute bottom-6 right-6 bg-white py-4 px-8 font-label text-[10px] uppercase tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                        Quick View
+                    </button>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">L'Aube Silk Slip
+                            Dress</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Bone White</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 2 -->
+            <div class="group mt-0 lg:mt-12">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Woman in oversized blazer"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Minimalist grey oversized wool blazer flat lay or model shot"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfLPKvS5GhO6iB8Tt41L8iC4dsw9SXvkAJGBA2adEnk_aUbnjixlnlff5to3QEkUb4jvV8-so0fpCC_cLwu3KBdvxBowtXhsl3Z3VmsC2YbqR4vyenc7PPYJ5FBYKCMZ402DwbMOwdhnmZI5cOfPrEi5ar1pkSjvbU8hO2g9H-mfEeD-BZU6446fz17bD8xeK0cHdrZnUpsJqFjy6MO52TEdw0ZR6TDYmI3neDtBp1Y-fJORVbxYrr6n0jzdDJ60JcUah8K3iSzZM" />
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">Architectural
+                            Wool Blazer</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Charcoal</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 3 -->
+            <div class="group">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Linen trousers"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Wide leg linen trousers in beige hanging or model shot"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPTWsclZ21E3vk0XcVw9nKHYnXweYlw87DkcMcNwbtnt2uRomVD5T_hzVdbM2NbI_lIXO7MEzlE9TZ6xm1M_bnmqJT4v30xSONdAFwPjhjNLe_rHfJ_zw4nz-13rwrO_J3UMZR5bnOO9uLiHs8bwDqkWwnQ7r2Abzp3EXN9xEm5o9gIRMnLwNE2aOG4bTsTByx3ThYaQZm0BUO1m7LdDpgD4KVeIKlR00SbGtmPHMGnsKw3KBiKFQ4a0aMTIfEG4fal4RNsraSFlw" />
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">High-Rise Linen
+                            Trouser</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Sand</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 4 -->
+            <div class="group lg:-mt-12">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Knit top"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Close up of fine knit merino wool top in black"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA91x2NXkIRQbl4_x8dgDWFOHO3R8TVjyp7NJy5RFlWPYV3eDD_xwExvHu8URau1hYxPjuxEDuM-0BjnCXvLWLLvsJf1DGj0eu6wbXl1WcTEen3tZYYFHhSr67g67DyYJpHPxmnLNnhTO2dtiNTNUMAah6yIUZL0N5wEQTCY4bs4TH7NX9fU63X4_4xOU9lODpu3yjwwfWmycNYg4LFFEm5F_U0-W00VP_OXGrSVsG3O6FFhdP90tjTM5Hn_SyJjO30MAhPSB0IkEo" />
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">Fine Merino
+                            Turtleneck</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Midnight</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 5 -->
+            <div class="group">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Cotton shirt"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Crisp white poplin cotton oversized shirt on model"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1F-g_Pr08Tz654NjI1eOaNilR6enAAVZUQZZSCZ_EuWCcU2xqndzXA6UJuYPgupZyWmu3TuShAsTTrFij2ZY2vLLIxFtURTGefEpmWKVQZFkhyNIncgXQszPC89nQcdnoX30yfRcT-DUf6dus9axSchSfb38HbnmVeMWjKI6zer8OMWRL7n2ab-jnXkKgP3Y4NAaVUH24pHIHGlOVlF1QDXWymwc6Q0bIo18uUf7M44STf4Lp_whuLoyPrjxa4bnCYWReFLTd5dw" />
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">The Atelier
+                            Poplin Shirt</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Optic White</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 6 (Editorial Highlight) -->
+            <div class="group mt-0 lg:mt-12">
+                <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                    <img alt="Sculptural Coat"
+                        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                        data-alt="Long cashmere wrap coat in soft grey draped over model"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyOxDNDaYGa1SoW1bVF6o0zPxpRPj41PZ47ZcAKgHS2i6mdn4co9IaxVh3Q5sz0Ybp6ox-YgveXkQqKGNJxitV6IpbU5lTgJWxEOVDr25Mo9FjNs74NUrfIJ63AGmJygYjhX-ACdk8I4rtQD38vmZMZdzG_YPgBgR0RQocnL5KT845S-nyCjDl5E06KzbZnWRtkO8sNcJlGJFGqJwZYdDcQtvSZnEFtlljf33V6gsma-5kBWxkLjnjzDm7nYswa2Q9YGSJFAVs9zY" />
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">Double-Face
+                            Cashmere Coat</h3>
+                        <p class="font-label text-[10px] uppercase tracking-widest text-outline">Taupe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Pagination -->
+        <div class="mt-32 flex justify-center items-center gap-12">
+            <button
+                class="font-label text-[10px] uppercase tracking-[0.2em] text-outline hover:text-on-surface transition-colors flex items-center gap-2">
+                <span class="material-symbols-outlined !text-[16px]">west</span> Prev
+            </button>
+            <div class="flex gap-6">
+                <span
+                    class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface font-bold border-b border-on-surface">01</span>
+                <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">02</span>
+                <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">03</span>
+            </div>
+            <button
+                class="font-label text-[10px] uppercase tracking-[0.2em] text-outline hover:text-on-surface transition-colors flex items-center gap-2">
+                Next <span class="material-symbols-outlined !text-[16px]">east</span>
+            </button>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-zinc-100 dark:bg-zinc-900 grid grid-cols-1 md:grid-cols-4 gap-16 px-12 py-24 w-full border-t-0">
+        <div class="md:col-span-1">
+            <div class="text-xl font-serif italic mb-6 text-zinc-950 dark:text-zinc-50">taiko.nina</div>
+            <p
+                class="font-label text-[10px] uppercase tracking-[0.2em] leading-relaxed text-zinc-500 dark:text-zinc-400">
+                Atelier Collection.<br />
+                Crafting timeless silhouettes since 2024.
+            </p>
+        </div>
+        <div>
+            <h4
+                class="font-label text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-950 dark:text-zinc-50 mb-8">
+                Navigation</h4>
+            <ul class="space-y-4">
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Shop All</a></li>
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Our Story</a></li>
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Journal</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4
+                class="font-label text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-950 dark:text-zinc-50 mb-8">
+                Assistance</h4>
+            <ul class="space-y-4">
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Contact</a></li>
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Shipping &amp; Returns</a></li>
+                <li><a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity opacity-100 hover:opacity-80"
+                        href="#">Privacy</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4
+                class="font-label text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-950 dark:text-zinc-50 mb-8">
+                Newsletter</h4>
+            <div class="relative border-b border-zinc-300 dark:border-zinc-700 pb-2">
+                <input
+                    class="bg-transparent border-none w-full font-label text-[10px] uppercase tracking-[0.2em] focus:ring-0 p-0 text-zinc-950 dark:text-zinc-50 placeholder:text-zinc-400"
+                    placeholder="YOUR EMAIL" type="email" />
+                <button class="absolute right-0 top-0"><span
+                        class="material-symbols-outlined !text-[16px]">east</span></button>
+            </div>
+            <div class="mt-8 flex gap-6">
+                <a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950"
+                    href="#">Instagram</a>
+                <a class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950"
+                    href="#">Pinterest</a>
+            </div>
+        </div>
+        <div class="md:col-span-4 mt-16 text-center">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier
+                Collection.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

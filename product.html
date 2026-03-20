@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    
+
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+</head>
+
+<body class="text-on-surface">
+    <!-- TopNavBar -->
+    <header
+        class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl sticky top-0 z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
+        <nav class="flex justify-between items-center w-full px-12 py-8 max-w-[1600px] mx-auto">
+            <!-- Navigation Links (Left) -->
+            <div class="hidden md:flex space-x-12">
+                <a class="text-zinc-500 font-medium hover:text-zinc-950 transition-all duration-500 text-[11px] uppercase tracking-[0.15em]"
+                    href="#">Home</a>
+                <a class="text-zinc-950 font-semibold border-b border-zinc-950/10 transition-all duration-500 text-[11px] uppercase tracking-[0.15em]"
+                    href="#">Shop</a>
+                <a class="text-zinc-500 font-medium hover:text-zinc-950 transition-all duration-500 text-[11px] uppercase tracking-[0.15em]"
+                    href="#">Our Story</a>
+                <a class="text-zinc-500 font-medium hover:text-zinc-950 transition-all duration-500 text-[11px] uppercase tracking-[0.15em]"
+                    href="#">Contact</a>
+            </div>
+            <!-- Brand Logo (Center) -->
+            <div class="text-2xl font-serif italic tracking-tighter text-zinc-950">
+                taiko.nina
+            </div>
+            <!-- Trailing Icons (Right) -->
+            <div class="flex items-center space-x-6">
+                <button class="scale-100 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined" data-icon="search">search</span>
+                </button>
+                <button class="scale-100 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined" data-icon="person">person</span>
+                </button>
+                <button class="scale-100 active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main class="max-w-[1600px] mx-auto px-6 md:px-12 py-12 md:py-20">
+        <!-- Product Detail Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <!-- Left: Image Gallery -->
+            <div class="lg:col-span-7 space-y-8">
+                <div class="grid grid-cols-1 gap-4">
+                    <img alt="Tailored Wool Coat Front"
+                        class="w-full aspect-[3/4] object-cover bg-surface-container-low"
+                        data-alt="Close up of a tailored charcoal wool coat"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMiz8Vo7unuH_N-MLR1irttWlP1STrrAxtPw9KrDlWO6XyLw744N4CKsCHzVUKILN-ym9C0wG-SFxn_IYovaKrRmZD0SRST0aChyF3cktodQ2aQraaooU18bNtlcyc97Ho8u63hWyQ29LP7BmokgmNm56zYFlstZHYG65nj5CHnI0FLnZ4U3JQlWSLMwne8wi14ECQKx0zxgPWGFiO8mfiNTOSBflEV-2YHG5Na3Wa8Mu2C813AwFXzICroO8mpkzG05h38EDqBTE" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <img alt="Tailored Wool Coat Detail"
+                            class="w-full aspect-[3/4] object-cover bg-surface-container-low"
+                            data-alt="Macro detail of wool fabric texture and stitching"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5OHZvuHk9-tvK48f1xKQXmydAYlKQ7ejh4w46wHKcO8Xzex-09zmlMVeSn0Mtq1rb6C6t3Qtn6X6SHFWnCSuEc_h1-x9WZdZDMrIgAQd-ucOE3LT4tOZnF0y24QXkZdOXWU7d2c6EnHU2zqtsitOGJGuPGCI4a3SjRRJ00r0DUicXYZhnAPRwGH97WGB7OfuSP3Dilw48RHG-YvmBLZu3Yj4w4vd_LssoE7PO1bseTP2HYZJjRyIWfqqYcyxS9o_GR87b2a1xGtI" />
+                        <img alt="Tailored Wool Coat Side"
+                            class="w-full aspect-[3/4] object-cover bg-surface-container-low"
+                            data-alt="Side profile of a model wearing a minimalist coat"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-IKHErf3F6GyEtHogkHrZfphXBY2FoUOdeNZgVMG3wyRIPrCRby2ZGLZmoryPnh45XAHnZxCtMEiuAZwKZex8dg0ZRKHnWc_yYGi0sTqSR0X5y3TylUsYnJXF8l3lTzuqqg6WRV29_JEFQjYki5k6ERmna8if0WyJ7wBwXC-5X0sYe3h5iLd5lix-0LNWhwMbmXhC7u9z7P7L2kpq4uDbja1vV_xM9S7FPKVroc9gE4CHV7HukGHWlz4f9egc80vUpnxMnNha2bQ" />
+                    </div>
+                    <img alt="Tailored Wool Coat Back" class="w-full aspect-[3/4] object-cover bg-surface-container-low"
+                        data-alt="Full back view of a long dark tailored coat"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM0Hkqi4gJ0XU8_z6SYxSHW1PkH5SgI0fZgN8_sYrK-cnFlPgvSwQqdBZK-Bk2Fa0A5msAGOEzrKM7ivCxIcl4NJD4-Oo4rwLeArsnJVKNee8OaRhj51TzQLHqy9T2YfPyLYY-0-BYTcw3mtIb2loz3LtvyWw05sjhdysRrVbSv4jE1VCu4WDi1yipe276-3_1QuOYNCUjPZLKUbJK9G45mxpAzd_utigc9zuU30Quu1l0Y7O686ztZv8GK2Il-9DbqqSRDDeLNpI" />
+                </div>
+            </div>
+            <!-- Right: Product Information (Sticky) -->
+            <div class="lg:col-span-5 lg:sticky lg:top-32 h-fit">
+                <div class="max-w-md">
+                    <!-- Title -->
+                    <div class="mb-12">
+                        <p class="text-[10px] uppercase tracking-[0.2em] text-outline mb-4">Atelier Series / Outerwear
+                        </p>
+                        <h1 class="serif-headline text-4xl md:text-5xl font-bold mb-6 tracking-tight text-on-surface">
+                            The Sculpted Wool Coat</h1>
+                    </div>
+                    <!-- Size Reference (Non-interactive selection removed) -->
+                    <div class="mb-12">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-[11px] uppercase tracking-[0.15em] font-semibold">Size Guide Reference</h3>
+                            <a class="text-[11px] uppercase tracking-[0.15em] text-outline hover:text-primary transition-colors underline underline-offset-4 decoration-outline-variant"
+                                href="#">Tabla de medidas</a>
+                        </div>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div
+                                class="py-4 text-center text-[12px] font-medium border border-outline-variant/30 text-outline">
+                                XS</div>
+                            <div
+                                class="py-4 text-center text-[12px] font-medium border border-outline-variant/30 text-outline">
+                                S</div>
+                            <div
+                                class="py-4 text-center text-[12px] font-medium border border-outline-variant/30 text-outline">
+                                M</div>
+                            <div
+                                class="py-4 text-center text-[12px] font-medium border border-outline-variant/30 text-outline">
+                                L</div>
+                        </div>
+                    </div>
+                    <!-- Detailed Description -->
+                    <div class="space-y-8 pt-12 border-t border-outline-variant/10">
+                        <div>
+                            <h4 class="text-[11px] uppercase tracking-[0.15em] font-bold mb-4">Description</h4>
+                            <p class="text-on-surface-variant leading-relaxed text-sm font-light">
+                                A masterclass in architectural tailoring. This double-breasted coat is crafted from
+                                premium Italian virgin wool, featuring sharp padded shoulders and a nipped-in waist that
+                                creates a powerful, sculpted silhouette. Unlined for a soft, structured drape.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="flex items-center space-x-4 py-2">
+                                <span class="material-symbols-outlined text-outline">eco</span>
+                                <span class="text-[11px] uppercase tracking-[0.1em] font-medium">100% Responsibly
+                                    Sourced Virgin Wool</span>
+                            </div>
+                            <div class="flex items-center space-x-4 py-2">
+                                <span class="material-symbols-outlined text-outline">dry_cleaning</span>
+                                <span class="text-[11px] uppercase tracking-[0.1em] font-medium">Dry Clean Only</span>
+                            </div>
+                            <div class="flex items-center space-x-4 py-2">
+                                <span class="material-symbols-outlined text-outline">public</span>
+                                <span class="text-[11px] uppercase tracking-[0.1em] font-medium">Made in Italy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- You May Also Like Section -->
+        <section class="mt-32 pt-24 border-t border-outline-variant/20">
+            <h2 class="serif-headline text-3xl mb-12 italic">You May Also Like</h2>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Product Card 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-surface-container-low mb-6">
+                        <img alt="Silk Trousers"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-gLZcvu2kCM6CveLRkin0f-vXy9fSXV3wulOp0k4J_pQQ0fkZl7aOTRvIeXuTRXj-3SpjSx-olidjR-I9iyrr4Ui-l9QhWx-GRz5Rv_AfdrDN6twmo4IHhAY9XUKEO2HwgCtoYtZC8SFwPc39O7FqN53rsGJDAnH0JZQ6tIaKegdXEmvRf1yK4tnZroBb_MLAGykeuMy52lPMyXOgVpfyhXsLxB9BIqWFzTdqIWHbyEZ6z_L-Ly5Kc_SRf1njtjh6CwjDwGkHV0M" />
+                    </div>
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Bottoms</p>
+                    <h3 class="text-sm font-medium mb-1">Fluid Silk Trousers</h3>
+                </div>
+                <!-- Product Card 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-surface-container-low mb-6">
+                        <img alt="Silk Shirt"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFS0g77yEdmjYppKUIHcf8-d6tKRhcPPgo8CxgkmbXEu-VVSL8RJOCQDiq51ool5_Y4PEs2rAkOcaZYjNJ65zWWmEQyfVNjzaqLAXx7oxM1dNlBaPwSuvUyVe1_8FYIDOcWh9hfCqlaYg_1jjlaBznFzh4sEANjv9in92HZc7U6BH527eLldzIaxI6zHCEP5dfcH0jEHPDRFLQN7Q8LGQgY-GotzuHqkjzO6MFwgfGyCnaNzqLJHRBuUzcM6HjZXy0zcxuMUBQz_o" />
+                    </div>
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Shirts</p>
+                    <h3 class="text-sm font-medium mb-1">Atelier Silk Blouse</h3>
+                </div>
+                <!-- Product Card 3 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-surface-container-low mb-6">
+                        <img alt="Leather Bag"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO327Ujq2BDP2XPtAvuEkZDzxaqZ5-CrlFex6vGfLckqejiWe36GsP4vliU9sbNxKyGf7Hvt0hYQfi6bn73ST60riOIAIa1DhRCK6sK_yAPZcVsgUaaTaXsEYidmehfCnU8x61NhC6VKsHw5aX1EtLntqp8yERz-VA8E1aT0suStrqYfJ1Uj23a_0u7mqMSC7qK5gWm7hnrFu7gqwSAB9nHt_SK6Rw5qVn73U_-6GX36R2PrNvr48Xwvv5_bRZRxpod-mjjsrSBl0" />
+                    </div>
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Accessories</p>
+                    <h3 class="text-sm font-medium mb-1">Bespoke Frame Bag</h3>
+                </div>
+                <!-- Product Card 4 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden aspect-[3/4] bg-surface-container-low mb-6">
+                        <img alt="Knitwear"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwclML8l440sAZg2nozbJT60A5iY0LwSVsNMvWR53ueBmPK2hsOH2CVRiEvV3r_eFn-Tv8GtzxvwPvnWXrybWUnp5LSYlThYxTZRSu5HOC4nUuj6sEXLAhoWlTWl_7McpTG5zZm4E5heDmor-ehUrpePTssRTt_vY_8dwtddndRP66-O1XeY_s4UC-HMNuid1LKO52eCLgGPu2mQmWLUz_Si9D-R93Nvb2qV5IIPJKStuNK5-trZxrjs-D4xIfeKOKb1a7MqXBKes" />
+                    </div>
+                    <p class="text-[10px] uppercase tracking-widest text-outline mb-2">Knitwear</p>
+                    <h3 class="text-sm font-medium mb-1">Cashmere Mock Neck</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-zinc-100 dark:bg-zinc-900 border-t-0">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 px-12 py-24 w-full max-w-[1600px] mx-auto">
+            <!-- Brand Info -->
+            <div>
+                <div class="text-xl font-serif italic mb-6 text-zinc-950 dark:text-zinc-50">taiko.nina</div>
+                <p class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] leading-relaxed">
+                    © 2024 taiko.nina. Atelier Collection.
+                </p>
+            </div>
+            <!-- Shop Links -->
+            <div>
+                <h4 class="text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">
+                    Collection</h4>
+                <ul class="space-y-4">
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Outerwear</a></li>
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Tailoring</a></li>
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Knitwear</a></li>
+                </ul>
+            </div>
+            <!-- Company Links -->
+            <div>
+                <h4 class="text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Studio
+                </h4>
+                <ul class="space-y-4">
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Instagram</a></li>
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Journal</a></li>
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Contact</a></li>
+                </ul>
+            </div>
+            <!-- Legal Links -->
+            <div>
+                <h4 class="text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Legal
+                </h4>
+                <ul class="space-y-4">
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Privacy</a></li>
+                    <li><a class="text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 underline decoration-zinc-300 underline-offset-8 transition-opacity"
+                            href="#">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<!-- Detalle Promocional - taiko.nina -->

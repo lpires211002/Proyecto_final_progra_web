@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>taiko.nina | Atelier Collection</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    
+    
+
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+</head>
+
+<body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary">
+    <!-- Top Navigation Shell -->
+    <nav
+        class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl text-zinc-950 dark:text-zinc-50 docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
+        <div class="flex justify-between items-center w-full px-12 py-8 max-w-[1600px] mx-auto">
+            <!-- Left: Navigation Links -->
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-zinc-950 dark:text-zinc-50 font-semibold border-b border-zinc-950/10 Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                    href="#">Home</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                    href="#">Collections</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                    href="#">Our Story</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium Noto Serif for headlines, Manrope tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                    href="#">Contact</a>
+            </div>
+            <!-- Center: Logo -->
+            <div class="absolute left-1/2 -translate-x-1/2">
+                <h1 class="text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50">taiko.nina</h1>
+            </div>
+            <!-- Right: Actions (Purely Discovery) -->
+            <div class="flex items-center gap-8">
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined">search</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined">person</span></button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[921px] w-full overflow-hidden flex items-center justify-center">
+            <div class="absolute inset-0 z-0">
+                <img alt="Editorial fashion photography" class="w-full h-full object-cover grayscale brightness-90"
+                    data-alt="Cinematic editorial shot of a woman in high-fashion minimalist attire"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHzMLdFM_da9qW9ozcOv493GrVUQ8E2_FuEjyCUMzZ3H2awHDUVNkkvl9ifZoMSOxDVAGdOHJYkB3IORNLM-864JCGGWvyHgHM3Rg7OCeTWk2KHMxyD8zQFCjXG5ulayloEZ4r1iE8KaCv4e1qP3z9pEnhGk6klVTOs_3WZJ56atuZi26LdAas49d2Y4Ft-IJmSdfby76K__MBLcwiS8l1AssPADO7gNA_zlJvC8AkSCKpXhacZLecSyrXV6no334su98v-_yB8Sg" />
+            </div>
+            <div class="relative z-10 text-center text-on-primary max-w-4xl px-6">
+                <span class="font-label text-[10px] uppercase tracking-[0.4em] mb-6 block">Collection Printemps
+                    2024</span>
+                <h2 class="serif-headline text-5xl md:text-8xl font-light italic tracking-tighter mb-12 drop-shadow-sm">
+                    The Architecture of Silence</h2>
+                <div class="flex justify-center gap-8">
+                    <button
+                        class="bg-primary text-on-primary px-10 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors duration-500">Discover
+                        Series</button>
+                </div>
+            </div>
+        </section>
+        <!-- New Arrivals (Purely Showcase) -->
+        <section class="py-32 px-12 bg-surface-container-lowest">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="flex justify-between items-end mb-20">
+                    <div>
+                        <h3 class="serif-headline text-4xl mb-2 italic">Novedades</h3>
+                        <p class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">Fresh silhouettes for
+                            the modern atelier</p>
+                    </div>
+                    <a class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 pb-1 hover:border-primary transition-all"
+                        href="#">View All</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
+                    <!-- Product 1 -->
+                    <div class="group cursor-pointer">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                data-alt="Minimalist beige silk dress on model"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo8cH7YuSdS_GwDAPSCsdThHkb_Vez7tn7I12cGZXK4MWb-xxgbV9VM71YtRqUFAY3RkHQydjLLffN_YWEBb8jS3gFjgMSp08fGhni1R1pqPY-dw5stdtOK0x10akFDGDhQM3ehmg5GvbIx_aiD2iIHycb1a6sFQEazhiX09MbtLePfmyJ2u5UFWnwMb08y_jmGCvPftA8bZTsD7OCK0fbHoLzNSn4D4Hb9O-jGSctQdnD1RmxCmtEkNg9vVEriUK1hjgPxWCRK6w" />
+                            <div
+                                class="absolute top-4 right-4 bg-white/50 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-tighter">
+                                New</div>
+                        </div>
+                        <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Silk Slip Dress</h4>
+                    </div>
+                    <!-- Product 2 -->
+                    <div class="group cursor-pointer">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                data-alt="Oversized wool blazer in charcoal grey"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJaKSXm46NogY8QpT0xvjoIweButcXDEgBbnq1fwjyTcDL0FHfOc78-Q6i2KEOlFtTN-vkTPP7gL8R_Sr6rQJbcZy2pn_53dzj34F9fsGqD7Zwvqz54dcqD1FwOhlDpg0-YLx25ZrcwKqflpEN2W2GAgISZGLaENfZ_kUyIe6cbyTjy3tAFO4v-unjXPJGUksD2z9LKI7E-y4zknjGVKwCxF1mmWGFLT9pEf8L5Z7F5TI55bJQcpBh6Zulsqx8OTh09tOCi95XhSs" />
+                        </div>
+                        <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Sculpted Wool Blazer</h4>
+                    </div>
+                    <!-- Product 3 -->
+                    <div class="group cursor-pointer">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                data-alt="Wide leg linen trousers in ivory"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyoCog4gPz6toSSZVoUKkEYS7yvXAGdP1HICNpvtRAmj4Pm4fcZ74drkJzoeUFifuLJWXJSUr5jGeomM5ev7dviuGK9Tg1ZvLZVfBc5slW-ogdlC5a62Fy2gZ2asJnAkfOaRlxqTf_UV2BnYI5DdsaqJI9n8Gt2p_qIYUyKU-2s7Qnyl03bNxIBMJ_8SoAQVzpXRfBG5bAWKPQFaOTgt9NduR0loK3wiSJnfvqP6VcGcfhwhdAAnK5qMc_KJCXjtNt59ngOEANDAQ" />
+                        </div>
+                        <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Pleated Linen Trouser</h4>
+                    </div>
+                    <!-- Product 4 -->
+                    <div class="group cursor-pointer">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                data-alt="Minimalist black leather handbag"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIeK20R4nKkMDQ15PnlfrdfhtPDk2r8fksRQA9jzLfTtB8PnAu5CAii0aDQHVk2IFQNicFhUQYTg6dWeSDw2sUC9mCoGY4y7eVcdxAQYfqEfxtndZ9J12dRvHee_0ZH3gvbmFic4sZiM3pyhVLKa72fJKzL7jmWBbpK78XGemnQ1Odyqc_OtfQkEzf9D_CRezMayAxjMpGGrkKEjylDCPSFgL1r1QAAh4rX6dKIgLiUHsfm9D-bsboXYIeEVtn_7hvA4k_ekMcQM8" />
+                        </div>
+                        <h4 class="font-label text-[11px] uppercase tracking-widest mb-1">Asymmetric Leather Tote</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Featured Collections -->
+        <section class="py-24 px-12 bg-surface">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-stretch">
+                    <div class="md:col-span-8 group relative overflow-hidden h-[600px]">
+                        <img class="w-full h-full object-cover grayscale group-hover:scale-[1.02] transition-transform duration-1000"
+                            data-alt="Artistic banner showing flowy summer garments"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQk7OKdgfnN5bgzIGFdu5jpwTTlS2QxrAa_bUL0bat10PohtTnrdDTJmctmgyJeI-VLpbCCPj3s2A1Aq7AAiRdT1hLk53jkwBigSiZ0X_tZrFSKRQYIdrpzxd4Hq2f86jsLNgZHGomp1_6c6ji80QDQzDMszhHxK7_RrZrpugIY7VtXR9XvPM9AvRVLguMqcJzyiNoYBo52QzbcLJlJjjW3i_8fyy0lwuOGjyTnfWLWpnZp3wrDRdFSrlY1_VG2eRze48yt3NULeU" />
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <div class="absolute bottom-12 left-12 text-white">
+                            <h3 class="serif-headline text-6xl mb-4">L'Ete Infini</h3>
+                            <p class="font-label text-[10px] uppercase tracking-[0.3em] mb-8 opacity-80">The resort
+                                capsule collection</p>
+                            <button
+                                class="border border-white/40 text-white px-8 py-3 font-label text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all">Explore
+                                Series</button>
+                        </div>
+                    </div>
+                    <div class="md:col-span-4 flex flex-col gap-12">
+                        <div class="flex-1 group relative overflow-hidden bg-surface-container-high cursor-pointer">
+                            <img class="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-1000"
+                                data-alt="Close up of high quality fabric textures"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbdi2WRzhHN4RVsBoSqvp8Awdr9KiG0iBUarFmDAMwBqj_B36r-vd3En5SGUF0BvNCrHhxQKJWJKvpdfBwIrcaYnHS9MlFhvm0qlcmq7y2EslXFUxr9M4Q70YYYebb4Di-Vtr5kY6hr8xTwNX6OShZk4Zh8VuvyZPXGTK8Bd_NpaZJYYnvfSulnZchNKmDCPjRUADPvGkxynJ_Q6e9VIhOCbYMHAjPrJkUjcuanVscFFtvRPWpyK9b7wDePRqijY529CY2yQRckXo" />
+                            <div class="absolute inset-0 flex items-center justify-center p-8 text-center">
+                                <div>
+                                    <h4 class="serif-headline text-3xl mb-2">The Essentials</h4>
+                                    <p class="font-label text-[10px] uppercase tracking-[0.2em] mb-6">Core Pieces</p>
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="flex-1 bg-primary text-on-primary p-12 flex flex-col justify-center items-center text-center">
+                            <span class="font-label text-[9px] uppercase tracking-[0.5em] mb-6">Discovery</span>
+                            <h4 class="serif-headline text-2xl italic mb-8">Atelier Nina: Bespoke Tailoring Services
+                            </h4>
+                            <p class="font-body text-sm leading-relaxed opacity-70 mb-8 max-w-xs">Elevate your wardrobe
+                                with personalized craftsmanship from our master tailors.</p>
+                            <a class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-on-primary/30 pb-1"
+                                href="#">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Our Story Teaser -->
+        <section class="py-48 px-12 bg-surface-container-low overflow-hidden">
+            <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-24 items-center">
+                <div class="relative">
+                    <div class="w-full aspect-[4/5] bg-surface-container-highest relative z-10">
+                        <img class="w-full h-full object-cover grayscale"
+                            data-alt="Black and white photo of a garment atelier desk"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuALxE5sZOprJs-kmRuzqFB4zsGOfASZiSWR-sqB1OfvMX2pjLluo_zS9KmqsjOzompX-tIxiWIVWBbFX60nvKbuGfV5s95ko_NI22CwrngnD8A_DsrzNtHRTamnIFvlpYSN-4_KW4mltdeoAklPxlLiEYo0b3QLQw8u0CHZF1naeYsUWKlW-UxMkIctB0ltY7Ulakw2CI1E9aA-KxZvzDXWSxwdUfvJrgrKvwepu770C9DWv9tPFSNmEN9vLizPoOeBrCt4iOhTrxo" />
+                    </div>
+                    <div class="absolute -bottom-12 -right-12 w-64 h-64 border-[1px] border-outline/20 z-0"></div>
+                </div>
+                <div class="space-y-12">
+                    <span class="font-label text-[11px] uppercase tracking-[0.4em] text-outline">Since 2012</span>
+                    <h2 class="serif-headline text-5xl italic leading-tight">Crafting silence in a world of noise.</h2>
+                    <p class="font-body text-lg text-on-surface-variant leading-relaxed max-w-lg">
+                        taiko.nina was founded on the principle that true luxury is felt, not seen. Every stitch is a
+                        commitment to longevity, and every silhouette is designed to empower through understatement.
+                    </p>
+                    <div class="pt-8">
+                        <button
+                            class="bg-primary text-on-primary px-12 py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity">Read
+                            Our Story</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Editorial Lookbook Grid -->
+        <section class="py-24 px-12">
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-2">
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 1"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYy46MGcWNZVmepFUezZZklgRm2zb5EoFhtdi607LZ9qPqtL8JyecKNUQzL91sXXqIrGQPy3ofpjvTx7sCktL2b19b8gmBXbID6AmsoWzoSoYenkkyKdlWyohdwTLvZ-XU7DcW7VQxZmcuhhz6WTw3L42dkVs3kc3EKE4dnZKY1QR8AOlZ8g1XIDTbknl-NcpRRDR9eoAOBkrUfpL4EKB3h3aCr6o19Am0KIGVC6SM7UuKtiu4m-2uXqbk6JFTAh319mmt-J0coIA" />
+                </div>
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 2"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCM7hbjFBR23jP1aRDSgLu93JiubqcV6D8oMe3tZXfauSNt3wMj5Vq21qJ-67gphGgpirKK0fJHLFviL8QVvsHZS7N-YUPeGThYn8rZIv4hFhYTUyDNkbszP6QnRGcH0rTt4PjW11DsTslWo24if7w2RUMDkHhepZfyDuapDKXvy6ANM7ons1Ybc77eQnhnt9DbXKC0EA-MNDQc14Lh1S1YaIjHGFyB2SAaC98qH_rHIoqBZGa3HePk0OrPyzWotoIw_Zz6B6ksBCA" />
+                </div>
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 3"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi-Xk2T7FZfMDF1Bjdkke1WvmeNDhSeaR8_6YCp53DwDQgJftGmWdiUigrrk8I8JZTm2ZuilFGbKBlwYmpxTOadQlSa-_yRNtmvoXPnZ0_d3UxhvRo2R6yfgFDT_DjPlS7OgU4z1Uj4IsPgMj7PGbFAIV7Ui0Lrn7XcJqqnCtRzzoBK6IYEum4jSS4UE5S7alllrmMkyHo2lZXfbaUohCvgvOlXgoiPuktgH_kr2FXgehrzARfwe6IdLRFm8LLYb_fVZSmAEXTyuc" />
+                </div>
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 4"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOGbueDGzXGcWDgegiE4OqGCW2nre3yJ4mxrpNUAT6nKkXSH4sWf4_kNNF1HoUuKoIW_cIEb8G4aRnlHclnfJo5L5TiTxWwqaLRXL72gRd11Vd4CLAYLPz56aEmwVUntUbdTF8ItPo5OIUxNTvVq9p2z4IOTYjYwYPkFYRT6XBxWeXt5yrIQYdFw7MaLO2rAQle2AdVHRDK8sbUNQRI3mX05A6lgJNrWdEKU4AAAIiHDWEzukocZOC_PT-CfRRqt-Des5og4wuXuk" />
+                </div>
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 5"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs-XZTb8v45ecZhxUQA-vMr8Wedl4j79FmxXw5YSA6ZhzYuofpe5h5UHAABfBvtp741VRNYSLc7srjFizg0GA-G8DcQkruIiCv6i65Z1LmeQI77f089k6cVR5_P_1G8nk-kyS-plPG-pdnRF7-tEwM6VFjZyWKQWljOBwWy16uWv5L_ur9c8KbSu9DjVtlfDxv78ZoL_Fa2DF0LHBduEdN_E5WOUJbEwFI9rLf-rZx3HTH9XabeKS0nA0TY7iIFRYmjj0_OdThUM4" />
+                </div>
+                <div class="aspect-[1/1] overflow-hidden bg-surface-container-high"><img
+                        class="w-full h-full object-cover" data-alt="Lookbook grid image 6"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmOKttcBKbzUATg3aOqSn4LOEh1jQuAKThn2Fi_njYPWHJiFRHtGwafvn97uZihhwjc35DNTldVgS3Di6TLRGZOhA4rdaAblqIA9N5iktR53Cur_hX-D95_ksh2l4xhnngTkEtAAL4MWBYJ6MyOuOXgXDmEk_Gw30H9AHTVpUH1UvuSa5UwpsBK0jXWGgWJEUP83a3tu02tPy1Q7TecsgAGkAcoaKnAg-scQrrk3JUqudkoLtlabzNgG3GXRnHK6oJvxwhrVIi3mE" />
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer Shell -->
+    <footer class="bg-zinc-100 dark:bg-zinc-900 text-zinc-950 dark:text-zinc-50 border-t-0 full-width">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 px-12 py-24 w-full max-w-[1600px] mx-auto">
+            <div class="md:col-span-1">
+                <h2 class="text-xl font-serif italic mb-6">taiko.nina</h2>
+                <p
+                    class="Manrope text-[10px] uppercase tracking-[0.2em] leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    Atelier Collection. Defining modern femininity through precision and grace.
+                </p>
+            </div>
+            <div>
+                <h4 class="Manrope text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Navigation</h4>
+                <ul class="space-y-4">
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Journal</a></li>
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Instagram</a></li>
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Pinterest</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="Manrope text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Contact</h4>
+                <ul class="space-y-4">
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Client Care</a></li>
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Press Inquiries</a></li>
+                    <li><a class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
+                            href="#">Privacy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="Manrope text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Newsletter</h4>
+                <div class="flex border-b border-zinc-300 dark:border-zinc-700 py-2">
+                    <input
+                        class="bg-transparent border-none text-[10px] uppercase tracking-[0.2em] focus:ring-0 w-full placeholder:text-zinc-400"
+                        placeholder="Email Address" type="email" />
+                    <button class="material-symbols-outlined">arrow_forward</button>
+                </div>
+            </div>
+        </div>
+        <div class="px-12 py-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
+            <p class="Manrope text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier
+                Collection.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
+
+<!-- Inicio Promocional - taiko.nina -->

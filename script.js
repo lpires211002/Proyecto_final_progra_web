@@ -114,7 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const params = new URLSearchParams(window.location.search);
         const productName = params.get('name');
-        if (!productName) return;
+        if (!productName) {
+            const container = document.getElementById('product-detail-container') || document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-12.gap-16');
+            if (container) container.style.opacity = '1';
+            return;
+        }
 
         const product = window.allProducts.find(p => p.name === productName);
         if (product) {
@@ -149,7 +153,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.dataset.price = product.price;
                     btn.dataset.img = product.image_url || product.img;
                 });
+
+                const container = document.getElementById('product-detail-container') || document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-12.gap-16');
+                if (container) container.style.opacity = '1';
             }, 100);
+        } else {
+            const container = document.getElementById('product-detail-container') || document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-12.gap-16');
+            if (container) container.style.opacity = '1';
         }
     }
 
@@ -193,7 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Ensure Shopping Bag icon is in Navbar
-    const navs = document.querySelectorAll('nav');
+    const navs = document.querySelectorAll('nav, header');
     navs.forEach(nav => {
         const container = nav.querySelector('.flex.items-center.space-x-8, .flex.items-center.space-x-6, .flex.items-center.gap-8');
         if (container) {

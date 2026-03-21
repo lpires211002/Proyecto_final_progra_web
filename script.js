@@ -39,7 +39,7 @@ function renderSupabaseProducts(products) {
         if (index === 3) extraClass = 'lg:-mt-12';
         
         const cardHTML = `
-        <div class="group ${extraClass} cursor-pointer" onclick="window.location.href='product.html'">
+        <div class="group ${extraClass} cursor-pointer relative" onclick="window.location.href='product.html?name=${encodeURIComponent(product.name).replace(/'/g, "\\'")}'">
             <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
                 <img alt="${product.name}"
                     class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
@@ -65,16 +65,93 @@ function renderSupabaseProducts(products) {
     });
 }
 
+window.allProducts = [];
+
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Fetch Map Products BEFORE DOM logic starts parsing them statically
     fetchProducts().then(products => {
         if (products && products.length > 0) {
             console.log("Loaded products from Supabase");
+            window.allProducts = products;
             renderSupabaseProducts(products);
+            setupProductPage();
         } else {
             console.log("Using fallback static HTML products");
+            populateFallbackProducts();
+            setupProductPage();
         }
     });
+
+    function populateFallbackProducts() {
+        // Collect from DOM if any exist static
+        const cards = document.querySelectorAll('.group.cursor-pointer');
+        cards.forEach(card => {
+            const nameEl = card.querySelector('h3') || card.querySelector('h4');
+            if (nameEl) {
+                const name = nameEl.textContent.trim();
+                
+                // Override static routing
+                card.onclick = (e) => {
+                    if (e.target.closest('.add-to-cart-btn') || e.target.closest('button')) return;
+                    window.location.href = `product.html?name=${encodeURIComponent(name)}`;
+                };
+
+                const imgEl = card.querySelector('img');
+                const img = imgEl ? imgEl.src : '';
+                if (!window.allProducts.find(p => p.name === name)) {
+                    // Approximate price if missing
+                    const priceEl = card.querySelector('.product-price');
+                    let price = 250;
+                    if (priceEl && priceEl.textContent) price = Number(priceEl.textContent.trim().replace('$', ''));
+                    window.allProducts.push({ name, price, image_url: img, color: card.querySelector('.text-outline') ? card.querySelector('.text-outline').textContent.trim() : null });
+                }
+            }
+        });
+    }
+
+    function setupProductPage() {
+        if (!window.location.pathname.includes('product.html')) return;
+        
+        const params = new URLSearchParams(window.location.search);
+        const productName = params.get('name');
+        if (!productName) return;
+
+        const product = window.allProducts.find(p => p.name === productName);
+        if (product) {
+            // Update Title
+            const titleEl = document.querySelector('h1.serif-headline');
+            if (titleEl) titleEl.textContent = product.name;
+
+            // Update Main Image
+            const mainImg = document.querySelector('.lg\\:col-span-7 img');
+            if (mainImg) mainImg.src = product.image_url || product.img;
+
+            const secondImg = document.querySelectorAll('.lg\\:col-span-7 img')[1];
+            if (secondImg && product.image_url) secondImg.src = product.image_url;
+
+            // Update Breadcrumb/Color
+            const colorEl = document.querySelector('.text-\\[10px\\].uppercase.tracking-\\[0\\.2em\\].text-outline.mb-4');
+            if (colorEl && product.color) colorEl.textContent = `Atelier Series / ${product.color}`;
+
+            // Store product for Add To Cart logic to pick up globally
+            window.currentProduct = product;
+            
+            // Wait for Cart logic to inject the button, then update it
+            setTimeout(() => {
+                const priceSpans = document.querySelectorAll('.font-body.text-2xl.font-bold, .product-price');
+                priceSpans.forEach(span => {
+                    if (span.textContent.includes('$')) span.textContent = `$${product.price}`;
+                });
+                
+                const btns = document.querySelectorAll('.add-to-cart-btn');
+                btns.forEach(btn => {
+                    btn.dataset.name = product.name;
+                    btn.dataset.price = product.price;
+                    btn.dataset.img = product.image_url || product.img;
+                });
+            }, 100);
+        }
+    }
 
     // Mobile menu toggle logic is handled by findMenuToggle below
 
@@ -145,7 +222,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Link placeholder buttons (search/person)
             container.querySelectorAll('span').forEach(s => {
                 if (s.textContent.trim() === 'search') {
-                    s.parentElement.addEventListener('click', (e) => { e.preventDefault(); alert('Search functionality coming soon!'); });
+                    s.parentElement.addEventListener('click', (e) => { 
+                        e.preventDefault(); 
+                        if (window.openSearchFn) window.openSearchFn(); 
+                    });
                 }
                 if (s.textContent.trim() === 'person') {
                     s.parentElement.addEventListener('click', (e) => { e.preventDefault(); alert('User authentication coming soon!'); });
@@ -176,6 +256,125 @@ document.addEventListener('DOMContentLoaded', () => {
         <div id="cart-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
         `;
         document.body.insertAdjacentHTML('beforeend', cartSidebarHTML);
+    }
+
+    // 2.5 Inject Search Modal
+    if (!document.getElementById('search-overlay')) {
+        const searchModalHTML = `
+        <div id="search-overlay" class="fixed inset-0 bg-surface/95 backdrop-blur-xl z-[150] opacity-0 pointer-events-none transition-opacity duration-500 flex flex-col">
+            <div class="px-6 md:px-12 py-8 flex justify-between items-center border-b border-outline-variant/20">
+                <div class="w-full max-w-4xl mx-auto relative flex items-center">
+                    <span class="material-symbols-outlined absolute left-0 text-outline text-2xl">search</span>
+                    <input id="search-input" type="text" placeholder="Search for products..." class="w-full bg-transparent border-none text-2xl md:text-5xl font-serif italic text-on-surface focus:ring-0 pl-12 placeholder:text-outline/50" />
+                </div>
+                <button id="close-search" class="material-symbols-outlined hover:text-primary transition-colors text-outline text-3xl shrink-0 ml-4 md:ml-8">close</button>
+            </div>
+            <div class="flex-1 overflow-y-auto px-6 md:px-12 py-12">
+                <div id="search-results" class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-[1600px] mx-auto">
+                    <!-- Results go here -->
+                </div>
+                <div id="search-empty" class="hidden text-center mt-20">
+                    <p class="font-label text-sm uppercase tracking-widest text-outline">No products found.</p>
+                </div>
+            </div>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', searchModalHTML);
+    }
+
+    window.openSearchFn = function() {
+        const s = document.getElementById('search-overlay');
+        if (s) {
+            s.classList.remove('opacity-0', 'pointer-events-none');
+            const input = document.getElementById('search-input');
+            if (input) {
+                input.value = '';
+                input.focus();
+                // trigger input event to clear results
+                input.dispatchEvent(new Event('input'));
+            }
+            document.body.style.overflow = 'hidden';
+            if (!window.allProducts || window.allProducts.length === 0) {
+                // Try populate again if not loaded
+                const cards = document.querySelectorAll('.group.cursor-pointer');
+                cards.forEach(card => {
+                    const nameEl = card.querySelector('h3') || card.querySelector('h4');
+                    if (!nameEl) return;
+                    const name = nameEl.textContent.trim();
+                    const imgEl = card.querySelector('img');
+                    const img = imgEl ? imgEl.src : '';
+                    if (name && !window.allProducts.find(p => p.name === name)) {
+                        const priceEl = card.querySelector('.product-price');
+                        let price = 250;
+                        if (priceEl && priceEl.textContent) price = Number(priceEl.textContent.trim().replace('$', ''));
+                        window.allProducts.push({ name, price, image_url: img });
+                    }
+                });
+            }
+        }
+    };
+
+    window.closeSearchFn = function() {
+        const s = document.getElementById('search-overlay');
+        if (s) {
+            s.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+    };
+
+    document.addEventListener('click', (e) => {
+        if (e.target && e.target.id === 'close-search') {
+            window.closeSearchFn();
+        }
+    });
+
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const resultsEl = document.getElementById('search-results');
+            const emptyEl = document.getElementById('search-empty');
+            if (!resultsEl || !emptyEl) return;
+            
+            resultsEl.innerHTML = '';
+            if (!query) {
+                emptyEl.classList.add('hidden');
+                return;
+            }
+
+            let productsToSearch = window.allProducts || [];
+            
+            const matches = productsToSearch.filter(p => 
+                (p.name && p.name.toLowerCase().includes(query)) || 
+                (p.color && p.color.toLowerCase().includes(query))
+            );
+            
+            if (matches.length === 0) {
+                emptyEl.classList.remove('hidden');
+            } else {
+                emptyEl.classList.add('hidden');
+                resultsEl.innerHTML = matches.map(product => `
+                <div class="group cursor-pointer relative" onclick="window.location.href='product.html?name=${encodeURIComponent(product.name).replace(/'/g, "\\'")}'">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-4 relative">
+                        <img alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${product.image_url || product.img}" />
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white text-primary py-2 px-4 font-label text-[9px] uppercase tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-xl whitespace-nowrap z-10"
+                            data-name="${product.name}" 
+                            data-price="${product.price}" 
+                            data-img="${product.image_url || product.img}" 
+                            data-size="M">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-body text-xs font-semibold tracking-wide mb-1">${product.name}</h3>
+                            <p class="product-price font-body text-xs mt-1">$${product.price}</p>
+                        </div>
+                    </div>
+                </div>
+                `).join('');
+            }
+        });
     }
 
     // 3. Inject Add to Cart buttons in HTML dynamically

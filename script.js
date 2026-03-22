@@ -6,8 +6,15 @@ const SUPABASE_URL = 'https://pqimnilolgjsalzrziqq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxaW1uaWxvbGdqc2FsenJ6aXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NjI4NDIsImV4cCI6MjA4OTUzODg0Mn0.WiU3tWRf1i9xlZw6DLydb8po19j6sP4B6JMPm3dw6Ic';
 
 let supabaseClient = null;
+let currentUser = null;
 if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
     supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    // Listen for auth state changes
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+        currentUser = session?.user || null;
+        if (window.updateProfileUI) window.updateProfileUI();
+    });
 }
 
 async function fetchProducts() {
@@ -154,6 +161,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.dataset.img = product.image_url || product.img;
                 });
 
+                // Update size stock availability
+                const sizeGrid = document.querySelector('.grid.grid-cols-4.gap-2');
+                if (sizeGrid) {
+                    const sizeBtns = sizeGrid.querySelectorAll('div');
+                    sizeBtns.forEach(btn => {
+                        const size = btn.textContent.trim();
+                        const stockKey = 'stock_' + size.toLowerCase();
+                        if (product.hasOwnProperty(stockKey)) {
+                            const stock = product[stockKey];
+                            if (stock <= 0) {
+                                btn.classList.add('opacity-30', 'pointer-events-none');
+                                btn.classList.remove('cursor-pointer');
+                                btn.style.textDecoration = 'line-through';
+                                btn.title = "Out of stock";
+                            }
+                        }
+                    });
+                }
+
                 const container = document.getElementById('product-detail-container') || document.querySelector('.grid.grid-cols-1.lg\\:grid-cols-12.gap-16');
                 if (container) container.style.opacity = '1';
             }, 100);
@@ -238,7 +264,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
                 if (s.textContent.trim() === 'person') {
-                    s.parentElement.addEventListener('click', (e) => { e.preventDefault(); alert('User authentication coming soon!'); });
+                    s.parentElement.addEventListener('click', (e) => { 
+                        e.preventDefault(); 
+                        if (currentUser) {
+                            if (window.openProfileFn) window.openProfileFn();
+                        } else {
+                            if (window.openAuthFn) window.openAuthFn();
+                        }
+                    });
                 }
             });
         }
@@ -387,6 +420,166 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 2.75 Inject Auth Modal & Profile Sidebar
+    if (!document.getElementById('auth-overlay')) {
+        const authModalHTML = `
+        <div id="auth-overlay" class="fixed inset-0 bg-surface/95 backdrop-blur-xl z-[150] opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-4">
+            <div class="bg-surface text-on-surface w-full max-w-md p-10 shadow-2xl relative border border-outline-variant/20">
+                <button id="close-auth" class="absolute top-6 right-6 material-symbols-outlined hover:text-on-surface transition-colors text-outline">close</button>
+                <div class="text-center mb-10">
+                    <h2 class="serif-headline text-4xl italic mb-3 text-on-surface">Welcome</h2>
+                    <p class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">Sign in to your account</p>
+                </div>
+                
+                <form id="auth-form" class="space-y-5">
+                    <div>
+                        <input id="auth-email" type="email" placeholder="Email Address" required class="w-full bg-surface-container-lowest border border-outline-variant/30 px-5 py-4 font-body text-sm text-on-surface placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none" />
+                    </div>
+                    <div>
+                        <input id="auth-password" type="password" placeholder="Password" required class="w-full bg-surface-container-lowest border border-outline-variant/30 px-5 py-4 font-body text-sm text-on-surface placeholder:text-outline focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none" />
+                    </div>
+                    <div id="auth-error" class="hidden text-error text-xs font-medium text-center"></div>
+                    <div id="auth-success" class="hidden text-primary text-xs font-medium text-center"></div>
+                    <button type="submit" id="auth-submit-btn" class="w-full bg-primary text-on-primary py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity mt-2">Sign In</button>
+                    <div class="text-center mt-6">
+                        <button type="button" id="toggle-auth-mode" class="font-label text-[9px] uppercase tracking-[0.1em] text-outline hover:text-on-surface border-b border-transparent hover:border-on-surface pb-1 transition-all">Don't have an account? Create one</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div id="profile-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-surface shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 flex flex-col border-l border-outline-variant/20">
+            <div class="px-8 py-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+                <h2 class="serif-headline text-2xl italic">My Account</h2>
+                <button id="close-profile" class="material-symbols-outlined hover:text-primary transition-colors text-outline">close</button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-8 bg-surface">
+                <div class="mb-8">
+                    <p class="font-label text-[10px] uppercase tracking-widest text-outline mb-2">Logged in as</p>
+                    <p id="profile-email" class="font-body font-bold text-lg"></p>
+                </div>
+                <hr class="border-outline-variant/20 mb-8" />
+                <button id="signout-btn" class="w-full border border-primary text-primary py-4 font-label text-[10px] uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-colors">Sign Out</button>
+            </div>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', authModalHTML);
+    }
+
+    let isSignUpMode = false;
+
+    window.openAuthFn = function() {
+        const s = document.getElementById('auth-overlay');
+        if (s) {
+            s.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+        }
+    };
+    
+    window.closeAuthFn = function() {
+        const s = document.getElementById('auth-overlay');
+        if (s) {
+            s.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+    };
+
+    window.openProfileFn = function() {
+        const sidebar = document.getElementById('profile-sidebar');
+        const overlay = document.getElementById('cart-overlay');
+        if(sidebar) sidebar.classList.remove('translate-x-full');
+        if(overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = 'hidden';
+        if (currentUser) {
+            const emailEl = document.getElementById('profile-email');
+            if (emailEl) emailEl.textContent = currentUser.email;
+        }
+    };
+
+    window.closeProfileFn = function() {
+        const sidebar = document.getElementById('profile-sidebar');
+        const overlay = document.getElementById('cart-overlay');
+        if(sidebar) sidebar.classList.add('translate-x-full');
+        // only hide overlay if cart isn't open
+        const cartSidebar = document.getElementById('cart-sidebar');
+        if(overlay && cartSidebar && cartSidebar.classList.contains('translate-x-full')) {
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+        }
+        document.body.style.overflow = '';
+    };
+
+    window.updateProfileUI = function() {
+        if (currentUser) {
+            window.closeAuthFn(); // Close auth modal on login success
+        } else {
+            window.closeProfileFn(); // Close profile on logout
+        }
+    };
+
+    // Initialize UI state handler for dynamic actions
+    document.addEventListener('click', async (e) => {
+        if (e.target && e.target.id === 'close-auth') window.closeAuthFn();
+        if (e.target && e.target.id === 'close-profile') window.closeProfileFn();
+        
+        // Sign Out
+        if (e.target && e.target.id === 'signout-btn') {
+            if (supabaseClient) await supabaseClient.auth.signOut();
+        }
+
+        // Toggle Auth Mode (Login / Register)
+        if (e.target && e.target.id === 'toggle-auth-mode') {
+            isSignUpMode = !isSignUpMode;
+            document.getElementById('auth-submit-btn').textContent = isSignUpMode ? 'Create Account' : 'Sign In';
+            e.target.textContent = isSignUpMode ? 'Already have an account? Sign In' : "Don't have an account? Create one";
+            document.getElementById('auth-error').classList.add('hidden');
+            document.getElementById('auth-success').classList.add('hidden');
+        }
+    });
+
+    // Form Registration/Login
+    document.addEventListener('submit', async (e) => {
+        if (e.target && e.target.id === 'auth-form') {
+            e.preventDefault();
+            if (!supabaseClient) return;
+            
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const errorEl = document.getElementById('auth-error');
+            const successEl = document.getElementById('auth-success');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            
+            errorEl.classList.add('hidden');
+            successEl.classList.add('hidden');
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.5';
+            
+            let result;
+            if (isSignUpMode) {
+                result = await supabaseClient.auth.signUp({ email, password });
+            } else {
+                result = await supabaseClient.auth.signInWithPassword({ email, password });
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = '1';
+
+            if (result.error) {
+                errorEl.textContent = result.error.message;
+                errorEl.classList.remove('hidden');
+            } else if (isSignUpMode && result.data?.user?.identities?.length === 0) {
+                 successEl.textContent = 'Account created/linked. You can now Sign In.';
+                 successEl.classList.remove('hidden');
+            } else if (isSignUpMode && result.data?.session === null) {
+                 successEl.textContent = 'Check your email for a confirmation link.';
+                 successEl.classList.remove('hidden');
+            } else if (!isSignUpMode) {
+                // Success is handled by onAuthStateChange triggering updateProfileUI
+            }
+        }
+    });
+
     // 3. Inject Add to Cart buttons in HTML dynamically
     // In product.html:
     const sizeGrid = document.querySelector('.grid.grid-cols-4.gap-2');
@@ -465,6 +658,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addToCart = function(item) {
+        const product = window.allProducts.find(p => p.name === item.name);
+        if (product) {
+            const stockKey = 'stock_' + item.size.toLowerCase();
+            const maxStock = product[stockKey] !== undefined ? product[stockKey] : 99;
+            
+            const existing = cart.find(i => i.name === item.name && i.size === item.size);
+            const currentQty = existing ? existing.quantity : 0;
+            
+            if (currentQty + 1 > maxStock) {
+                alert(`Cannot add more to cart. Only ${maxStock} items available in size ${item.size}.`);
+                return;
+            }
+        }
+
         const existing = cart.find(i => i.name === item.name && i.size === item.size);
         if (existing) {
             existing.quantity += 1;

@@ -62,7 +62,7 @@ function renderSupabaseProducts(products) {
             <div class="flex justify-between items-start">
                 <div>
                     <h3 class="font-body text-sm font-semibold tracking-wide text-on-surface mb-1">${product.name}</h3>
-                    <p class="font-label text-[10px] uppercase tracking-widest text-outline">${product.color || 'Standard'}</p>
+                    <p class="font-label text-[10px] uppercase tracking-widest text-outline">${product.color || 'Standard'} ${product.origin ? (product.origin.toLowerCase() === 'imported' ? '• Imported' : '• Made in ' + product.origin) : ''}</p>
                     <p class="product-price font-body font-bold text-sm mt-1">$${product.price}</p>
                 </div>
             </div>
@@ -143,6 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update Breadcrumb/Color
             const colorEl = document.querySelector('.text-\\[10px\\].uppercase.tracking-\\[0\\.2em\\].text-outline.mb-4');
             if (colorEl && product.color) colorEl.textContent = `Atelier Series / ${product.color}`;
+
+            // Update Origin
+            const originEl = document.getElementById('product-origin');
+            if (originEl) {
+                if (product.origin && product.origin.toLowerCase() !== 'imported') {
+                    originEl.textContent = `Made in ${product.origin}`;
+                } else {
+                    originEl.textContent = 'Imported';
+                }
+            }
 
             // Store product for Add To Cart logic to pick up globally
             window.currentProduct = product;
@@ -411,6 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="flex justify-between items-start">
                         <div>
                             <h3 class="font-body text-xs font-semibold tracking-wide mb-1">${product.name}</h3>
+                            <p class="font-label text-[8px] uppercase tracking-widest text-outline mb-1">${product.origin ? (product.origin.toLowerCase() === 'imported' ? 'Imported' : 'Made in ' + product.origin) : ''}</p>
                             <p class="product-price font-body text-xs mt-1">$${product.price}</p>
                         </div>
                     </div>
@@ -601,10 +612,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.classList.add('cursor-pointer', 'transition-colors');
             btn.addEventListener('click', () => {
                 sizeBtns.forEach(b => {
-                    b.classList.remove('bg-primary', 'text-on-primary', 'border-primary');
+                    b.classList.remove('bg-zinc-950', 'text-white', 'border-zinc-950');
                     b.classList.add('text-outline');
                 });
-                btn.classList.add('bg-primary', 'text-on-primary', 'border-primary');
+                btn.classList.add('bg-zinc-950', 'text-white', 'border-zinc-950');
                 btn.classList.remove('text-outline');
                 const addBtn = document.querySelector('.add-to-cart-btn');
                 if (addBtn) addBtn.dataset.size = btn.textContent.trim();

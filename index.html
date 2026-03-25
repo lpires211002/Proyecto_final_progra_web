@@ -55,21 +55,24 @@
     </nav>
     <main>
         <!-- Hero Section -->
-        <section class="relative h-[921px] w-full overflow-hidden flex items-center justify-center">
-            <div class="absolute inset-0 z-0">
-                <img alt="Editorial fashion photography" class="w-full h-full object-cover grayscale brightness-90"
-                    data-alt="Cinematic editorial shot of a woman in high-fashion minimalist attire"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHzMLdFM_da9qW9ozcOv493GrVUQ8E2_FuEjyCUMzZ3H2awHDUVNkkvl9ifZoMSOxDVAGdOHJYkB3IORNLM-864JCGGWvyHgHM3Rg7OCeTWk2KHMxyD8zQFCjXG5ulayloEZ4r1iE8KaCv4e1qP3z9pEnhGk6klVTOs_3WZJ56atuZi26LdAas49d2Y4Ft-IJmSdfby76K__MBLcwiS8l1AssPADO7gNA_zlJvC8AkSCKpXhacZLecSyrXV6no334su98v-_yB8Sg" />
+        <section class="relative h-screen w-full overflow-hidden flex flex-col justify-end bg-black">
+            <div class="absolute inset-0 z-0 bg-black">
+                <video autoplay loop muted playsinline class="w-full h-full object-cover grayscale brightness-[0.80]">
+                    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4" />
+                </video>
             </div>
-            <div class="relative z-10 text-center text-on-primary max-w-4xl px-6">
-                <span class="font-label text-[10px] uppercase tracking-[0.4em] mb-6 block">Collection Printemps
-                    2024</span>
-                <h2 class="serif-headline text-5xl md:text-8xl font-light italic tracking-tighter mb-12 drop-shadow-sm">
-                    The Architecture of Silence</h2>
-                <div class="flex justify-center gap-8">
+            <div class="relative z-10 w-full px-6 md:px-12 flex flex-col items-end mb-8 md:mb-16 pointer-events-none text-white font-label text-[10px] uppercase tracking-[0.2em] text-right drop-shadow-md">
+                <p>AW 2026 Studio Collection</p>
+                <p>Available Now</p>
+            </div>
+            <div class="relative z-10 w-full px-6 flex flex-col items-center pb-24 text-center pointer-events-none">
+                <!-- Massive Zara like overlay title -->
+                <h2 class="text-[20vw] leading-[0.8] font-serif tracking-tighter text-white mix-blend-overlay font-bold select-none drop-shadow-lg mb-8">
+                    taiko.nina
+                </h2>
+                <div class="pointer-events-auto mt-4">
                     <button onclick="window.location.href='shop.html'"
-                        class="bg-primary text-on-primary px-10 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-primary-container transition-colors duration-500">Discover
-                        Series</button>
+                        class="border border-white/50 bg-transparent text-white backdrop-blur-sm px-12 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-white hover:text-black hover:border-white transition-all duration-700">Explore Collection</button>
                 </div>
             </div>
         </section>

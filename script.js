@@ -39,6 +39,11 @@ function renderSupabaseProducts(products) {
     // Clear hardcoded products
     grid.innerHTML = '';
     
+    if (products.length === 0) {
+        grid.innerHTML = '<div class="col-span-full py-12 text-center text-zinc-500 font-label tracking-widest text-[12px] uppercase">No hay productos que coincidan con estos filtros.</div>';
+        return;
+    }
+    
     products.forEach((product, index) => {
         // Retain the hybrid standard/asymmetric editorial layout
         let extraClass = '';
@@ -873,5 +878,104 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 5000);
         });
     }
+
+    // 7. Shop Filters Logic
+    const initShopFilters = () => {
+        if (!document.getElementById('btn-filter-category')) return; // Not on shop page
+
+        let currentFilters = { category: 'all', size: 'all', color: 'all' };
+        let currentSort = 'new_arrivals';
+
+        const applyFilters = () => {
+            let filtered = [...window.allProducts];
+            
+            if (currentFilters.category !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilters.category);
+            }
+            if (currentFilters.color !== 'all') {
+                filtered = filtered.filter(p => p.color === currentFilters.color);
+            }
+            if (currentFilters.size !== 'all') {
+                const s = currentFilters.size.toLowerCase();
+                filtered = filtered.filter(p => p[`stock_${s}`] > 0);
+            }
+            
+            if (currentSort === 'price_asc') {
+                filtered.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'price_desc') {
+                filtered.sort((a, b) => b.price - a.price);
+            } else {
+                // new arrivals
+                filtered.sort((a, b) => new Date(b.created_at || '1970-01-01') - new Date(a.created_at || '1970-01-01'));
+            }
+            
+            renderSupabaseProducts(filtered);
+        };
+
+        const toggles = [
+            { btn: 'btn-filter-category', drop: 'dropdown-category', icon: 'icon-filter-category' },
+            { btn: 'btn-filter-size', drop: 'dropdown-size', icon: 'icon-filter-size' },
+            { btn: 'btn-filter-color', drop: 'dropdown-color', icon: 'icon-filter-color' },
+            { btn: 'btn-sort', drop: 'dropdown-sort', icon: 'icon-sort' }
+        ];
+
+        toggles.forEach(t => {
+            const btn = document.getElementById(t.btn);
+            const drop = document.getElementById(t.drop);
+            const icon = document.getElementById(t.icon);
+            if(btn && drop) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    // Close others
+                    toggles.forEach(other => {
+                        if (other.drop !== t.drop) {
+                            document.getElementById(other.drop)?.classList.add('hidden');
+                            document.getElementById(other.icon)?.classList.remove('rotate-180');
+                        }
+                    });
+                    drop.classList.toggle('hidden');
+                    if(icon) icon.classList.toggle('rotate-180');
+                });
+            }
+        });
+
+        document.addEventListener('click', () => {
+            toggles.forEach(t => {
+                document.getElementById(t.drop)?.classList.add('hidden');
+                document.getElementById(t.icon)?.classList.remove('rotate-180');
+            });
+        });
+
+        document.querySelectorAll('.filter-opt').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                const type = e.target.getAttribute('data-type');
+                const val = e.target.getAttribute('data-val');
+                currentFilters[type] = val;
+                
+                const btnContentMap = { category: 'btn-filter-category', size: 'btn-filter-size', color: 'btn-filter-color' };
+                const btnId = btnContentMap[type];
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    let displayVal = val === 'all' ? type.charAt(0).toUpperCase() + type.slice(1) : val;
+                    if(type === 'size' && val !== 'all') displayVal = "Size " + val.toUpperCase();
+                    btn.innerHTML = `${displayVal} <span class="material-symbols-outlined !text-[14px] transition-transform" id="icon-filter-${type}">expand_more</span>`;
+                }
+
+                applyFilters();
+            });
+        });
+
+        document.querySelectorAll('.sort-opt').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                const val = e.target.getAttribute('data-val');
+                currentSort = val;
+                const label = document.getElementById('sort-label');
+                if (label) label.textContent = e.target.textContent;
+                applyFilters();
+            });
+        });
+    };
+    
+    initShopFilters();
 
 });

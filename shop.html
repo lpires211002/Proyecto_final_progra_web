@@ -65,36 +65,70 @@
         </section>
         <!-- Filters & Sorting Bar -->
         <section
-            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8 border-b-0 pb-6">
+            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-8 border-b-0 pb-6 relative z-30">
             <div class="flex flex-wrap gap-10">
                 <!-- Filter Category -->
-                <div class="group relative">
-                    <button
-                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
-                        Category <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                <div class="group relative inline-block text-left">
+                    <button id="btn-filter-category" type="button" class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2 hover:text-zinc-500 transition-colors">
+                        Category <span class="material-symbols-outlined !text-[14px] transition-transform" id="icon-filter-category">expand_more</span>
                     </button>
+                    <div id="dropdown-category" class="hidden absolute left-0 z-50 mt-4 w-48 origin-top-left bg-surface shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none transition-all border border-zinc-200 dark:border-zinc-800">
+                        <div class="py-2" role="menu" aria-orientation="vertical">
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="all">All Categories</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="Outerwear">Outerwear</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="Knitwear">Knitwear</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="Dresses">Dresses</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="Bottoms">Bottoms</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="category" data-val="Shirts">Shirts</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- Filter Size -->
-                <div class="group relative">
-                    <button
-                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
-                        Size <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                <div class="group relative inline-block text-left">
+                    <button id="btn-filter-size" type="button" class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2 hover:text-zinc-500 transition-colors">
+                        Size <span class="material-symbols-outlined !text-[14px] transition-transform" id="icon-filter-size">expand_more</span>
                     </button>
+                    <div id="dropdown-size" class="hidden absolute left-0 z-50 mt-4 w-48 origin-top-left bg-surface shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none border border-zinc-200 dark:border-zinc-800">
+                        <div class="py-2" role="menu">
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="size" data-val="all">All Sizes</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="size" data-val="s">Small</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="size" data-val="m">Medium</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="size" data-val="l">Large</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- Filter Color -->
-                <div class="group relative">
-                    <button
-                        class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
-                        Color <span class="material-symbols-outlined !text-[14px]">expand_more</span>
+                <div class="group relative inline-block text-left">
+                    <button id="btn-filter-color" type="button" class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2 hover:text-zinc-500 transition-colors">
+                        Color <span class="material-symbols-outlined !text-[14px] transition-transform" id="icon-filter-color">expand_more</span>
                     </button>
+                    <div id="dropdown-color" class="hidden absolute left-0 z-50 mt-4 w-48 origin-top-left bg-surface shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none border border-zinc-200 dark:border-zinc-800">
+                        <div class="py-2" role="menu">
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="all">All Colors</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Bone White">Bone White</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Charcoal">Charcoal</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Sand">Sand</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Midnight">Midnight</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Optic White">Optic White</button>
+                            <button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="Taupe">Taupe</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="flex items-center gap-4">
-                <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">Sort By</span>
-                <button
-                    class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2">
-                    New Arrivals <span class="material-symbols-outlined !text-[14px]">expand_more</span>
-                </button>
+            <div class="relative inline-block text-left">
+                <div class="flex items-center gap-4">
+                    <span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline">Sort By</span>
+                    <button id="btn-sort" type="button" class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface flex items-center gap-2 hover:text-zinc-500 transition-colors">
+                        <span id="sort-label">New Arrivals</span> <span class="material-symbols-outlined !text-[14px]" id="icon-sort">expand_more</span>
+                    </button>
+                </div>
+                <div id="dropdown-sort" class="hidden absolute right-0 z-50 mt-4 w-48 origin-top-right bg-surface shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none border border-zinc-200 dark:border-zinc-800">
+                    <div class="py-2" role="menu">
+                        <button class="sort-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-val="new_arrivals">New Arrivals</button>
+                        <button class="sort-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-val="price_asc">Price: Low to High</button>
+                        <button class="sort-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-val="price_desc">Price: High to Low</button>
+                    </div>
+                </div>
             </div>
         </section>
         <!-- Product Grid (Asymmetric/Standard Hybrid) -->

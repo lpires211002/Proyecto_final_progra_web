@@ -79,6 +79,23 @@ function renderSupabaseProducts(products) {
 
 window.allProducts = [];
 
+window.updateDynamicFilters = function() {
+    const colorDropdown = document.querySelector('#dropdown-color .py-2');
+    if (!colorDropdown) return;
+    
+    // Extract unique colors from allProducts
+    const uniqueColors = [...new Set(window.allProducts.map(p => p.color).filter(c => c && c.trim() !== '' && c !== 'Standard'))];
+    uniqueColors.sort();
+    
+    // Build HTML
+    let html = `<button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="all">All Colors</button>\n`;
+    uniqueColors.forEach(color => {
+        html += `<button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="${color}">${color}</button>\n`;
+    });
+    
+    colorDropdown.innerHTML = html;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // 0. Fetch Map Products BEFORE DOM logic starts parsing them statically
     fetchProducts().then(products => {
@@ -88,10 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
             renderSupabaseProducts(products);
             populateFallbackProducts();
             setupProductPage();
+            if (window.updateDynamicFilters) window.updateDynamicFilters();
         } else {
             console.log("Using fallback static HTML products");
             populateFallbackProducts();
             setupProductPage();
+            if (window.updateDynamicFilters) window.updateDynamicFilters();
         }
     });
 
@@ -946,10 +965,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        document.querySelectorAll('.filter-opt').forEach(opt => {
-            opt.addEventListener('click', (e) => {
-                const type = e.target.getAttribute('data-type');
-                const val = e.target.getAttribute('data-val');
+        document.addEventListener('click', (e) => {
+            const opt = e.target.closest('.filter-opt');
+            if (opt) {
+                const type = opt.getAttribute('data-type');
+                const val = opt.getAttribute('data-val');
                 currentFilters[type] = val;
                 
                 const btnContentMap = { category: 'btn-filter-category', size: 'btn-filter-size', color: 'btn-filter-color' };
@@ -962,7 +982,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 applyFilters();
-            });
+            }
         });
 
         document.querySelectorAll('.sort-opt').forEach(opt => {

@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Loaded products from Supabase");
             window.allProducts = products;
             renderSupabaseProducts(products);
+            populateFallbackProducts();
             setupProductPage();
         } else {
             console.log("Using fallback static HTML products");
@@ -96,20 +97,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const nameEl = card.querySelector('h3') || card.querySelector('h4');
             if (nameEl) {
                 const name = nameEl.textContent.trim();
+                const imgEl = card.querySelector('img');
+                const img = imgEl ? imgEl.src : '';
+                const priceEl = card.querySelector('.product-price');
+                let price = 250;
+                if (priceEl && priceEl.textContent) price = Number(priceEl.textContent.trim().replace('$', ''));
                 
                 // Override static routing
                 card.onclick = (e) => {
                     if (e.target.closest('.add-to-cart-btn') || e.target.closest('button')) return;
-                    window.location.href = `product.html?name=${encodeURIComponent(name)}`;
+                    window.location.href = `product.html?name=${encodeURIComponent(name)}&img=${encodeURIComponent(img)}&price=${price}`;
                 };
 
-                const imgEl = card.querySelector('img');
-                const img = imgEl ? imgEl.src : '';
                 if (!window.allProducts.find(p => p.name === name)) {
-                    // Approximate price if missing
-                    const priceEl = card.querySelector('.product-price');
-                    let price = 250;
-                    if (priceEl && priceEl.textContent) price = Number(priceEl.textContent.trim().replace('$', ''));
                     window.allProducts.push({ name, price, image_url: img, color: card.querySelector('.text-outline') ? card.querySelector('.text-outline').textContent.trim() : null });
                 }
             }
@@ -127,7 +127,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const product = window.allProducts.find(p => p.name === productName);
+        let product = window.allProducts.find(p => p.name === productName);
+        if (!product && params.has('img')) {
+             product = {
+                 name: productName,
+                 image_url: params.get('img'),
+                 price: Number(params.get('price')) || 250,
+                 color: 'Standard',
+                 origin: 'Imported'
+             };
+             window.allProducts.push(product);
+        }
+
         if (product) {
             // Update Title
             const titleEl = document.querySelector('h1.serif-headline');

@@ -836,4 +836,42 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize
     renderCart();
 
+    // 6. Newsletter Logic
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const msgEl = document.getElementById('newsletter-msg');
+            msgEl.classList.remove('hidden', 'text-[#5c6858]', 'text-error', 'text-primary');
+            msgEl.classList.add('text-primary');
+            msgEl.textContent = 'Suscribiendo...';
+            
+            if (!supabaseClient) {
+                msgEl.textContent = 'Error: Base de datos no conectada.';
+                msgEl.classList.add('text-error');
+                return;
+            }
+            
+            const { error } = await supabaseClient
+                .from('newsletter_subscribers')
+                .insert([{ email }]);
+                
+            if (error && error.code === '23505') { // Unique constraint
+                msgEl.textContent = '¡Ya estás suscrito!';
+            } else if (error) {
+                msgEl.textContent = 'Error al suscribirse. Intenta de nuevo.';
+                msgEl.classList.add('text-error');
+            } else {
+                msgEl.textContent = 'Suscrito con éxito. ¡Te llegará un correo!';
+                msgEl.classList.add('text-[#5c6858]');
+                document.getElementById('newsletter-email').value = '';
+            }
+            
+            setTimeout(() => {
+                msgEl.classList.add('hidden');
+            }, 5000);
+        });
+    }
+
 });

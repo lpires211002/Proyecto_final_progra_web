@@ -1001,26 +1001,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-window.outfitsData = [
-    {
-        id: 'outfit-1',
-        title: 'Sweater Clara',
-        video: '/VIDEOS_OUTFITS/sweater_clara.mp4',
-        products: ['Architectural Wool Blazer', 'High-Rise Linen Trouser']
-    },
-    {
-        id: 'outfit-2',
-        title: 'Saco Theo',
-        video: '/VIDEOS_OUTFITS/saco_theo.mp4',
-        products: ['Architectural Wool Blazer', 'Asymmetric Leather Tote']
-    },
-    {
-        id: 'outfit-3',
-        title: 'Winter Editorial',
-        video: '/VIDEOS_OUTFITS/outfit3.mp4',
-        products: ['Double-Face Cashmere Coat', 'Fine Merino Turtleneck']
-    }
-];
+// outfitsData is now loaded dynamically from outfits_data.js
 
 function initOutfitsPage() {
     const grid = document.getElementById('outfits-grid');

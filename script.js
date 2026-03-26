@@ -9,7 +9,7 @@ let supabaseClient = null;
 let currentUser = null;
 if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
     supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    
+
     // Listen for auth state changes
     supabaseClient.auth.onAuthStateChange((event, session) => {
         currentUser = session?.user || null;
@@ -35,21 +35,21 @@ async function fetchProducts() {
 function renderSupabaseProducts(products) {
     const grid = document.querySelector('section.grid');
     if (!grid) return;
-    
+
     // Clear hardcoded products
     grid.innerHTML = '';
-    
+
     if (products.length === 0) {
         grid.innerHTML = '<div class="col-span-full py-12 text-center text-zinc-500 font-label tracking-widest text-[12px] uppercase">No hay productos que coincidan con estos filtros.</div>';
         return;
     }
-    
+
     products.forEach((product, index) => {
         // Retain the hybrid standard/asymmetric editorial layout
         let extraClass = '';
         if (index === 1 || index === 5) extraClass = 'mt-0 lg:mt-12';
         if (index === 3) extraClass = 'lg:-mt-12';
-        
+
         const cardHTML = `
         <div class="group ${extraClass} cursor-pointer relative" onclick="window.location.href='product.html?name=${encodeURIComponent(product.name).replace(/'/g, "\\'")}'">
             <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-6 relative">
@@ -79,20 +79,20 @@ function renderSupabaseProducts(products) {
 
 window.allProducts = [];
 
-window.updateDynamicFilters = function() {
+window.updateDynamicFilters = function () {
     const colorDropdown = document.querySelector('#dropdown-color .py-2');
     if (!colorDropdown) return;
-    
+
     // Extract unique colors from allProducts
     const uniqueColors = [...new Set(window.allProducts.map(p => p.color).filter(c => c && c.trim() !== '' && c !== 'Standard'))];
     uniqueColors.sort();
-    
+
     // Build HTML
     let html = `<button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="all">All Colors</button>\n`;
     uniqueColors.forEach(color => {
         html += `<button class="filter-opt block w-full text-left px-4 py-3 font-label text-[10px] uppercase tracking-widest text-on-surface hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" data-type="color" data-val="${color}">${color}</button>\n`;
     });
-    
+
     colorDropdown.innerHTML = html;
 };
 
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const priceEl = card.querySelector('.product-price');
                 let price = 250;
                 if (priceEl && priceEl.textContent) price = Number(priceEl.textContent.trim().replace('$', ''));
-                
+
                 // Override static routing
                 card.onclick = (e) => {
                     if (e.target.closest('.add-to-cart-btn') || e.target.closest('button')) return;
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupProductPage() {
         if (!window.location.pathname.includes('product.html')) return;
-        
+
         const params = new URLSearchParams(window.location.search);
         const productName = params.get('name');
         if (!productName) {
@@ -153,14 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let product = window.allProducts.find(p => p.name === productName);
         if (!product && params.has('img')) {
-             product = {
-                 name: productName,
-                 image_url: params.get('img'),
-                 price: Number(params.get('price')) || 250,
-                 color: 'Standard',
-                 origin: 'Imported'
-             };
-             window.allProducts.push(product);
+            product = {
+                name: productName,
+                image_url: params.get('img'),
+                price: Number(params.get('price')) || 250,
+                color: 'Standard',
+                origin: 'Imported'
+            };
+            window.allProducts.push(product);
         }
 
         if (product) {
@@ -191,14 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Store product for Add To Cart logic to pick up globally
             window.currentProduct = product;
-            
+
             // Wait for Cart logic to inject the button, then update it
             setTimeout(() => {
                 const priceSpans = document.querySelectorAll('.font-body.text-2xl.font-bold, .product-price');
                 priceSpans.forEach(span => {
                     if (span.textContent.includes('$')) span.textContent = `$${product.price}`;
                 });
-                
+
                 const btns = document.querySelectorAll('.add-to-cart-btn');
                 btns.forEach(btn => {
                     btn.dataset.name = product.name;
@@ -252,20 +252,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toggle) {
         toggle.style.cursor = 'pointer';
         toggle.addEventListener('click', () => {
-             // add a simple mobile menu 
-             const nav = document.querySelector('nav.hidden, nav.md\:flex');
-             if(nav) {
-                 nav.classList.toggle('hidden');
-                 nav.classList.toggle('flex');
-                 nav.classList.toggle('flex-col');
-                 nav.classList.toggle('absolute');
-                 nav.classList.toggle('top-full');
-                 nav.classList.toggle('left-0');
-                 nav.classList.toggle('w-full');
-                 nav.classList.toggle('bg-white');
-                 nav.classList.toggle('dark:bg-black');
-                 nav.classList.toggle('p-6');
-             }
+            // add a simple mobile menu 
+            const nav = document.querySelector('nav.hidden, nav.md\:flex');
+            if (nav) {
+                nav.classList.toggle('hidden');
+                nav.classList.toggle('flex');
+                nav.classList.toggle('flex-col');
+                nav.classList.toggle('absolute');
+                nav.classList.toggle('top-full');
+                nav.classList.toggle('left-0');
+                nav.classList.toggle('w-full');
+                nav.classList.toggle('bg-white');
+                nav.classList.toggle('dark:bg-black');
+                nav.classList.toggle('p-6');
+            }
         });
     }
 });
@@ -299,18 +299,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             }
-            
+
             // Link placeholder buttons (search/person)
             container.querySelectorAll('span').forEach(s => {
                 if (s.textContent.trim() === 'search') {
-                    s.parentElement.addEventListener('click', (e) => { 
-                        e.preventDefault(); 
-                        if (window.openSearchFn) window.openSearchFn(); 
+                    s.parentElement.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (window.openSearchFn) window.openSearchFn();
                     });
                 }
                 if (s.textContent.trim() === 'person') {
-                    s.parentElement.addEventListener('click', (e) => { 
-                        e.preventDefault(); 
+                    s.parentElement.addEventListener('click', (e) => {
+                        e.preventDefault();
                         if (currentUser) {
                             if (window.openProfileFn) window.openProfileFn();
                         } else {
@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.insertAdjacentHTML('beforeend', searchModalHTML);
     }
 
-    window.openSearchFn = function() {
+    window.openSearchFn = function () {
         const s = document.getElementById('search-overlay');
         if (s) {
             s.classList.remove('opacity-0', 'pointer-events-none');
@@ -402,7 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.closeSearchFn = function() {
+    window.closeSearchFn = function () {
         const s = document.getElementById('search-overlay');
         if (s) {
             s.classList.add('opacity-0', 'pointer-events-none');
@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const resultsEl = document.getElementById('search-results');
             const emptyEl = document.getElementById('search-empty');
             if (!resultsEl || !emptyEl) return;
-            
+
             resultsEl.innerHTML = '';
             if (!query) {
                 emptyEl.classList.add('hidden');
@@ -431,12 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let productsToSearch = window.allProducts || [];
-            
-            const matches = productsToSearch.filter(p => 
-                (p.name && p.name.toLowerCase().includes(query)) || 
+
+            const matches = productsToSearch.filter(p =>
+                (p.name && p.name.toLowerCase().includes(query)) ||
                 (p.color && p.color.toLowerCase().includes(query))
             );
-            
+
             if (matches.length === 0) {
                 emptyEl.classList.remove('hidden');
             } else {
@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isSignUpMode = false;
 
-    window.openAuthFn = function() {
+    window.openAuthFn = function () {
         const s = document.getElementById('auth-overlay');
         if (s) {
             s.classList.remove('opacity-0', 'pointer-events-none');
@@ -523,8 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('auth-success').classList.add('hidden');
         }
     };
-    
-    window.closeAuthFn = function() {
+
+    window.closeAuthFn = function () {
         const s = document.getElementById('auth-overlay');
         if (s) {
             s.classList.add('opacity-0', 'pointer-events-none');
@@ -532,11 +532,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.openProfileFn = function() {
+    window.openProfileFn = function () {
         const sidebar = document.getElementById('profile-sidebar');
         const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.remove('translate-x-full');
-        if(overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
+        if (sidebar) sidebar.classList.remove('translate-x-full');
+        if (overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
         document.body.style.overflow = 'hidden';
         if (currentUser) {
             const emailEl = document.getElementById('profile-email');
@@ -544,19 +544,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.closeProfileFn = function() {
+    window.closeProfileFn = function () {
         const sidebar = document.getElementById('profile-sidebar');
         const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.add('translate-x-full');
+        if (sidebar) sidebar.classList.add('translate-x-full');
         // only hide overlay if cart isn't open
         const cartSidebar = document.getElementById('cart-sidebar');
-        if(overlay && cartSidebar && cartSidebar.classList.contains('translate-x-full')) {
+        if (overlay && cartSidebar && cartSidebar.classList.contains('translate-x-full')) {
             overlay.classList.add('opacity-0', 'pointer-events-none');
         }
         document.body.style.overflow = '';
     };
 
-    window.updateProfileUI = function() {
+    window.updateProfileUI = function () {
         if (currentUser) {
             window.closeAuthFn(); // Close auth modal on login success
         } else {
@@ -568,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', async (e) => {
         if (e.target && e.target.id === 'close-auth') window.closeAuthFn();
         if (e.target && e.target.id === 'close-profile') window.closeProfileFn();
-        
+
         // Sign Out
         if (e.target && e.target.id === 'signout-btn') {
             if (supabaseClient) await supabaseClient.auth.signOut();
@@ -589,25 +589,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target && e.target.id === 'auth-form') {
             e.preventDefault();
             if (!supabaseClient) return;
-            
+
             const email = document.getElementById('auth-email').value;
             const password = document.getElementById('auth-password').value;
             const errorEl = document.getElementById('auth-error');
             const successEl = document.getElementById('auth-success');
             const submitBtn = document.getElementById('auth-submit-btn');
-            
+
             errorEl.classList.add('hidden');
             successEl.classList.add('hidden');
             submitBtn.disabled = true;
             submitBtn.style.opacity = '0.5';
-            
+
             let result;
             if (isSignUpMode) {
                 result = await supabaseClient.auth.signUp({ email, password });
             } else {
                 result = await supabaseClient.auth.signInWithPassword({ email, password });
             }
-            
+
             submitBtn.disabled = false;
             submitBtn.style.opacity = '1';
 
@@ -615,11 +615,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 errorEl.textContent = result.error.message;
                 errorEl.classList.remove('hidden');
             } else if (isSignUpMode && result.data?.user?.identities?.length === 0) {
-                 successEl.textContent = 'Account created/linked. You can now Sign In.';
-                 successEl.classList.remove('hidden');
+                successEl.textContent = 'Account created/linked. You can now Sign In.';
+                successEl.classList.remove('hidden');
             } else if (isSignUpMode && result.data?.session === null) {
-                 successEl.textContent = 'Check your email for a confirmation link.';
-                 successEl.classList.remove('hidden');
+                successEl.textContent = 'Check your email for a confirmation link.';
+                successEl.classList.remove('hidden');
             } else if (!isSignUpMode) {
                 // Success is handled by onAuthStateChange triggering updateProfileUI
             }
@@ -668,7 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const price = 250 + (index * 50); // Fake dynamic price
             const imgEl = card.querySelector('img');
             const img = imgEl ? imgEl.src : '';
-            
+
             // Add price to UI
             if (!card.querySelector('.product-price')) {
                 const priceEl = document.createElement('p');
@@ -676,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 priceEl.textContent = `$${price}`;
                 nameEl.parentElement.appendChild(priceEl);
             }
-            
+
             // Add "Add To Cart" overlay button instead of "Quick View"
             const imgContainer = card.querySelector('.aspect-\\[3\\/4\\]');
             if (imgContainer) {
@@ -703,15 +703,15 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCart();
     }
 
-    window.addToCart = function(item) {
+    window.addToCart = function (item) {
         const product = window.allProducts.find(p => p.name === item.name);
         if (product) {
             const stockKey = 'stock_' + item.size.toLowerCase();
             const maxStock = product[stockKey] !== undefined ? product[stockKey] : 99;
-            
+
             const existing = cart.find(i => i.name === item.name && i.size === item.size);
             const currentQty = existing ? existing.quantity : 0;
-            
+
             if (currentQty + 1 > maxStock) {
                 alert(`Cannot add more to cart. Only ${maxStock} items available in size ${item.size}.`);
                 return;
@@ -722,18 +722,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existing) {
             existing.quantity += 1;
         } else {
-            cart.push({...item, quantity: 1, id: Date.now()});
+            cart.push({ ...item, quantity: 1, id: Date.now() });
         }
         saveCart();
         openCartFn();
     }
 
-    window.removeFromCart = function(id) {
+    window.removeFromCart = function (id) {
         cart = cart.filter(i => i.id !== id);
         saveCart();
     }
 
-    window.updateQuantity = function(id, change) {
+    window.updateQuantity = function (id, change) {
         const item = cart.find(i => i.id === id);
         if (item) {
             item.quantity += change;
@@ -746,9 +746,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('cart-items');
         const totalEl = document.getElementById('cart-total');
         if (!container || !totalEl) return;
-        
+
         let total = 0;
-        
+
         if (cart.length === 0) {
             container.innerHTML = '<p class="font-label text-[10px] uppercase tracking-widest text-outline text-center mt-12">Your cart is empty.</p>';
         } else {
@@ -776,9 +776,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }).join('<hr class="border-outline-variant/20" />');
         }
-        
+
         totalEl.textContent = `$${total.toFixed(2)}`;
-        
+
         // Update badges
         const badges = document.querySelectorAll('.cart-badge');
         const count = cart.reduce((sum, i) => sum + i.quantity, 0);
@@ -796,16 +796,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function openCartFn() {
         const sidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.remove('translate-x-full');
-        if(overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
+        if (sidebar) sidebar.classList.remove('translate-x-full');
+        if (overlay) overlay.classList.remove('opacity-0', 'pointer-events-none');
         document.body.style.overflow = 'hidden';
     }
 
     function closeCartFn() {
         const sidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('cart-overlay');
-        if(sidebar) sidebar.classList.add('translate-x-full');
-        if(overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
+        if (sidebar) sidebar.classList.add('translate-x-full');
+        if (overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
         document.body.style.overflow = '';
     }
 
@@ -814,16 +814,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Open cart
         let isToggle = false;
         let current = e.target;
-        while(current && current !== document) {
+        while (current && current !== document) {
             if (current.classList && current.classList.contains('cart-toggle-btn')) { isToggle = true; break; }
             if (current.textContent && current.textContent.trim() === 'shopping_bag') { isToggle = true; break; }
             current = current.parentNode;
         }
-        if (isToggle) { 
-            e.preventDefault(); 
-            openCartFn(); 
+        if (isToggle) {
+            e.preventDefault();
+            openCartFn();
         }
-        
+
         const addBtn = e.target.closest('.add-to-cart-btn');
         if (addBtn) {
             e.preventDefault();
@@ -849,7 +849,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closeCartFn();
         }
     });
-    
+
     // Delegate overlay click
     document.addEventListener('click', (e) => {
         if (e.target && e.target.id === 'cart-overlay') {
@@ -870,17 +870,17 @@ document.addEventListener('DOMContentLoaded', () => {
             msgEl.classList.remove('hidden', 'text-[#5c6858]', 'text-error', 'text-primary');
             msgEl.classList.add('text-primary');
             msgEl.textContent = 'Suscribiendo...';
-            
+
             if (!supabaseClient) {
                 msgEl.textContent = 'Error: Base de datos no conectada.';
                 msgEl.classList.add('text-error');
                 return;
             }
-            
+
             const { error } = await supabaseClient
                 .from('newsletter_subscribers')
                 .insert([{ email }]);
-                
+
             if (error && error.code === '23505') { // Unique constraint
                 msgEl.textContent = '¡Ya estás suscrito!';
             } else if (error) {
@@ -891,7 +891,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 msgEl.classList.add('text-[#5c6858]');
                 document.getElementById('newsletter-email').value = '';
             }
-            
+
             setTimeout(() => {
                 msgEl.classList.add('hidden');
             }, 5000);
@@ -907,7 +907,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const applyFilters = () => {
             let filtered = [...window.allProducts];
-            
+
             if (currentFilters.category !== 'all') {
                 filtered = filtered.filter(p => p.category === currentFilters.category);
             }
@@ -918,7 +918,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const s = currentFilters.size.toLowerCase();
                 filtered = filtered.filter(p => p[`stock_${s}`] > 0);
             }
-            
+
             if (currentSort === 'price_asc') {
                 filtered.sort((a, b) => a.price - b.price);
             } else if (currentSort === 'price_desc') {
@@ -927,7 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // new arrivals
                 filtered.sort((a, b) => new Date(b.created_at || '1970-01-01') - new Date(a.created_at || '1970-01-01'));
             }
-            
+
             renderSupabaseProducts(filtered);
         };
 
@@ -942,7 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = document.getElementById(t.btn);
             const drop = document.getElementById(t.drop);
             const icon = document.getElementById(t.icon);
-            if(btn && drop) {
+            if (btn && drop) {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     // Close others
@@ -953,7 +953,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     drop.classList.toggle('hidden');
-                    if(icon) icon.classList.toggle('rotate-180');
+                    if (icon) icon.classList.toggle('rotate-180');
                 });
             }
         });
@@ -971,13 +971,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const type = opt.getAttribute('data-type');
                 const val = opt.getAttribute('data-val');
                 currentFilters[type] = val;
-                
+
                 const btnContentMap = { category: 'btn-filter-category', size: 'btn-filter-size', color: 'btn-filter-color' };
                 const btnId = btnContentMap[type];
                 const btn = document.getElementById(btnId);
                 if (btn) {
                     let displayVal = val === 'all' ? type.charAt(0).toUpperCase() + type.slice(1) : val;
-                    if(type === 'size' && val !== 'all') displayVal = "Size " + val.toUpperCase();
+                    if (type === 'size' && val !== 'all') displayVal = "Size " + val.toUpperCase();
                     btn.innerHTML = `${displayVal} <span class="material-symbols-outlined !text-[14px] transition-transform" id="icon-filter-${type}">expand_more</span>`;
                 }
 
@@ -995,7 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     };
-    
+
     initShopFilters();
     initOutfitsPage();
 
@@ -1004,15 +1004,15 @@ document.addEventListener('DOMContentLoaded', () => {
 window.outfitsData = [
     {
         id: 'outfit-1',
-        title: 'Minimalist Studio Set',
-        video: '/VIDEOS_OUTFITS/outfit1.mp4',
+        title: 'Sweater Clara',
+        video: '/VIDEOS_OUTFITS/sweater_clara.mp4',
         products: ['Architectural Wool Blazer', 'High-Rise Linen Trouser']
     },
     {
         id: 'outfit-2',
-        title: 'Evening Silhouette',
-        video: '/VIDEOS_OUTFITS/outfit2.mp4',
-        products: ['L\'Aube Silk Slip Dress', 'Asymmetric Leather Tote']
+        title: 'Saco Theo',
+        video: '/VIDEOS_OUTFITS/saco_theo.mp4',
+        products: ['Architectural Wool Blazer', 'Asymmetric Leather Tote']
     },
     {
         id: 'outfit-3',
@@ -1032,7 +1032,8 @@ function initOutfitsPage() {
             <video class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" loop muted playsinline>
                 <source src="${outfit.video}" type="video/mp4" />
             </video>
-            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+            <div class="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/80 via-black/10 to-transparent pointer-events-none"></div>
+            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                 <span class="material-symbols-outlined text-white text-6xl drop-shadow-md">play_circle</span>
             </div>
             <div class="absolute bottom-6 left-6 text-white text-left z-10 pointer-events-none drop-shadow-lg opacity-90 group-hover:opacity-100 transition-opacity">
@@ -1046,13 +1047,13 @@ function initOutfitsPage() {
     const gridItems = grid.querySelectorAll('.group');
     gridItems.forEach(item => {
         const video = item.querySelector('video');
-        
+
         item.addEventListener('mouseenter', () => {
             if (video) {
                 video.play().catch(e => console.log('Video play prevented', e));
             }
         });
-        
+
         item.addEventListener('mouseleave', () => {
             if (video) video.pause();
         });
@@ -1075,14 +1076,14 @@ function initOutfitsPage() {
     }
 }
 
-window.openOutfitModal = function(outfitId) {
+window.openOutfitModal = function (outfitId) {
     const outfit = window.outfitsData.find(o => o.id === outfitId);
     if (!outfit) return;
 
     const modal = document.getElementById('outfit-modal');
     const modalVideo = document.getElementById('modal-video');
     const productList = document.getElementById('outfit-products-list');
-    
+
     // Set Video
     if (modalVideo) {
         modalVideo.src = outfit.video;
@@ -1094,7 +1095,7 @@ window.openOutfitModal = function(outfitId) {
         productList.innerHTML = '';
         // Find matching products from allProducts (can be static or fetched from Supabase)
         const matchedProducts = window.allProducts.filter(p => outfit.products.includes(p.name));
-        
+
         if (matchedProducts.length === 0) {
             productList.innerHTML = '<p class="text-outline text-sm col-span-full font-label tracking-widest uppercase">No products currently available for this outfit.</p>';
         } else {

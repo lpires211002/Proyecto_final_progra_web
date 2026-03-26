@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateFallbackProducts() {
         // Collect from DOM if any exist static
-        const cards = document.querySelectorAll('.group.cursor-pointer');
+        const cards = document.querySelectorAll('.group.cursor-pointer:not([data-id])');
         cards.forEach(card => {
             const nameEl = card.querySelector('h3') || card.querySelector('h4');
             if (nameEl) {
@@ -384,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'hidden';
             if (!window.allProducts || window.allProducts.length === 0) {
                 // Try populate again if not loaded
-                const cards = document.querySelectorAll('.group.cursor-pointer');
+                const cards = document.querySelectorAll('.group.cursor-pointer:not([data-id])');
                 cards.forEach(card => {
                     const nameEl = card.querySelector('h3') || card.querySelector('h4');
                     if (!nameEl) return;
@@ -997,5 +997,133 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     initShopFilters();
+    initOutfitsPage();
 
 });
+
+window.outfitsData = [
+    {
+        id: 'outfit-1',
+        title: 'Minimalist Studio Set',
+        video: '/VIDEOS_OUTFITS/outfit1.mp4',
+        products: ['Architectural Wool Blazer', 'High-Rise Linen Trouser']
+    },
+    {
+        id: 'outfit-2',
+        title: 'Evening Silhouette',
+        video: '/VIDEOS_OUTFITS/outfit2.mp4',
+        products: ['L\'Aube Silk Slip Dress', 'Asymmetric Leather Tote']
+    },
+    {
+        id: 'outfit-3',
+        title: 'Winter Editorial',
+        video: '/VIDEOS_OUTFITS/outfit3.mp4',
+        products: ['Double-Face Cashmere Coat', 'Fine Merino Turtleneck']
+    }
+];
+
+function initOutfitsPage() {
+    const grid = document.getElementById('outfits-grid');
+    if (!grid) return; // not on outfits page
+
+    // Render Grid
+    grid.innerHTML = window.outfitsData.map(outfit => `
+        <div class="group cursor-pointer relative aspect-[9/16] bg-surface-container overflow-hidden rounded-md shadow-sm" data-id="${outfit.id}">
+            <video class="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-105" loop muted playsinline>
+                <source src="${outfit.video}" type="video/mp4" />
+            </video>
+            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-6xl drop-shadow-md">play_circle</span>
+            </div>
+            <div class="absolute bottom-6 left-6 text-white text-left z-10 pointer-events-none drop-shadow-lg opacity-90 group-hover:opacity-100 transition-opacity">
+                <h3 class="font-serif italic text-2xl mb-1">${outfit.title}</h3>
+                <p class="font-label text-[9px] uppercase tracking-[0.2em] opacity-80">${outfit.products.length} Pieces</p>
+            </div>
+        </div>
+    `).join('');
+
+    // Setup hover and click events
+    const gridItems = grid.querySelectorAll('.group');
+    gridItems.forEach(item => {
+        const video = item.querySelector('video');
+        
+        item.addEventListener('mouseenter', () => {
+            if (video) {
+                video.play().catch(e => console.log('Video play prevented', e));
+            }
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            if (video) video.pause();
+        });
+
+        item.addEventListener('click', () => {
+            const outfitId = item.getAttribute('data-id');
+            openOutfitModal(outfitId);
+        });
+    });
+
+    const closeBtn = document.getElementById('close-outfit-modal');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            const modal = document.getElementById('outfit-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+            const modalVideo = document.getElementById('modal-video');
+            if (modalVideo) modalVideo.pause();
+        });
+    }
+}
+
+window.openOutfitModal = function(outfitId) {
+    const outfit = window.outfitsData.find(o => o.id === outfitId);
+    if (!outfit) return;
+
+    const modal = document.getElementById('outfit-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const productList = document.getElementById('outfit-products-list');
+    
+    // Set Video
+    if (modalVideo) {
+        modalVideo.src = outfit.video;
+        modalVideo.play().catch(e => console.log('Autoplay prevented', e));
+    }
+
+    // Populate Products
+    if (productList) {
+        productList.innerHTML = '';
+        // Find matching products from allProducts (can be static or fetched from Supabase)
+        const matchedProducts = window.allProducts.filter(p => outfit.products.includes(p.name));
+        
+        if (matchedProducts.length === 0) {
+            productList.innerHTML = '<p class="text-outline text-sm col-span-full font-label tracking-widest uppercase">No products currently available for this outfit.</p>';
+        } else {
+            matchedProducts.forEach(product => {
+                productList.innerHTML += `
+                <div class="group cursor-pointer" onclick="window.location.href='product.html?name=${encodeURIComponent(product.name).replace(/'/g, "\\'")}'">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface-container mb-4 relative drop-shadow-sm">
+                        <img alt="${product.name}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="${product.image_url || product.img || ''}" />
+                        <button class="add-to-cart-btn absolute bottom-4 right-4 bg-white text-primary py-2 px-4 font-label text-[9px] uppercase tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 shadow-lg whitespace-nowrap z-10"
+                            data-name="${product.name}" 
+                            data-price="${product.price}" 
+                            data-img="${product.image_url || product.img}" 
+                            data-size="M">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <div>
+                        <h4 class="font-body text-sm font-semibold tracking-wide mb-1">${product.name}</h4>
+                        <p class="font-label text-[9px] uppercase tracking-widest text-outline mb-1">${product.color || 'Standard'}</p>
+                        <p class="font-body text-sm font-bold mt-1">$${product.price}</p>
+                    </div>
+                </div>
+                `;
+            });
+        }
+    }
+
+    if (modal) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        document.body.style.overflow = 'hidden';
+    }
+}

@@ -58,7 +58,7 @@ footer_html = """    <footer class="bg-zinc-100 dark:bg-zinc-900 border-t-0 full
         </div>
     </footer>"""
 
-html_files = ['index.html', 'shop.html', 'product.html', 'contact.html']
+html_files = ['index.html', 'shop.html', 'product.html', 'contact.html', 'inspo.html', 'outfits.html']
 
 for file in html_files:
     with open(file, 'r', encoding='utf-8') as f:

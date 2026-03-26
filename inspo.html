@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>taiko.nina | Inspo</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+    <link rel="icon" type="image/jpeg" href="favicon_taiko_nina.jpg" />
+    <style>
+        .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0, 0, 1); }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-500 { transition-delay: 500ms; }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary font-body">
+
+    <!-- Top Navigation Shell -->
+    <nav class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl text-zinc-950 dark:text-zinc-50 docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
+        <div class="flex justify-between items-center w-full px-12 py-8 max-w-[1600px] mx-auto">
+            <div class="hidden md:flex items-center gap-12">
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
+                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
+            </div>
+            <div class="absolute left-1/2 -translate-x-1/2">
+                <h1 class="text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50" style="cursor: pointer;" onclick="window.location.href='index.html'">taiko.nina</h1>
+            </div>
+            <div class="flex items-center gap-8">
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">search</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">person</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">shopping_bag</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="min-h-screen bg-surface">
+        
+        <!-- Hero Title -->
+        <section class="pt-48 pb-32 px-12 md:px-24 max-w-[1400px] mx-auto text-center fade-up mt-12">
+            <span class="font-label text-[10px] uppercase tracking-[0.4em] text-outline mb-12 block">Manifiesto</span>
+            <h2 class="serif-headline text-6xl md:text-[6rem] italic text-zinc-950 leading-[0.9] tracking-tighter mb-16">
+                El lujo de lo<br>imperceptible.
+            </h2>
+            <div class="w-[1px] h-32 bg-zinc-300 mx-auto fade-up delay-300"></div>
+        </section>
+
+        <!-- Chapter 1: Video Split -->
+        <section class="py-32 px-12 md:px-24">
+            <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-32 items-center">
+                <div class="md:col-span-5 space-y-12 fade-up">
+                    <h3 class="serif-headline text-4xl md:text-5xl italic text-zinc-950">Nuestros Orígenes</h3>
+                    <p class="font-body text-lg text-zinc-500 leading-relaxed font-light">
+                        taiko.nina nació de una búsqueda obsesiva por la quietud. En un mundo saturado de ruido visual y estéticas efímeras, decidimos volver a lo esencial. Cada silueta que diseñamos no busca gritar por atención, sino que invita a quien la lleva a habitar su propio espacio con una confianza serena.
+                    </p>
+                    <p class="font-body text-lg text-zinc-500 leading-relaxed font-light">
+                        Nos inspiran las formas orgánicas, la arquitectura brutalista y la poesía de los materiales nobles que envejecen con gracia.
+                    </p>
+                </div>
+                <div class="md:col-span-7 aspect-[3/4] md:aspect-square relative flex justify-end fade-up delay-300">
+                    <div class="w-full h-full bg-zinc-100 overflow-hidden group">
+                        <img 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuALxE5sZOprJs-kmRuzqFB4zsGOfASZiSWR-sqB1OfvMX2pjLluo_zS9KmqsjOzompX-tIxiWIVWBbFX60nvKbuGfV5s95ko_NI22CwrngnD8A_DsrzNtHRTamnIFvlpYSN-4_KW4mltdeoAklPxlLiEYo0b3QLQw8u0CHZF1naeYsUWKlW-UxMkIctB0ltY7Ulakw2CI1E9aA-KxZvzDXWSxwdUfvJrgrKvwepu770C9DWv9tPFSNmEN9vLizPoOeBrCt4iOhTrxo" 
+                            class="w-full h-full object-cover grayscale brightness-90 group-hover:scale-105 transition-transform duration-[3s] ease-out" 
+                            alt="Atelier Origin"
+                        />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Huge Quote Parallax -->
+        <section class="py-48 px-12 bg-zinc-50 border-y border-zinc-200">
+            <div class="max-w-[1200px] mx-auto text-center fade-up">
+                <span class="font-label text-[10px] uppercase tracking-[0.4em] text-zinc-400 mb-8 block">La Filosofía</span>
+                <p class="serif-headline text-3xl md:text-6xl italic text-zinc-900 leading-[1.3] tracking-tight">
+                    "No hacemos ropa para adornar el cuerpo, construimos refugios de tela para habitar el presente."
+                </p>
+                <div class="mt-16 flex justify-center fade-up delay-500">
+                    <button onclick="window.location.href='shop.html'" class="border border-zinc-300 text-zinc-800 px-12 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-zinc-950 hover:text-white hover:border-zinc-950 transition-all duration-700">Explorar Colección</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 2: The Details -->
+        <section class="py-32 px-12 md:px-24">
+            <div class="max-w-[1600px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 fade-up">
+                    <div class="aspect-[4/5] bg-zinc-100 overflow-hidden group">
+                        <img 
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQk7OKdgfnN5bgzIGFdu5jpwTTlS2QxrAa_bUL0bat10PohtTnrdDTJmctmgyJeI-VLpbCCPj3s2A1Aq7AAiRdT1hLk53jkwBigSiZ0X_tZrFSKRQYIdrpzxd4Hq2f86jsLNgZHGomp1_6c6ji80QDQzDMszhHxK7_RrZrpugIY7VtXR9XvPM9AvRVLguMqcJzyiNoYBo52QzbcLJlJjjW3i_8fyy0lwuOGjyTnfWLWpnZp3wrDRdFSrlY1_VG2eRze48yt3NULeU" 
+                            class="w-full h-full object-cover grayscale brightness-95 group-hover:scale-105 transition-transform duration-[3s] ease-out" 
+                        />
+                    </div>
+                    <div class="aspect-[4/5] bg-zinc-100 overflow-hidden group flex items-center justify-center p-12 md:p-24 text-center">
+                        <div>
+                            <span class="font-label text-[10px] uppercase tracking-[0.4em] text-outline mb-8 block">Artesanía</span>
+                            <h3 class="serif-headline text-4xl italic text-zinc-950 mb-8">El valor del tiempo</h3>
+                            <p class="font-body text-lg text-zinc-500 leading-relaxed font-light">
+                                La confección de una pieza taiko.nina es un antídoto contra la prisa. Colaboramos con maestros sastres que respetan la caída natural de los tejidos. Creemos que una prenda solo alcanza su máximo esplendor después de años de uso, adaptándose silenciosamente a la vida de quien la viste.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="w-full h-[1px] bg-zinc-200"></div>
+
+    </main>
+
+    <!-- Footer Shell -->
+    <footer class="bg-zinc-100 dark:bg-zinc-900 border-t-0 full-width mt-auto">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 px-12 py-24 w-full max-w-[1600px] mx-auto text-on-surface">
+            <!-- Brand Info -->
+            <div>
+                <div class="text-xl font-serif italic mb-6 text-zinc-950 dark:text-zinc-50">taiko.nina</div>
+                <p class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] leading-relaxed">
+                    Atelier Collection. Defining modern femininity through precision and grace.
+                </p>
+            </div>
+            <!-- Navigation Links -->
+            <div>
+                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Navigation</h4>
+                <ul class="space-y-4">
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="index.html">Home</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="shop.html">Collection</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="outfits.html">Outfits</a></li>
+                </ul>
+            </div>
+            <!-- Contact Links -->
+            <div>
+                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Contact</h4>
+                <ul class="space-y-4">
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="client_care.html">Client Care</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="tel:+13054567890">+1 (305) 456-7890</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="https://instagram.com/taiko.nina" target="_blank">Instagram</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="#" onclick="alert('Próximamente'); return false;">Press Inquiries</a></li>
+                    <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300" href="#" onclick="alert('Próximamente'); return false;">Privacy</a></li>
+                </ul>
+            </div>
+            <!-- Newsletter -->
+            <div>
+                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Newsletter</h4>
+                <form id="newsletter-form" class="flex border-b border-zinc-300 dark:border-zinc-700 py-2 relative">
+                    <input id="newsletter-email" required class="bg-transparent border-none text-[10px] uppercase tracking-[0.2em] focus:ring-0 w-full placeholder:text-zinc-400 text-on-surface" placeholder="Email Address" type="email" />
+                    <button type="submit" class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer">arrow_forward</button>
+                    <p id="newsletter-msg" class="absolute top-12 left-0 text-[10px] uppercase tracking-widest text-[#5c6858] font-bold hidden"></p>
+                </form>
+            </div>
+        </div>
+        <div class="px-12 py-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier Collection.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll Fade Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+            
+            // Immediately trigger hero section
+            setTimeout(() => {
+                document.querySelectorAll('.fade-up').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if(rect.top < window.innerHeight) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>

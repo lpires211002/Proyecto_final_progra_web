@@ -180,30 +180,32 @@
                 </div>
             </div>
         </section>
-        <!-- Our Story Teaser -->
-        <section id="our-story" class="py-48 px-12 bg-surface-container-low overflow-hidden">
-            <div class="max-w-[1200px] mx-auto grid md:grid-cols-2 gap-24 items-center">
-                <div class="relative">
-                    <div class="w-full aspect-[4/5] bg-surface-container-highest relative z-10">
-                        <img class="w-full h-full object-cover grayscale"
-                            data-alt="Black and white photo of a garment atelier desk"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuALxE5sZOprJs-kmRuzqFB4zsGOfASZiSWR-sqB1OfvMX2pjLluo_zS9KmqsjOzompX-tIxiWIVWBbFX60nvKbuGfV5s95ko_NI22CwrngnD8A_DsrzNtHRTamnIFvlpYSN-4_KW4mltdeoAklPxlLiEYo0b3QLQw8u0CHZF1naeYsUWKlW-UxMkIctB0ltY7Ulakw2CI1E9aA-KxZvzDXWSxwdUfvJrgrKvwepu770C9DWv9tPFSNmEN9vLizPoOeBrCt4iOhTrxo" />
-                    </div>
-                    <div class="absolute -bottom-12 -right-12 w-64 h-64 border-[1px] border-outline/20 z-0"></div>
+        <!-- Inspiration Teaser (Replaces Our Story) -->
+        <section class="relative h-[85vh] w-full overflow-hidden group cursor-pointer"
+            onclick="window.location.href='inspo.html'">
+            <div class="absolute inset-0 z-0 bg-black">
+                <!-- Using video_taiko_index.mp4 as requested -->
+                <video autoplay loop muted playsinline
+                    class="w-full h-full object-cover grayscale brightness-[0.60] scale-[1.8] group-hover:scale-[1.85] group-hover:brightness-[0.40] transition-all duration-[3000ms] ease-out">
+                    <source src="/VIDEOS_INSPO/video_index.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+            <div
+                class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6 pointer-events-none">
+                <span
+                    class="font-label text-[10px] uppercase tracking-[0.5em] text-white/60 mb-8 font-semibold opacity-0 translate-y-4 animate-[fade-up_1s_ease-out_forwards]">The
+                    Philosophy</span>
+
+                <h2 class="serif-headline text-6xl md:text-[8rem] italic text-white drop-shadow-2xl leading-none">
+                    Nuestros<br><span class="opacity-80">orígenes</span>
+                </h2>
+
+                <div class="mt-16 w-[1px] h-24 bg-white/20 group-hover:h-32 transition-all duration-1000 ease-in-out">
                 </div>
-                <div class="space-y-12">
-                    <span class="font-label text-[11px] uppercase tracking-[0.4em] text-outline">Since 2012</span>
-                    <h2 class="serif-headline text-5xl italic leading-tight">Crafting silence in a world of noise.</h2>
-                    <p class="font-body text-lg text-on-surface-variant leading-relaxed max-w-lg">
-                        taiko.nina was founded on the principle that true luxury is felt, not seen. Every stitch is a
-                        commitment to longevity, and every silhouette is designed to empower through understatement.
-                    </p>
-                    <div class="pt-8">
-                        <button onclick="document.getElementById('our-story').scrollIntoView({behavior: 'smooth'})"
-                            class="bg-primary text-on-primary px-12 py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity">Read
-                            Our Story</button>
-                    </div>
-                </div>
+                <span
+                    class="mt-6 font-label text-[9px] uppercase tracking-[0.3em] text-white/50 group-hover:text-white transition-colors duration-700">Explorar
+                    la inspiración</span>
             </div>
         </section>
         <!-- Editorial Lookbook Grid -->

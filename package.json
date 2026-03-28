@@ -1,0 +1,9 @@
+{
+  "name": "taiko-nina-store",
+  "version": "1.0.0",
+  "description": "Taiko Nina Store E-commerce",
+  "main": "index.js",
+  "dependencies": {
+    "mercadopago": "^2.0.1"
+  }
+}

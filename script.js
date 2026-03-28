@@ -338,7 +338,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="font-label text-[11px] uppercase tracking-widest text-outline">Subtotal</span>
                     <span id="cart-total" class="font-body font-bold text-lg">$0.00</span>
                 </div>
-                <button class="w-full bg-primary text-on-primary py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity">Checkout securely</button>
+                <button onclick="initCheckout()" id="checkout-btn" class="w-full bg-primary text-on-primary py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity flex justify-center items-center">
+                    <span>Checkout securely</span>
+                </button>
             </div>
         </div>
         <div id="cart-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
@@ -801,12 +803,62 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = 'hidden';
     }
 
-    function closeCartFn() {
+    window.closeCartFn = function () {
         const sidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('cart-overlay');
         if (sidebar) sidebar.classList.add('translate-x-full');
-        if (overlay) overlay.classList.add('opacity-0', 'pointer-events-none');
-        document.body.style.overflow = '';
+        
+        // Ensure profile sidebar isn't active
+        const profileSidebar = document.getElementById('profile-sidebar');
+        if (overlay && profileSidebar && profileSidebar.classList.contains('translate-x-full')) {
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Mercado Pago Checkout Function
+    window.initCheckout = async function () {
+        if (cart.length === 0) {
+            alert('Your cart is empty.');
+            return;
+        }
+
+        const checkoutBtn = document.getElementById('checkout-btn');
+        if (checkoutBtn) {
+            checkoutBtn.disabled = true;
+            checkoutBtn.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg mr-2">autorenew</span> Processing...';
+        }
+
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cartItems: cart })
+            });
+
+            const data = await response.json();
+
+            if (data.init_point) {
+                // Redirect user to Mercado Pago secure checkout
+                window.location.href = data.init_point;
+            } else {
+                console.error('Checkout error:', data);
+                alert('No se pudo generar el link de pago. Por favor verifica los logs.');
+                if (checkoutBtn) {
+                    checkoutBtn.disabled = false;
+                    checkoutBtn.innerHTML = '<span>Checkout securely</span>';
+                }
+            }
+        } catch (err) {
+            console.error('Runtime Error:', err);
+            alert('Oh no! Hubo un error de conexión al intentar pagar.');
+            if (checkoutBtn) {
+                checkoutBtn.disabled = false;
+                checkoutBtn.innerHTML = '<span>Checkout securely</span>';
+            }
+        }
     }
 
     // Bind document clicks

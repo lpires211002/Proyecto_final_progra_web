@@ -11,13 +11,6 @@
     <link href="style.css" rel="stylesheet" />
     <script src="script.js"></script>
     <link rel="icon" type="image/jpeg" href="favicon_taiko_nina.jpg" />
-    <style>
-        .fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0, 0, 1); }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-300 { transition-delay: 300ms; }
-        .delay-500 { transition-delay: 500ms; }
-    </style>
 </head>
 
 <body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary font-body">
@@ -161,37 +154,5 @@
             <p class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier Collection.</p>
         </div>
     </footer>
-
-    <!-- Scroll Fade Script -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-            
-            // Immediately trigger hero section
-            setTimeout(() => {
-                document.querySelectorAll('.fade-up').forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    if(rect.top < window.innerHeight) {
-                        el.classList.add('visible');
-                    }
-                });
-            }, 100);
-        });
-    </script>
 </body>
 </html>

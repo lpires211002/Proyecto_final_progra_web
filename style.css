@@ -26,3 +26,10 @@ body {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+/* Scroll Fade Animations */
+.fade-up { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.2, 0, 0, 1); }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.delay-100 { transition-delay: 100ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-500 { transition-delay: 500ms; }

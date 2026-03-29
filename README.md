@@ -79,4 +79,4 @@ Para hacer que el mantenimiento de la tienda sea más fácil, el proyecto incluy
 - `package.json`: Gestor de dependencias de Node.js.
 - `*.py`: Automatizaciones administrativas.
 
-Disfruta desarrollando en **Taiko Nina** 🖤.
+Disfruta desarrollando en **Taiko Nina** 🖤.     

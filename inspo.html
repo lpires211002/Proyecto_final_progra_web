@@ -17,21 +17,36 @@
 
     <!-- Top Navigation Shell -->
     <nav class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl text-zinc-950 dark:text-zinc-50 docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
-        <div class="flex justify-between items-center w-full px-12 py-8 max-w-[1600px] mx-auto">
-            <div class="hidden md:flex items-center gap-12">
-                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
-                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
-                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
-                <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
+        <div class="flex items-center w-full px-4 md:px-12 py-4 md:py-8 max-w-[1600px] mx-auto">
+            <!-- Left Navigation (Desktop) & Mobile menu -->
+            <div class="flex-1 flex items-center">
+                <span class="material-symbols-outlined md:hidden cursor-pointer" id="mobile-menu-toggle">menu</span>
+                <div class="hidden md:flex items-center gap-12">
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
+                </div>
             </div>
-            <div class="absolute left-1/2 -translate-x-1/2">
-                <h1 class="text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50" style="cursor: pointer;" onclick="window.location.href='index.html'">taiko.nina</h1>
+            <!-- Logo -->
+            <div class="shrink-0 flex justify-center text-center">
+                <div class="text-xl md:text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50 whitespace-nowrap" style="cursor: pointer;" onclick="window.location.href='index.html'">
+                    taiko.nina
+                </div>
             </div>
-            <div class="flex items-center gap-8">
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">search</span></button>
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">person</span></button>
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined">shopping_bag</span></button>
+            <!-- Trailing Actions -->
+            <div class="flex-1 flex items-center justify-end gap-3 md:gap-8">
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">search</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">person</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">shopping_bag</span></button>
             </div>
+        </div>
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-nav-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 flex-col items-center py-6 gap-6 shadow-xl">
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
         </div>
     </nav>
 

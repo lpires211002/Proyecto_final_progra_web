@@ -234,40 +234,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Mobile menu toggle logic is handled by findMenuToggle below
-
+    // Mobile menu toggle logic removed from here as we use another listener later on.
 });
 
-// Since :contains doesn't exist in standard DOM, here is a custom function
-function findMenuToggle() {
-    const spans = document.querySelectorAll('.material-symbols-outlined');
-    for (let span of spans) {
-        if (span.textContent.trim() === 'menu') return span;
-    }
-    return null;
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    const toggle = findMenuToggle();
+    const toggle = document.getElementById('mobile-menu-toggle');
     if (toggle) {
         toggle.style.cursor = 'pointer';
-        toggle.addEventListener('click', () => {
-            // add a simple mobile menu 
-            const nav = document.querySelector('nav.hidden, nav.md\:flex');
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const nav = document.getElementById('mobile-nav-menu');
             if (nav) {
                 nav.classList.toggle('hidden');
                 nav.classList.toggle('flex');
-                nav.classList.toggle('flex-col');
-                nav.classList.toggle('absolute');
-                nav.classList.toggle('top-full');
-                nav.classList.toggle('left-0');
-                nav.classList.toggle('w-full');
-                nav.classList.toggle('bg-white');
-                nav.classList.toggle('dark:bg-black');
-                nav.classList.toggle('p-6');
             }
         });
     }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const nav = document.getElementById('mobile-nav-menu');
+        const toggle = document.getElementById('mobile-menu-toggle');
+        if (nav && !nav.classList.contains('hidden') && e.target !== toggle && !nav.contains(e.target)) {
+            nav.classList.add('hidden');
+            nav.classList.remove('flex');
+        }
+    });
 });
 
 

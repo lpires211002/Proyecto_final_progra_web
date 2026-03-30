@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>taiko.nina | Client Care</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="style.css" rel="stylesheet" />
     <script src="script.js"></script>
@@ -15,6 +20,7 @@
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             transform: translateX(0);
         }
+
         .contact-link:hover {
             transform: translateX(12px);
             opacity: 0.8;
@@ -22,71 +28,94 @@
     </style>
     <link rel="icon" type="image/jpeg" href="favicon_taiko_nina.jpg" />
 </head>
+
 <body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary">
     <!-- Navbar -->
-    <nav class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl text-zinc-950 dark:text-zinc-50 docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
+    <nav
+        class="bg-white/80 dark:bg-black/80 backdrop-blur-2xl text-zinc-950 dark:text-zinc-50 docked full-width top-0 sticky z-50 shadow-[0_1px_0_0_rgba(0,0,0,0.03)] dark:shadow-none">
         <div class="flex items-center w-full px-4 md:px-12 py-4 md:py-8 max-w-[1600px] mx-auto">
             <!-- Left Navigation (Desktop) & Mobile menu -->
             <div class="flex-1 flex items-center">
                 <span class="material-symbols-outlined md:hidden cursor-pointer" id="mobile-menu-toggle">menu</span>
                 <div class="hidden md:flex items-center gap-12">
-                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
-                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
-                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
-                    <a class="text-zinc-500 dark:text-zinc-400 font-medium border-b border-zinc-950/10 tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                        href="index.html">Home</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                        href="shop.html">Collection</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                        href="outfits.html">Outfits</a>
+                    <a class="text-zinc-500 dark:text-zinc-400 font-medium border-b border-zinc-950/10 tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:text-zinc-950 dark:hover:text-zinc-50"
+                        href="contact.html">Contact</a>
                 </div>
             </div>
             <!-- Logo -->
             <div class="shrink-0 flex justify-center text-center">
-                <div class="text-xl md:text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50 whitespace-nowrap">
+                <div
+                    class="text-xl md:text-2xl font-serif italic tracking-tighter text-zinc-950 dark:text-zinc-50 whitespace-nowrap">
                     <a href="index.html">taiko.nina</a>
                 </div>
             </div>
             <!-- Trailing Actions -->
             <div class="flex-1 flex items-center justify-end gap-3 md:gap-8">
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">search</span></button>
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">person</span></button>
-                <button class="scale-100 active:scale-95 transition-transform"><span class="material-symbols-outlined text-[20px] md:text-[24px]">shopping_bag</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-[20px] md:text-[24px]">search</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-[20px] md:text-[24px]">person</span></button>
+                <button class="scale-100 active:scale-95 transition-transform"><span
+                        class="material-symbols-outlined text-[20px] md:text-[24px]">shopping_bag</span></button>
             </div>
         </div>
         <!-- Mobile Menu Overlay -->
-        <div id="mobile-nav-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 flex-col items-center py-6 gap-6 shadow-xl">
-            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="index.html">Home</a>
-            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="shop.html">Collection</a>
-            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="outfits.html">Outfits</a>
-            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50" href="contact.html">Contact</a>
+        <div id="mobile-nav-menu"
+            class="hidden md:hidden absolute top-full left-0 w-full bg-white dark:bg-black border-t border-zinc-200 dark:border-zinc-800 flex-col items-center py-6 gap-6 shadow-xl">
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50"
+                href="index.html">Home</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50"
+                href="shop.html">Collection</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50"
+                href="outfits.html">Outfits</a>
+            <a class="text-zinc-500 dark:text-zinc-400 font-medium tracking-[0.15em] text-[12px] uppercase hover:text-zinc-950 dark:hover:text-zinc-50"
+                href="contact.html">Contact</a>
         </div>
     </nav>
 
     <!-- Content -->
-        <main class="min-h-screen py-32 px-12 lg:px-24 flex items-center justify-center bg-surface border-b border-outline-variant/20">
+    <main
+        class="min-h-screen py-32 px-12 lg:px-24 flex items-center justify-center bg-surface border-b border-outline-variant/20">
         <div class="max-w-[800px] w-full space-y-12 text-center">
             <span class="font-label text-[10px] uppercase tracking-[0.4em] text-outline mb-6 block">Support</span>
-            <h1 class="serif-headline text-5xl md:text-7xl font-light italic tracking-tighter leading-none mb-12">Client Care</h1>
+            <h1 class="serif-headline text-5xl md:text-7xl font-light italic tracking-tighter leading-none mb-12">Client
+                Care</h1>
             <p class="font-body text-xl text-on-surface-variant font-light leading-relaxed">
-                Our dedicated team is here to assist you with order inquiries, sizing guidance, and styling advice. 
+                Our dedicated team is here to assist you with order inquiries, sizing guidance, and styling advice.
                 We strive to provide a seamless and personalized shopping experience.
             </p>
             <div class="pt-12 flex justify-center gap-8">
-                <a href="mailto:care@taikonina.com" class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 hover:border-primary transition-colors pb-1">Email Support</a>
-                <a href="tel:+13054567890" class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 hover:border-primary transition-colors pb-1">Call Us</a>
+                <a href="mailto:care@taikonina.com"
+                    class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 hover:border-primary transition-colors pb-1">Email
+                    Support</a>
+                <a href="tel:+13054567890"
+                    class="font-label text-[10px] uppercase tracking-[0.2em] border-b border-primary/20 hover:border-primary transition-colors pb-1">Call
+                    Us</a>
             </div>
         </div>
     </main>
 
     <!-- Footer Shell -->
-            <footer class="bg-zinc-100 dark:bg-zinc-900 border-t-0 full-width mt-auto">
+    <footer class="bg-zinc-100 dark:bg-zinc-900 border-t-0 full-width mt-auto">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-16 px-12 py-24 w-full max-w-[1600px] mx-auto text-on-surface">
             <!-- Brand Info -->
             <div>
                 <div class="text-xl font-serif italic mb-6 text-zinc-950 dark:text-zinc-50">taiko.nina</div>
-                <p class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] leading-relaxed">
+                <p
+                    class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] leading-relaxed">
                     Atelier Collection. Defining modern femininity through precision and grace.
                 </p>
             </div>
             <!-- Navigation Links -->
             <div>
-                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">
+                <h4
+                    class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">
                     Navigation</h4>
                 <ul class="space-y-4">
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
@@ -99,7 +128,9 @@
             </div>
             <!-- Contact Links -->
             <div>
-                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Contact
+                <h4
+                    class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">
+                    Contact
                 </h4>
                 <ul class="space-y-4">
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
@@ -107,7 +138,7 @@
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
                             href="tel:+13054567890">+1 (305) 456-7890</a></li>
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
-                            href="https://instagram.com/taiko.nina" target="_blank">Instagram</a></li>
+                            href="https://www.instagram.com/taikonina/" target="_blank">Instagram</a></li>
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
                             href="#" onclick="alert('Próximamente'); return false;">Press Inquiries</a></li>
                     <li><a class="font-label text-zinc-500 dark:text-zinc-400 text-[10px] uppercase tracking-[0.2em] hover:text-zinc-950 dark:hover:text-zinc-200 transition-all duration-300"
@@ -116,20 +147,27 @@
             </div>
             <!-- Newsletter -->
             <div>
-                <h4 class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Newsletter
+                <h4
+                    class="font-label text-zinc-950 dark:text-zinc-50 text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">
+                    Newsletter
                 </h4>
                 <form id="newsletter-form" class="flex border-b border-zinc-300 dark:border-zinc-700 py-2 relative">
                     <input id="newsletter-email" required
                         class="bg-transparent border-none text-[10px] uppercase tracking-[0.2em] focus:ring-0 w-full placeholder:text-zinc-400 text-on-surface"
                         placeholder="Email Address" type="email" />
-                    <button type="submit" class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer">arrow_forward</button>
-                    <p id="newsletter-msg" class="absolute top-12 left-0 text-[10px] uppercase tracking-widest text-[#5c6858] font-bold hidden"></p>
+                    <button type="submit"
+                        class="material-symbols-outlined text-outline hover:text-primary transition-colors cursor-pointer">arrow_forward</button>
+                    <p id="newsletter-msg"
+                        class="absolute top-12 left-0 text-[10px] uppercase tracking-widest text-[#5c6858] font-bold hidden">
+                    </p>
                 </form>
             </div>
         </div>
         <div class="px-12 py-12 border-t border-zinc-200 dark:border-zinc-800 text-center">
-            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier Collection.</p>
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-zinc-400">© 2024 taiko.nina. Atelier
+                Collection.</p>
         </div>
     </footer>
 </body>
+
 </html>

@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Ensure Shopping Bag icon is in Navbar
     const navs = document.querySelectorAll('nav, header');
     navs.forEach(nav => {
-        const container = nav.querySelector('.flex.items-center.space-x-8, .flex.items-center.space-x-6, .flex.items-center.gap-8');
+        const container = nav.querySelector('.flex.items-center.justify-end');
         if (container) {
             // Check if already has shopping_bag
             let hasBag = false;
@@ -317,25 +317,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Inject Cart Sidebar
     if (!document.getElementById('cart-sidebar')) {
         const cartSidebarHTML = `
-        <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-surface shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 flex flex-col border-l border-outline-variant/20">
-            <div class="px-8 py-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container-lowest">
+        <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-white/90 dark:bg-zinc-950/80 backdrop-blur-3xl shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 flex flex-col border-l border-white/20 dark:border-white/10">
+            <div class="px-8 py-6 border-b border-black/5 dark:border-white/10 flex justify-between items-center bg-white/50 dark:bg-black/30 text-zinc-950 dark:text-zinc-50">
                 <h2 class="serif-headline text-2xl italic">Your Cart</h2>
-                <button id="close-cart" class="material-symbols-outlined hover:text-primary transition-colors text-outline">close</button>
+                <button id="close-cart" class="material-symbols-outlined hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors text-zinc-500">close</button>
             </div>
-            <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6 bg-surface">
+            <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6 text-zinc-950 dark:text-zinc-50">
                 <!-- Items go here -->
             </div>
-            <div class="p-8 border-t border-outline-variant/20 bg-surface-container-lowest">
+            <div class="p-8 border-t border-black/5 dark:border-white/10 bg-white/50 dark:bg-black/30 text-zinc-950 dark:text-zinc-50">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="font-label text-[11px] uppercase tracking-widest text-outline">Subtotal</span>
+                    <span class="font-label text-[11px] uppercase tracking-widest text-zinc-500">Subtotal</span>
                     <span id="cart-total" class="font-body font-bold text-lg">$0.00</span>
                 </div>
-                <button onclick="initCheckout()" id="checkout-btn" class="w-full bg-primary text-on-primary py-5 font-label text-[10px] uppercase tracking-widest hover:opacity-90 transition-opacity flex justify-center items-center">
+                <button onclick="initCheckout()" id="checkout-btn" class="w-full bg-zinc-950 text-white dark:bg-white dark:text-black py-5 font-label text-[10px] uppercase tracking-widest hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors flex justify-center items-center shadow-lg">
                     <span>Checkout securely</span>
                 </button>
             </div>
         </div>
-        <div id="cart-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
+        <div id="cart-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
         `;
         document.body.insertAdjacentHTML('beforeend', cartSidebarHTML);
     }
@@ -744,31 +744,31 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = 0;
 
         if (cart.length === 0) {
-            container.innerHTML = '<p class="font-label text-[10px] uppercase tracking-widest text-outline text-center mt-12">Your cart is empty.</p>';
+            container.innerHTML = '<p class="font-label text-[10px] uppercase tracking-widest text-zinc-500 text-center mt-12">Your cart is empty.</p>';
         } else {
             container.innerHTML = cart.map(item => {
                 total += item.price * item.quantity;
                 return `
-                <div class="flex gap-6 items-center">
-                    <div class="w-20 h-24 bg-surface-container overflow-hidden shrink-0">
-                        <img src="${item.img}" class="w-full h-full object-cover" />
+                <div class="flex gap-6 items-center group">
+                    <div class="w-20 h-24 bg-white/60 dark:bg-white/5 overflow-hidden shrink-0 shadow-sm border border-black/5 dark:border-white/5">
+                        <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     </div>
                     <div class="flex-1">
                         <h4 class="font-bold text-xs mb-1">${item.name}</h4>
-                        <p class="font-label text-[9px] uppercase tracking-widest text-outline">Size: ${item.size}</p>
+                        <p class="font-label text-[9px] uppercase tracking-widest text-zinc-500">Size: ${item.size}</p>
                         <div class="flex items-center gap-4 mt-3">
-                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center border border-outline/30 hover:bg-surface-variant transition-colors">-</button>
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center border border-black/10 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10 transition-colors rounded-full">-</button>
                             <span class="text-xs font-bold">${item.quantity}</span>
-                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center border border-outline/30 hover:bg-surface-variant transition-colors">+</button>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center border border-black/10 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10 transition-colors rounded-full">+</button>
                         </div>
                     </div>
                     <div class="text-right flex flex-col justify-between h-20">
                         <p class="font-bold text-sm">$${item.price * item.quantity}</p>
-                        <button onclick="removeFromCart(${item.id})" class="font-label text-[9px] uppercase tracking-widest text-outline hover:text-error transition-colors">Remove</button>
+                        <button onclick="removeFromCart(${item.id})" class="font-label text-[9px] uppercase tracking-widest text-zinc-400 hover:text-red-500 transition-colors">Remove</button>
                     </div>
                 </div>
                 `;
-            }).join('<hr class="border-outline-variant/20" />');
+            }).join('<hr class="border-black/5 dark:border-white/10" />');
         }
 
         totalEl.textContent = `$${total.toFixed(2)}`;
@@ -799,7 +799,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const sidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('cart-overlay');
         if (sidebar) sidebar.classList.add('translate-x-full');
-        
+
         // Ensure profile sidebar isn't active
         const profileSidebar = document.getElementById('profile-sidebar');
         if (overlay && profileSidebar && profileSidebar.classList.contains('translate-x-full')) {
@@ -1172,12 +1172,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }, observerOptions);
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-    
+
     // Immediately trigger elements in view
     setTimeout(() => {
         document.querySelectorAll('.fade-up').forEach(el => {
             const rect = el.getBoundingClientRect();
-            if(rect.top < window.innerHeight) {
+            if (rect.top < window.innerHeight) {
                 el.classList.add('visible');
             }
         });

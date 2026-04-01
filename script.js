@@ -317,25 +317,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Inject Cart Sidebar
     if (!document.getElementById('cart-sidebar')) {
         const cartSidebarHTML = `
-        <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-white/90 dark:bg-zinc-950/80 backdrop-blur-3xl shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 flex flex-col border-l border-white/20 dark:border-white/10">
-            <div class="px-8 py-6 border-b border-black/5 dark:border-white/10 flex justify-between items-center bg-white/50 dark:bg-black/30 text-zinc-950 dark:text-zinc-50">
-                <h2 class="serif-headline text-2xl italic">Your Cart</h2>
-                <button id="close-cart" class="material-symbols-outlined hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors text-zinc-500">close</button>
+        <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-full md:w-[400px] bg-white/95 backdrop-blur-3xl shadow-2xl z-[100] transform translate-x-full transition-transform duration-500 flex flex-col border-l border-zinc-200">
+            <div class="px-8 py-6 border-b border-zinc-200 flex justify-between items-center bg-white/60 text-zinc-950">
+                <h2 class="serif-headline text-2xl italic font-bold">Your Cart</h2>
+                <button id="close-cart" class="material-symbols-outlined hover:bg-zinc-200 bg-zinc-100 transition-colors text-zinc-800 rounded-full p-2 drop-shadow-sm">close</button>
             </div>
-            <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6 text-zinc-950 dark:text-zinc-50">
+            <div id="cart-items" class="flex-1 overflow-y-auto p-8 space-y-6 text-zinc-950">
                 <!-- Items go here -->
             </div>
-            <div class="p-8 border-t border-black/5 dark:border-white/10 bg-white/50 dark:bg-black/30 text-zinc-950 dark:text-zinc-50">
+            <div class="p-8 border-t border-zinc-200 bg-white/60 text-zinc-950">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="font-label text-[11px] uppercase tracking-widest text-zinc-500">Subtotal</span>
-                    <span id="cart-total" class="font-body font-bold text-lg">$0.00</span>
+                    <span class="font-label text-[11px] uppercase tracking-widest text-zinc-600 font-bold">Subtotal</span>
+                    <span id="cart-total" class="font-body font-bold text-lg text-zinc-950">$0.00</span>
                 </div>
-                <button onclick="initCheckout()" id="checkout-btn" class="w-full bg-zinc-950 text-white dark:bg-white dark:text-black py-5 font-label text-[10px] uppercase tracking-widest hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors flex justify-center items-center shadow-lg">
+                <button onclick="initCheckout()" id="checkout-btn" class="w-full bg-zinc-950 text-white py-5 font-label text-[10px] uppercase tracking-widest hover:bg-zinc-800 transition-colors flex justify-center items-center rounded-none shadow-xl">
                     <span>Checkout securely</span>
                 </button>
             </div>
         </div>
-        <div id="cart-overlay" class="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
+        <div id="cart-overlay" class="fixed inset-0 bg-black/30 backdrop-blur-sm z-[90] opacity-0 pointer-events-none transition-opacity duration-500"></div>
         `;
         document.body.insertAdjacentHTML('beforeend', cartSidebarHTML);
     }
@@ -750,25 +750,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 total += item.price * item.quantity;
                 return `
                 <div class="flex gap-6 items-center group">
-                    <div class="w-20 h-24 bg-white/60 dark:bg-white/5 overflow-hidden shrink-0 shadow-sm border border-black/5 dark:border-white/5">
+                    <div class="w-20 h-24 bg-zinc-100 overflow-hidden shrink-0 border border-zinc-200 shadow-sm relative">
                         <img src="${item.img}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                     </div>
-                    <div class="flex-1">
+                    <div class="flex-1 text-zinc-950">
                         <h4 class="font-bold text-xs mb-1">${item.name}</h4>
-                        <p class="font-label text-[9px] uppercase tracking-widest text-zinc-500">Size: ${item.size}</p>
-                        <div class="flex items-center gap-4 mt-3">
-                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 flex items-center justify-center border border-black/10 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10 transition-colors rounded-full">-</button>
-                            <span class="text-xs font-bold">${item.quantity}</span>
-                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 flex items-center justify-center border border-black/10 dark:border-white/20 hover:bg-black/5 dark:hover:bg-white/10 transition-colors rounded-full">+</button>
+                        <p class="font-label text-[9px] uppercase tracking-widest text-zinc-500 bg-zinc-100 inline-block px-2 py-1 mt-1 font-bold">Size: ${item.size}</p>
+                        <div class="flex items-center gap-3 mt-4">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-7 h-7 flex items-center justify-center bg-zinc-100 border border-zinc-300 hover:bg-zinc-200 hover:border-zinc-400 transition-colors rounded-full text-zinc-800 font-bold">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-7 h-7 flex items-center justify-center bg-zinc-100 border border-zinc-300 hover:bg-zinc-200 hover:border-zinc-400 transition-colors rounded-full text-zinc-800 font-bold">+</button>
                         </div>
                     </div>
-                    <div class="text-right flex flex-col justify-between h-20">
+                    <div class="text-right flex flex-col justify-between h-20 text-zinc-950">
                         <p class="font-bold text-sm">$${item.price * item.quantity}</p>
-                        <button onclick="removeFromCart(${item.id})" class="font-label text-[9px] uppercase tracking-widest text-zinc-400 hover:text-red-500 transition-colors">Remove</button>
+                        <button onclick="removeFromCart(${item.id})" class="font-label text-[10px] uppercase tracking-widest text-red-600 hover:text-red-800 transition-colors font-bold underline underline-offset-4">Remove</button>
                     </div>
                 </div>
                 `;
-            }).join('<hr class="border-black/5 dark:border-white/10" />');
+            }).join('<hr class="border-zinc-200" />');
         }
 
         totalEl.textContent = `$${total.toFixed(2)}`;

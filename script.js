@@ -1,4 +1,6 @@
-tailwind.config = {}
+tailwind.config = {
+    darkMode: 'class'
+}
 
 // --- SUPABASE CONFIGURATION ---
 let supabaseClient = null;
@@ -300,6 +302,22 @@ document.addEventListener('DOMContentLoaded', () => {
             nav.classList.remove('flex');
         }
     });
+
+    // Dynamic Navbar Scroll Effect (For Index Video Hero)
+    const mainNav = document.getElementById('main-nav');
+    if (mainNav) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > window.innerHeight - 80) {
+                mainNav.classList.replace('bg-transparent', 'bg-[#f9f9f9]/90');
+                mainNav.classList.add('backdrop-blur-3xl', 'text-zinc-950', 'shadow-[0_1px_0_0_rgba(0,0,0,0.03)]');
+                mainNav.classList.remove('text-white');
+            } else {
+                mainNav.classList.replace('bg-[#f9f9f9]/90', 'bg-transparent');
+                mainNav.classList.remove('backdrop-blur-3xl', 'text-zinc-950', 'shadow-[0_1px_0_0_rgba(0,0,0,0.03)]');
+                mainNav.classList.add('text-white');
+            }
+        });
+    }
 });
 
 

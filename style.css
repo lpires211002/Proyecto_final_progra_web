@@ -4,6 +4,11 @@
     font-size: 20px;
 }
 
+html {
+    background-color: #f9f9f9;
+    overscroll-behavior-y: none;
+}
+
 body {
     background-color: #f9f9f9;
     color: #1a1c1c;

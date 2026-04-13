@@ -29,6 +29,16 @@ app.post('/api/checkout', async (req, res) => {
     }
 });
 
+import supabaseConfigHandler from './api/supabase-config.js';
+app.get('/api/supabase-config', async (req, res) => {
+    try {
+        await supabaseConfigHandler(req, res);
+    } catch (error) {
+        console.error('Error al invocar API de Supabase config (Local):', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
 // Iniciar servidor local
 app.listen(PORT, () => {
     console.log(`\n=================================================`);

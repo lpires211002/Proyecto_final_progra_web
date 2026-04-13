@@ -1,23 +1,63 @@
 tailwind.config = {}
 
 // --- SUPABASE CONFIGURATION ---
-// PASTE YOUR SUPABASE URL AND ANON KEY HERE TO ENABLE DYNAMIC PRODUCTS
-const SUPABASE_URL = 'https://pqimnilolgjsalzrziqq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBxaW1uaWxvbGdqc2FsenJ6aXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5NjI4NDIsImV4cCI6MjA4OTUzODg0Mn0.WiU3tWRf1i9xlZw6DLydb8po19j6sP4B6JMPm3dw6Ic';
-
 let supabaseClient = null;
 let currentUser = null;
-if (typeof supabase !== 'undefined' && SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
-    supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+let isSupabaseInitialized = false;
 
-    // Listen for auth state changes
-    supabaseClient.auth.onAuthStateChange((event, session) => {
-        currentUser = session?.user || null;
-        if (window.updateProfileUI) window.updateProfileUI();
-    });
+async function initSupabase() {
+    if (isSupabaseInitialized) return supabaseClient !== null;
+    isSupabaseInitialized = true;
+    
+    if (typeof supabase === 'undefined') return false;
+    
+    try {
+        let config = null;
+        try {
+            const res = await fetch('/api/supabase-config');
+            if (res.ok) {
+                config = await res.json();
+            }
+        } catch (e) {
+            // Fetch failed, probably on Live Server
+        }
+
+        // Live Server Localhost Fallback Support
+        if (!config && (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost')) {
+            console.warn('API endpoint failed. Falling back to fetching local .env (Only works in Dev)');
+            const envRes = await fetch('/.env');
+            if (envRes.ok) {
+                const envText = await envRes.text();
+                config = {
+                    url: envText.match(/SUPABASE_URL=?.['"]?([^'"\n]+)['"]?/)?.[1],
+                    anonKey: envText.match(/SUPABASE_ANON_KEY=?.['"]?([^'"\n]+)['"]?/)?.[1]
+                };
+            }
+        }
+        
+        if (config && config.url && config.anonKey) {
+            supabaseClient = supabase.createClient(config.url, config.anonKey);
+
+            // Listen for auth state changes
+            supabaseClient.auth.onAuthStateChange((event, session) => {
+                currentUser = session?.user || null;
+                if (window.updateProfileUI) window.updateProfileUI();
+            });
+            return true;
+        } else {
+            console.error("Supabase config invalid or missing.");
+            if (window.location.port !== '3000' && window.location.hostname === '127.0.0.1') {
+                alert("Atención: Estás usando Live Server. Por favor corre 'npm start' o 'node local_server.js' para que la base de datos se conecte correctamente de forma segura.");
+            }
+        }
+    } catch (error) {
+        console.error("Failed to initialize Supabase:", error);
+    }
+    return false;
 }
 
 async function fetchProducts() {
+    await initSupabase();
     if (!supabaseClient) return null;
     try {
         const { data, error } = await supabaseClient
@@ -582,6 +622,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('submit', async (e) => {
         if (e.target && e.target.id === 'auth-form') {
             e.preventDefault();
+            await initSupabase();
             if (!supabaseClient) return;
 
             const email = document.getElementById('auth-email').value;
@@ -915,6 +956,7 @@ document.addEventListener('DOMContentLoaded', () => {
             msgEl.classList.add('text-primary');
             msgEl.textContent = 'Suscribiendo...';
 
+            await initSupabase();
             if (!supabaseClient) {
                 msgEl.textContent = 'Error: Base de datos no conectada.';
                 msgEl.classList.add('text-error');

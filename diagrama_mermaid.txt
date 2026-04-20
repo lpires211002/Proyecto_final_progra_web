@@ -4,111 +4,81 @@ flowchart TB
     end
 
     subgraph NAV["🌐 NAVEGADOR"]
-        DOM["DOM - Interfaz visible"]
-        LS["localStorage - Carrito guardado"]
+        DOM["React Virtual DOM / Client Components"]
+        LS["localStorage (Carrito states)"]
+        CTX["React Context (Estado global)"]
     end
 
-    subgraph FE["📄 FRONTEND - taiko nina"]
+    subgraph FE["📄 FRONTEND - NEXT.JS (App Router)"]
 
-        subgraph PG["🏗️ HTML - Paginas"]
-            P1["index.html\nHome + Video Hero"]
-            P2["shop.html\nCatalogo + Filtros"]
-            P3["product.html\nDetalle Producto"]
-            P4["outfits.html\nLookbooks Video"]
-            P5["inspo.html\nInspiracion"]
-            P6["contact.html\nContacto"]
+        subgraph PG["🏗️ Páginas (SSR / SSG)"]
+            P1["app/page.js\nHome + Video Hero"]
+            P2["app/shop/page.js\nCatálogo + Filtros"]
+            P3["app/product/[name]/page.js\nDetalle Producto (Dinámico)"]
+            P4["app/outfits/page.js\nLookbooks Videos"]
+            P5["app/inspo/page.js\nInspiración"]
         end
 
-        subgraph ST["🎨 CSS - Estilos"]
-            S1["TailwindCSS CDN"]
-            S2["style.css\nAnimaciones fade-up"]
-            S3["Google Fonts\nNoto Serif + Manrope"]
+        subgraph CP["🧩 Componentes React (Client)"]
+            C1["Navbar.jsx / Footer.jsx"]
+            C2["ProductCard.jsx"]
+            C3["CartSidebar.jsx"]
+            C4["SearchSidebar.jsx"]
+            C5["AuthModal.jsx"]
         end
 
-        subgraph LG["⚡ JS - Logica en script.js"]
-            L1["fetchProducts\nTraer datos async"]
-            L2["renderProducts\nPintar en el DOM"]
-            L3["Carrito\nAdd/Remove/Update"]
-            L4["Busqueda\nFiltrado en vivo"]
-            L5["Auth\nLogin y Registro"]
-            L6["Filtros Shop\nCategoria/Talla/Color"]
-            L7["Checkout\nIniciar pago"]
-            L8["IntersectionObserver\nAnimaciones scroll"]
+        subgraph ST["🎨 Estilos"]
+            S1["TailwindCSS (v4)"]
+            S2["app/globals.css\nVariables y utilidades"]
+        end
+
+        subgraph API["⚡ Route Handlers (API)"]
+            A1["app/api/checkout/route.js\nIntegración MP Segura"]
         end
     end
 
     subgraph SV["☁️ SERVICIOS EXTERNOS"]
 
-        subgraph SB["🟢 Supabase - Backend as a Service"]
-            DB["PostgreSQL\nTabla products\nTabla newsletter"]
-            AU["Auth Service\nRegistro y Login"]
+        subgraph SB["🟢 Supabase"]
+            DB["PostgreSQL\n(products, newsletter)"]
+            AU["Auth Auth GoTrue\n(JWT Sessions)"]
         end
 
-        subgraph VR["▲ Vercel - Hosting"]
-            V1["api/supabase-config.js\nCredenciales seguras"]
-            V2["api/checkout.js\nCrear preferencia pago"]
+        subgraph VR["▲ Vercel"]
+            V1["Serverless Functions\n(Next.js Backend)"]
         end
 
-        MP["💳 Mercado Pago\nPasarela de pago"]
+        MP["💳 Mercado Pago API\nCheckout / Pagos"]
     end
 
     subgraph CD["🔄 CI/CD - Deploy Automatico"]
-        C1["Codigo local\nVS Code"] -->|git push| C2["GitHub\nRepositorio"]
-        C2 -->|auto-deploy| C3["Vercel\nBuild automatico"]
+        C1["Local (Git)"] -->|git push| C2["GitHub"]
+        C2 -->|auto-deploy| C3["Vercel Build"]
         C3 -->|URL publica| C4["taiko-nina.vercel.app"]
     end
 
-    U -->|"Navega y compra"| DOM
-    DOM <-->|"Guarda carrito"| LS
-    DOM <-->|"Muestra paginas"| PG
-    PG ---|"Estiliza"| ST
-    PG ---|"Da vida"| LG
+    U -->|"Interactúa"| DOM
+    DOM <-->|"Sincroniza"| CTX
+    CTX <-->|"Persiste"| LS
+    DOM ---|"Renderiza"| CP
+    CP ---|"Usa Datos"| PG
+    PG ---|"Estilos"| ST
 
-    L1 -->|"fetch async"| DB
-    L5 <-->|"signIn/signUp"| AU
-    L7 -->|"POST /api/checkout"| V2
-    V2 -->|"Crea preferencia"| MP
-    MP -->|"URL de pago"| U
-    L2 -->|"innerHTML"| DOM
-    L3 <-->|"JSON"| LS
+    CTX -->|"supabase.js (Client)"| DB
+    CTX <-->|"supabase.auth"| AU
+
+    CP -->|"POST /api/checkout"| A1
+    A1 -->|"Serverless"| V1
+    V1 -->|"SDK MP"| MP
+    MP -->|"init_point"| U
 
     style USUARIO fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1
     style NAV fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#BF360C
     style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
     style PG fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1
+    style CP fill:#FFF8E1,stroke:#F9A825,stroke-width:1px,color:#F57F17
     style ST fill:#FCE4EC,stroke:#C62828,stroke-width:1px,color:#B71C1C
-    style LG fill:#FFF8E1,stroke:#F9A825,stroke-width:1px,color:#F57F17
+    style API fill:#ECEFF1,stroke:#37474F,stroke-width:1px,color:#263238
     style SV fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C
-    style SB fill:#E8F5E9,stroke:#388E3C,stroke-width:1px,color:#1B5E20
-    style VR fill:#ECEFF1,stroke:#37474F,stroke-width:1px,color:#263238
     style CD fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40
 
-    style U fill:#BBDEFB,stroke:#1565C0,color:#0D47A1
-    style DOM fill:#FFE0B2,stroke:#E65100,color:#BF360C
-    style LS fill:#FFE0B2,stroke:#E65100,color:#BF360C
-    style P1 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style P2 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style P3 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style P4 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style P5 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style P6 fill:#BBDEFB,stroke:#1976D2,color:#0D47A1
-    style S1 fill:#F8BBD0,stroke:#C62828,color:#B71C1C
-    style S2 fill:#F8BBD0,stroke:#C62828,color:#B71C1C
-    style S3 fill:#F8BBD0,stroke:#C62828,color:#B71C1C
-    style L1 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L2 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L3 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L4 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L5 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L6 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L7 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style L8 fill:#FFF9C4,stroke:#F9A825,color:#F57F17
-    style DB fill:#C8E6C9,stroke:#388E3C,color:#1B5E20
-    style AU fill:#C8E6C9,stroke:#388E3C,color:#1B5E20
-    style V1 fill:#CFD8DC,stroke:#37474F,color:#263238
-    style V2 fill:#CFD8DC,stroke:#37474F,color:#263238
-    style MP fill:#E1BEE7,stroke:#7B1FA2,color:#4A148C
-    style C1 fill:#B2DFDB,stroke:#00695C,color:#004D40
-    style C2 fill:#B2DFDB,stroke:#00695C,color:#004D40
-    style C3 fill:#B2DFDB,stroke:#00695C,color:#004D40
-    style C4 fill:#B2DFDB,stroke:#00695C,color:#004D40

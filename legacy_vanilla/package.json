@@ -1,0 +1,15 @@
+{
+  "name": "taiko-nina-store",
+  "version": "1.0.0",
+  "description": "Taiko Nina Store E-commerce",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node local_server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "mercadopago": "^2.0.1"
+  }
+}

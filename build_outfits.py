@@ -1,8 +1,8 @@
 import os
 import json
 
-VIDEOS_DIR = 'VIDEOS_OUTFITS'
-OUTPUT_FILE = 'outfits_data.js'
+VIDEOS_DIR = 'public/VIDEOS_OUTFITS'
+OUTPUT_FILE = 'app/outfits/outfitsData.json'
 
 def format_title(folder_name):
     # Convert "saco_theo" to "Saco Theo"
@@ -56,15 +56,13 @@ def build_outfits():
         outfits_data.append({
             'id': f"outfit-{folder_name}",
             'title': format_title(folder_name),
-            'video': f"/{VIDEOS_DIR}/{folder_name}/{video_filename}",
+            'video': f"/VIDEOS_OUTFITS/{folder_name}/{video_filename}",
             'products': products
         })
 
-    # Write the JS file
-    js_content = f"window.outfitsData = {json.dumps(outfits_data, indent=4)};\n"
-    
+    # Write the JSON file
     with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        f.write(js_content)
+        json.dump(outfits_data, f, indent=4)
         
     print(f"Successfully generated {OUTPUT_FILE} with {len(outfits_data)} active outfits.")
 

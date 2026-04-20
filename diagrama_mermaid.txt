@@ -1,84 +1,49 @@
 flowchart TB
-    subgraph USUARIO["🧑 USUARIO"]
-        U["Usuario navegando taiko nina"]
+    %% --- COLORES Y ESTILOS (Aesthetic Modernos) ---
+    classDef usuario fill:#ffffff,stroke:#171717,stroke-width:2px,color:#171717,rx:8px,ry:8px
+    classDef navegador fill:#f9f9f9,stroke:#d4d4d8,stroke-width:2px,color:#3f3f46,rx:8px,ry:8px
+    classDef nextjs fill:#000000,stroke:#000000,stroke-width:2px,color:#ffffff,rx:12px,ry:12px
+    classDef react fill:#f4f4f5,stroke:#e4e4e7,stroke-width:1px,color:#18181b,rx:6px,ry:6px
+    classDef backend fill:#ecfdf5,stroke:#10b981,stroke-width:1px,color:#047857,rx:6px,ry:6px
+    classDef deploy fill:#eff6ff,stroke:#3b82f6,stroke-width:1px,color:#1d4ed8,rx:6px,ry:6px
+
+    %% --- NODOS Y GRUPOS ---
+    U["🧑 Usuario navegando"]:::usuario
+
+    subgraph NAVEGADOR ["🌐 NAVEGADOR CLIENTE"]
+        DOM["Virtual DOM\n(Interfaz Visible)"]:::react
+        MEM["React Context +\nlocalStorage (Carrito)"]:::react
     end
 
-    subgraph NAV["🌐 NAVEGADOR"]
-        DOM["React Virtual DOM / Client Components"]
-        LS["localStorage (Carrito states)"]
-        CTX["React Context (Estado global)"]
-    end
-
-    subgraph FE["📄 FRONTEND - NEXT.JS (App Router)"]
-
-        subgraph PG["🏗️ Páginas (SSR / SSG)"]
-            P1["app/page.js\nHome + Video Hero"]
-            P2["app/shop/page.js\nCatálogo + Filtros"]
-            P3["app/product/[name]/page.js\nDetalle Producto (Dinámico)"]
-            P4["app/outfits/page.js\nLookbooks Videos"]
-            P5["app/inspo/page.js\nInspiración"]
+    subgraph NEXTJS ["▲ NEXT.JS 15 (APP ROUTER)"]
+        subgraph UI ["Client Components ('use client')"]
+            NAVBAR["Navbar & Footer\n(Layout)"]:::react
+            SHOP["/shop\n(Grilla y Filtros)"]:::react
+            CART["CartSidebar\n(Gestión Compra)"]:::react
         end
 
-        subgraph CP["🧩 Componentes React (Client)"]
-            C1["Navbar.jsx / Footer.jsx"]
-            C2["ProductCard.jsx"]
-            C3["CartSidebar.jsx"]
-            C4["SearchSidebar.jsx"]
-            C5["AuthModal.jsx"]
-        end
-
-        subgraph ST["🎨 Estilos"]
-            S1["TailwindCSS (v4)"]
-            S2["app/globals.css\nVariables y utilidades"]
-        end
-
-        subgraph API["⚡ Route Handlers (API)"]
-            A1["app/api/checkout/route.js\nIntegración MP Segura"]
+        subgraph BACK ["Server Routes (Backend)"]
+            API["/api/checkout\n(Serverless Function)"]:::react
         end
     end
 
-    subgraph SV["☁️ SERVICIOS EXTERNOS"]
-
-        subgraph SB["🟢 Supabase"]
-            DB["PostgreSQL\n(products, newsletter)"]
-            AU["Auth Auth GoTrue\n(JWT Sessions)"]
-        end
-
-        subgraph VR["▲ Vercel"]
-            V1["Serverless Functions\n(Next.js Backend)"]
-        end
-
-        MP["💳 Mercado Pago API\nCheckout / Pagos"]
+    subgraph SERVICIOS ["☁️ SERVICIOS EXTERNOS"]
+        SDB["🟢 SUPABASE\n(Base de Datos PostgreSQL)"]:::backend
+        SAUTH["🟢 SUPABASE AUTH\n(Autenticación Segura)"]:::backend
+        MP["💳 MERCADO PAGO\n(Procesador de Pagos)"]:::deploy
     end
 
-    subgraph CD["🔄 CI/CD - Deploy Automatico"]
-        C1["Local (Git)"] -->|git push| C2["GitHub"]
-        C2 -->|auto-deploy| C3["Vercel Build"]
-        C3 -->|URL publica| C4["taiko-nina.vercel.app"]
-    end
+    %% --- RELACIONES CLARAS ---
+    U -->|"Interactúa con"| NAVEGADOR
+    U -->|"Paga en"| MP
 
-    U -->|"Interactúa"| DOM
-    DOM <-->|"Sincroniza"| CTX
-    CTX <-->|"Persiste"| LS
-    DOM ---|"Renderiza"| CP
-    CP ---|"Usa Datos"| PG
-    PG ---|"Estilos"| ST
+    DOM <-->|"Consume estado"| MEM
+    MEM -->|"Hydrata"| UI
+    
+    SHOP -->|"Fetch Productos"| SDB
+    NAVBAR -->|"Login/Logout"| SAUTH
 
-    CTX -->|"supabase.js (Client)"| DB
-    CTX <-->|"supabase.auth"| AU
-
-    CP -->|"POST /api/checkout"| A1
-    A1 -->|"Serverless"| V1
-    V1 -->|"SDK MP"| MP
-    MP -->|"init_point"| U
-
-    style USUARIO fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1
-    style NAV fill:#FFF3E0,stroke:#E65100,stroke-width:2px,color:#BF360C
-    style FE fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style PG fill:#E3F2FD,stroke:#1976D2,stroke-width:1px,color:#0D47A1
-    style CP fill:#FFF8E1,stroke:#F9A825,stroke-width:1px,color:#F57F17
-    style ST fill:#FCE4EC,stroke:#C62828,stroke-width:1px,color:#B71C1C
-    style API fill:#ECEFF1,stroke:#37474F,stroke-width:1px,color:#263238
-    style SV fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px,color:#4A148C
-    style CD fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40
-
+    CART -->|"POST (Cart Data)"| API
+    API -->|"1. Crea Preferencia Segura"| MP
+    MP -->|"2. Devuelve Link (Init Point)"| API
+    API -.->|"3. Redirección de Pago"| U

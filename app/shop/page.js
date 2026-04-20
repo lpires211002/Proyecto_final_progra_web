@@ -71,10 +71,9 @@ export default function Shop() {
             className="bg-transparent border-none p-0 focus:ring-0 cursor-pointer hover:text-black transition-colors"
           >
             <option value="All">Categoría</option>
-            <option value="Dresses">Dresses</option>
-            <option value="Outerwear">Outerwear</option>
-            <option value="Knitwear">Knitwear</option>
-            <option value="Bottoms">Bottoms</option>
+            {[...new Set(products.map(p => p.category).filter(Boolean))].sort().map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
           </select>
           
           <select 
@@ -95,11 +94,9 @@ export default function Shop() {
             className="bg-transparent border-none p-0 focus:ring-0 cursor-pointer hover:text-black transition-colors"
           >
             <option value="All">Color</option>
-            <option value="Black">Black</option>
-            <option value="White">White</option>
-            <option value="Navy">Navy</option>
-            <option value="Grey">Grey</option>
-            <option value="Charcoal">Charcoal</option>
+            {[...new Set(products.map(p => p.color).filter(Boolean))].sort().map(color => (
+              <option key={color} value={color}>{color}</option>
+            ))}
           </select>
 
           <select 

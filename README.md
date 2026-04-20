@@ -1,34 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# taiko nina | Atelier Collection
 
-## Getting Started
+E-commerce moderno construido con **Next.js 15 (App Router)**, diseñado bajo una estética minimalista y un riguroso sistema de componentes en React.
 
-First, run the development server:
+## 🚀 Tecnologías Principales
 
+- **Frontend:** Next.js 15, React 19, TailwindCSS v4.
+- **Backend & Base de Datos:** Supabase (PostgreSQL, Autenticación).
+- **Pasarela de Pagos:** Mercado Pago SDK (Integrado en Serverless API Routes).
+- **Estado Global:** React Context API para persistencia de Session y Shopping Cart.
+
+## 📦 Estructura del Proyecto
+
+- `app/` → Rutas, páginas y layouts principales (Home, Shop, Outfits, API Routes).
+- `components/` → Componentes de interfaces reutilizables (Navbar, ProductCard, Modals).
+- `context/` → Manejo de estado global (AppContext).
+- `lib/` → Configuración de clientes externos (Supabase).
+- `legacy_vanilla/` → (Backup) Código fuente de la primera versión sin frameworks.
+
+## 💻 Desarrollo Local
+
+Para correr este proyecto en tu computadora:
+
+1. Instalar dependencias:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Configurar las variables de entorno (`.env.local`):
+```env
+NEXT_PUBLIC_SUPABASE_URL=tu_url_aqui
+NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_key_aqui
+MP_ACCESS_TOKEN=tu_token_aqui
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. Iniciar el servidor local:
+```bash
+npm run dev
+```
 
-## Learn More
+Abri [http://localhost:3000](http://localhost:3000) para ver la tienda.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Deploy
+La aplicación está configurada para **Continuous Deployment (CD)** al hacer push a la rama principal en GitHub, impactando automáticamente en los servidores de **Vercel**.

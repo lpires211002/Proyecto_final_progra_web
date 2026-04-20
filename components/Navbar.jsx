@@ -36,7 +36,7 @@ export default function Navbar() {
           {/* Left: Navigation Links */}
           <div className="flex-1 flex items-center">
             <span className="material-symbols-outlined cursor-pointer md:!hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>menu</span>
-            <div className="hidden md:flex items-center gap-12">
+            <div className="hidden md:flex items-center gap-4 lg:gap-12">
               <Link href="/" className="font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 hover:opacity-100 opacity-70">Home</Link>
               <Link href="/shop" className="font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 opacity-70 hover:opacity-100">Collection</Link>
               <Link href="/outfits" className="font-medium tracking-[0.15em] text-[11px] uppercase transition-all duration-500 opacity-70 hover:opacity-100">Outfits</Link>
@@ -50,7 +50,7 @@ export default function Navbar() {
             </Link>
           </div>
           {/* Right: Actions */}
-          <div className="flex-1 flex items-center justify-end gap-3 md:gap-8">
+          <div className="flex-1 flex items-center justify-end gap-3 lg:gap-8">
             <button className="scale-100 active:scale-95 transition-transform" onClick={() => setIsSearchOpen(true)}>
               <span className="material-symbols-outlined text-[20px] md:text-[24px]">search</span>
             </button>

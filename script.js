@@ -211,11 +211,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (titleEl) titleEl.textContent = product.name;
 
             // Update Main Image
-            const mainImg = document.querySelector('.lg\\:col-span-7 img');
-            if (mainImg) mainImg.src = product.image_url || product.img;
-
-            const secondImg = document.querySelectorAll('.lg\\:col-span-7 img')[1];
-            if (secondImg && product.image_url) secondImg.src = product.image_url;
+            const mainImg = document.getElementById('product-main-image');
+            if (mainImg) {
+                mainImg.src = product.image_url || product.img;
+                mainImg.alt = product.name;
+            }
 
             // Update Breadcrumb/Color
             const colorEl = document.querySelector('.text-\\[10px\\].uppercase.tracking-\\[0\\.2em\\].text-outline.mb-4');

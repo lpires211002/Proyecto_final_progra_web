@@ -4,13 +4,20 @@ import { useAppContext } from '@/context/AppContext';
 import { useState } from 'react';
 
 export default function CartSidebar() {
-  const { cart, removeFromCart, updateQuantity, cartTotal, isCartOpen, setIsCartOpen } = useAppContext();
+  const { cart, removeFromCart, updateQuantity, cartTotal, isCartOpen, setIsCartOpen, user, setIsAuthOpen } = useAppContext();
   const [loadingCheckout, setLoadingCheckout] = useState(false);
 
   if (!isCartOpen) return null;
 
   const handleCheckout = async () => {
     if (cart.length === 0) return;
+
+    if (!user) {
+      setIsCartOpen(false);
+      setIsAuthOpen(true);
+      return;
+    }
+
     setLoadingCheckout(true);
     try {
       const response = await fetch('/api/checkout', {

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { supabase } from '@/lib/supabase';
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN || process.env.MERCADOPAGO_ACCESS_TOKEN || ''
@@ -13,11 +14,28 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Cart is empty' }, { status: 400 });
     }
 
+    const productIds = cartItems.map(item => item.id);
+    const { data: products, error: dbError } = await supabase
+      .from('products')
+      .select('id, price')
+      .in('id', productIds);
+
+    if (dbError || !products) {
+      return NextResponse.json({ error: 'Could not verify product prices' }, { status: 500 });
+    }
+
+    const priceMap = Object.fromEntries(products.map(p => [p.id, p.price]));
+
+    const invalidItems = cartItems.filter(item => priceMap[item.id] === undefined);
+    if (invalidItems.length > 0) {
+      return NextResponse.json({ error: 'One or more products are invalid' }, { status: 400 });
+    }
+
     const items = cartItems.map(item => ({
       id: item.id,
       title: item.name,
       quantity: item.quantity,
-      unit_price: parseFloat(item.price),
+      unit_price: parseFloat(priceMap[item.id]),
       currency_id: 'ARS',
       picture_url: item.image_url || item.img,
       description: `Size: ${item.size} | Color: ${item.color || 'Standard'}`

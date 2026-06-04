@@ -3,6 +3,7 @@
 import { useAppContext } from '@/context/AppContext';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 
 export default function SearchSidebar() {
@@ -70,12 +71,16 @@ export default function SearchSidebar() {
               {results.map(product => (
                 <div key={product.id} className="group cursor-pointer">
                   <Link href={`/product/${encodeURIComponent(product.name)}`} onClick={() => setIsSearchOpen(false)}>
-                    <div className="aspect-[3/4] overflow-hidden bg-zinc-100 mb-4">
-                      <img 
-                        src={product.image_url || product.img} 
-                        alt={product.name} 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
+                    <div className="relative aspect-[3/4] overflow-hidden bg-zinc-100 mb-4">
+                      {(product.image_url || product.img) && (
+                        <Image
+                          src={product.image_url || product.img}
+                          alt={product.name}
+                          fill
+                          sizes="(max-width: 768px) 50vw, 25vw"
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      )}
                     </div>
                     <h4 className="font-label text-[9px] uppercase tracking-widest text-zinc-400 mb-1">{product.category || 'Atelier'}</h4>
                     <h3 className="text-xs font-medium text-zinc-900">{product.name}</h3>

@@ -6,6 +6,8 @@
   --color-surface: #f9f9f9;
   --color-on-surface: #1a1c1c;
   --color-outline: #737373;
+  --font-body: var(--font-manrope), sans-serif;
+  --font-serif: var(--font-noto-serif), serif;
 }
 
 .material-symbols-outlined {
@@ -22,11 +24,11 @@ html {
 body {
     background-color: var(--color-surface);
     color: var(--color-on-surface);
-    font-family: 'Manrope', sans-serif;
+    font-family: var(--font-manrope), 'Manrope', sans-serif;
 }
 
 .serif-headline, .font-serif {
-    font-family: 'Noto Serif', serif;
+    font-family: var(--font-noto-serif), 'Noto Serif', serif;
 }
 
 .letter-spacing-label {

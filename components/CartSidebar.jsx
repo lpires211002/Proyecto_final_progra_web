@@ -2,6 +2,7 @@
 
 import { useAppContext } from '@/context/AppContext';
 import { useState } from 'react';
+import Image from 'next/image';
 
 export default function CartSidebar() {
   const { cart, removeFromCart, updateQuantity, cartTotal, isCartOpen, setIsCartOpen, user, setIsAuthOpen } = useAppContext();
@@ -60,8 +61,10 @@ export default function CartSidebar() {
             <div className="space-y-6">
               {cart.map((item, index) => (
                 <div key={`${item.id}-${Math.random()}`} className="flex gap-4">
-                  <div className="w-20 h-[106px] bg-[#e0e0e0] shrink-0">
-                    <img src={item.image_url || item.img} alt={item.name} className="w-full h-full object-cover" />
+                  <div className="relative w-20 h-[106px] bg-[#e0e0e0] shrink-0">
+                    {(item.image_url || item.img) && (
+                      <Image src={item.image_url || item.img} alt={item.name} fill sizes="80px" className="object-cover" />
+                    )}
                   </div>
                   <div className="flex-1 flex flex-col justify-between py-1 text-zinc-900">
                     <div>

@@ -11,6 +11,8 @@ export function AppProvider({ children }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const [authLoading, setAuthLoading] = useState(true);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -30,14 +32,27 @@ export function AppProvider({ children }) {
     // Auth state
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      setAuthLoading(false);
     });
     
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
+      const newUser = session?.user ?? null;
+      setUser(newUser);
+      if (!newUser) setUserRole(null);
     });
     return () => subscription.unsubscribe();
   }, []);
+
+  // Fetch user role when user changes
+  useEffect(() => {
+    if (user) {
+      supabase.from('user_roles').select('role').eq('user_id', user.id).single()
+        .then(({ data }) => {
+          setUserRole(data?.role ?? 'user');
+        });
+    }
+  }, [user]);
 
   useEffect(() => {
     if (isMounted && typeof window !== 'undefined') {
@@ -81,7 +96,7 @@ export function AppProvider({ children }) {
       isCartOpen, setIsCartOpen,
       isSearchOpen, setIsSearchOpen,
       isAuthOpen, setIsAuthOpen,
-      user, setUser,
+      user, setUser, userRole, authLoading,
       isMounted
     }}>
       {children}

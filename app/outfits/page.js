@@ -1,29 +1,57 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import ProductCard from '@/components/ProductCard';
 
-import OUTFITS from './outfitsData.json';
-
 export default function Outfits() {
+  const [outfits, setOutfits] = useState([]);
   const [selectedOutfit, setSelectedOutfit] = useState(null);
   const [outfitProducts, setOutfitProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [detailLoading, setDetailLoading] = useState(false);
+
+  // Fetch all active outfits on mount
+  useEffect(() => {
+    const fetchOutfits = async () => {
+      const { data, error } = await supabase
+        .from('outfits')
+        .select('*')
+        .eq('active', true)
+        .order('sort_order');
+
+      if (data) setOutfits(data);
+      if (error) console.error('Error fetching outfits:', error);
+      setLoading(false);
+    };
+    fetchOutfits();
+  }, []);
 
   const handleSelectOutfit = async (outfit) => {
     setSelectedOutfit(outfit);
-    setLoading(true);
+    setDetailLoading(true);
     setOutfitProducts([]);
 
-    const { data } = await supabase
-      .from('products')
-      .select('*')
-      .in('name', outfit.products);
+    // Fetch products linked to this outfit via the junction table
+    const { data, error } = await supabase
+      .from('outfit_products')
+      .select('product_id, products(*)')
+      .eq('outfit_id', outfit.id);
 
-    if (data) setOutfitProducts(data);
-    setLoading(false);
+    if (data) {
+      setOutfitProducts(data.map(row => row.products).filter(Boolean));
+    }
+    if (error) console.error('Error fetching outfit products:', error);
+    setDetailLoading(false);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen py-32 px-12 bg-surface flex items-center justify-center">
+        <span className="material-symbols-outlined animate-spin text-zinc-400 text-4xl">progress_activity</span>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen py-32 px-12 bg-surface">
@@ -34,14 +62,14 @@ export default function Outfits() {
 
       <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {OUTFITS.map(outfit => (
+          {outfits.map(outfit => (
             <div 
               key={outfit.id} 
               className="group relative aspect-[3/4] bg-zinc-100 cursor-pointer overflow-hidden"
               onClick={() => handleSelectOutfit(outfit)}
             >
               <video 
-                src={outfit.video}
+                src={outfit.video_url}
                 autoPlay loop muted playsInline
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 onMouseEnter={(e) => e.target.pause()}
@@ -66,7 +94,7 @@ export default function Outfits() {
 
         <div className="w-full h-1/2 md:w-1/2 md:h-full bg-zinc-100 relative flex items-center justify-center border-r border-zinc-200">
           {selectedOutfit && (
-            <video src={selectedOutfit.video} className="w-full h-full object-cover" loop playsInline autoPlay muted></video>
+            <video src={selectedOutfit.video_url} className="w-full h-full object-cover" loop playsInline autoPlay muted></video>
           )}
         </div>
 
@@ -74,7 +102,7 @@ export default function Outfits() {
           <h3 className="serif-headline text-3xl md:text-5xl italic mb-4 text-zinc-950">Shop the Look</h3>
           <p className="font-label text-[10px] uppercase tracking-widest text-zinc-500 mb-12 pb-6 border-b border-zinc-200">Selected pieces from this outfit</p>
 
-          {loading ? (
+          {detailLoading ? (
              <div className="flex justify-center items-center py-20">
                <span className="material-symbols-outlined animate-spin text-zinc-400 text-4xl">progress_activity</span>
              </div>

@@ -147,24 +147,6 @@ export default function Home() {
           </div>
         </Link>
       </section>
-
-      {/* Editorial Lookbook Grid */}
-      <section className="py-24 px-12">
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-2">
-          {[
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuBYy46MGcWNZVmepFUezZZklgRm2zb5EoFhtdi607LZ9qPqtL8JyecKNUQzL91sXXqIrGQPy3ofpjvTx7sCktL2b19b8gmBXbID6AmsoWzoSoYenkkyKdlWyohdwTLvZ-XU7DcW7VQxZmcuhhz6WTw3L42dkVs3kc3EKE4dnZKY1QR8AOlZ8g1XIDTbknl-NcpRRDR9eoAOBkrUfpL4EKB3h3aCr6o19Am0KIGVC6SM7UuKtiu4m-2uXqbk6JFTAh319mmt-J0coIA",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuCM7hbjFBR23jP1aRDSgLu93JiubqcV6D8oMe3tZXfauSNt3wMj5Vq21qJ-67gphGgpirKK0fJHLFviL8QVvsHZS7N-YUPeGThYn8rZIv4hFhYTUyDNkbszP6QnRGcH0rTt4PjW11DsTslWo24if7w2RUMDkHhepZfyDuapDKXvy6ANM7ons1Ybc77eQnhnt9DbXKC0EA-MNDQc14Lh1S1YaIjHGFyB2SAaC98qH_rHIoqBZGa3HePk0OrPyzWotoIw_Zz6B6ksBCA",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuDi-Xk2T7FZfMDF1Bjdkke1WvmeNDhSeaR8_6YCp53DwDQgJftGmWdiUigrrk8I8JZTm2ZuilFGbKBlwYmpxTOadQlSa-_yRNtmvoXPnZ0_d3UxhvRo2R6yfgFDT_DjPlS7OgU4z1Uj4IsPgMj7PGbFAIV7Ui0Lrn7XcJqqnCtRzzoBK6IYEum4jSS4UE5S7alllrmMkyHo2lZXfbaUohCvgvOlXgoiPuktgH_kr2FXgehrzARfwe6IdLRFm8LLYb_fVZSmAEXTyuc",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuBOGbueDGzXGcWDgegiE4OqGCW2nre3yJ4mxrpNUAT6nKkXSH4sWf4_kNNF1HoUuKoIW_cIEb8G4aRnlHclnfJo5L5TiTxWwqaLRXL72gRd11Vd4CLAYLPz56aEmwVUntUbdTF8ItPo5OIUxNTvVq9p2z4IOTYjYwYPkFYRT6XBxWeXt5yrIQYdFw7MaLO2rAQle2AdVHRDK8sbUNQRI3mX05A6lgJNrWdEKU4AAAIiHDWEzukocZOC_PT-CfRRqt-Des5og4wuXuk",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuBs-XZTb8v45ecZhxUQA-vMr8Wedl4j79FmxXw5YSA6ZhzYuofpe5h5UHAABfBvtp741VRNYSLc7srjFizg0GA-G8DcQkruIiCv6i65Z1LmeQI77f089k6cVR5_P_1G8nk-kyS-plPG-pdnRF7-tEwM6VFjZyWKQWljOBwWy16uWv5L_ur9c8KbSu9DjVtlfDxv78ZoL_Fa2DF0LHBduEdN_E5WOUJbEwFI9rLf-rZx3HTH9XabeKS0nA0TY7iIFRYmjj0_OdThUM4",
-            "https://lh3.googleusercontent.com/aida-public/AB6AXuCmOKttcBKbzUATg3aOqSn4LOEh1jQuAKThn2Fi_njYPWHJiFRHtGwafvn97uZihhwjc35DNTldVgS3Di6TLRGZOhA4rdaAblqIA9N5iktR53Cur_hX-D95_ksh2l4xhnngTkEtAAL4MWBYJ6MyOuOXgXDmEk_Gw30H9AHTVpUH1UvuSa5UwpsBK0jXWGgWJEUP83a3tu02tPy1Q7TecsgAGkAcoaKnAg-scQrrk3JUqudkoLtlabzNgG3GXRnHK6oJvxwhrVIi3mE"
-          ].map((url, i) => (
-            <div key={i} className={`aspect-[1/1] overflow-hidden bg-zinc-100 fade-up delay-${i % 3 === 0 ? '0' : i % 3 === 1 ? '100' : '300'}`}>
-              <img className="w-full h-full object-cover" src={url} alt="" />
-            </div>
-          ))}
-        </div>
-      </section>
     </>
   );
 }

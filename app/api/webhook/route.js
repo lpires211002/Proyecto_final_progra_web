@@ -37,6 +37,14 @@ async function processPayment(paymentId) {
     .eq('external_reference', externalReference);
 
   if (error) console.error('Webhook update error:', error.message);
+
+  // Descontar stock una sola vez cuando el pago queda aprobado. La función
+  // apply_order_stock es idempotente (chequea orders.stock_applied), así que
+  // no pasa nada si MP reenvía la notificación.
+  if (status === 'approved') {
+    const { error: stockErr } = await supabaseAdmin.rpc('apply_order_stock', { ext_ref: externalReference });
+    if (stockErr) console.error('apply_order_stock error:', stockErr.message);
+  }
 }
 
 export async function POST(request) {

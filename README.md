@@ -69,11 +69,12 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
    - asigna el rol `superadmin` a `superadminprograweb@gmail.com`,
    - habilita la escritura de `products` sólo para superadmin,
    - crea las tablas `orders` y `order_items` con sus policies.
-2. (Opcional) Para subir imágenes de producto desde el panel, ejecutar `supabase_storage_product_images.sql` (crea el bucket público `product-images` y sus permisos). Si no, se usa la imagen por URL.
-3. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_APP_URL` en el entorno (local y Vercel).
+2. Ejecutar `supabase_stock_on_sale.sql` (descuenta el stock del talle vendido cuando el pago se aprueba, de forma idempotente).
+3. (Opcional) Para subir imágenes de producto desde el panel, ejecutar `supabase_storage_product_images.sql` (crea el bucket público `product-images` y sus permisos). Si no, se usa la imagen por URL.
+4. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_APP_URL` en el entorno (local y Vercel).
 
 **Ventas y webhook de Mercado Pago:**
-El checkout registra cada orden como `pending`, setea `external_reference` (id de la orden) y `notification_url` → `/api/webhook`. Tras el pago, MP redirige a `back_urls` absolutas: `/pago-completado`, `/pago-fallido` o `/pago-pendiente` (con `auto_return: 'approved'`). Cuando MP confirma el pago, el webhook marca la orden como `approved` y se refleja en el resumen de ventas.
+El checkout registra cada orden como `pending`, setea `external_reference` (id de la orden) y `notification_url` → `/api/webhook`. Tras el pago, MP redirige a `back_urls` absolutas: `/pago-completado`, `/pago-fallido` o `/pago-pendiente` (con `auto_return: 'approved'`). Cuando MP confirma el pago, el webhook marca la orden como `approved`, descuenta el stock del talle vendido (función `apply_order_stock`, idempotente) y se refleja en el resumen de ventas.
 
 **Pagos de prueba (sandbox — para la corrección):**
 El pago se prueba en el entorno de test de Mercado Pago, sin plata real. El vendedor usa credenciales de **usuario de prueba**; para pagar hay que loguearse con el **comprador de prueba** (no una cuenta real), si no MP tira "una de las partes es de prueba".

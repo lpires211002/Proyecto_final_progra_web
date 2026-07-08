@@ -75,7 +75,18 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
 **Ventas y webhook de Mercado Pago:**
 El checkout registra cada orden como `pending`, setea `external_reference` (id de la orden) y `notification_url` → `/api/webhook`. Tras el pago, MP redirige a `back_urls` absolutas: `/pago-completado`, `/pago-fallido` o `/pago-pendiente` (con `auto_return: 'approved'`). Cuando MP confirma el pago, el webhook marca la orden como `approved` y se refleja en el resumen de ventas.
 
-**Pagos de prueba (sandbox):** para probar sin plata real, usar credenciales de **usuarios de prueba** (vendedor + comprador) creados desde la cuenta de developer de MP, no las de la cuenta real. Se ponen las credenciales del **vendedor de prueba** en `MP_ACCESS_TOKEN`/`MP_PUBLIC_KEY`, y se paga logueado como el **comprador de prueba** con una tarjeta de prueba (nombre del titular `APRO` para aprobar el pago). El error "una de las partes es de prueba" aparece cuando se mezclan credenciales reales con cuentas/tarjetas de prueba. Tarjetas: https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/additional-content/test-cards
+**Pagos de prueba (sandbox — para la corrección):**
+El pago se prueba en el entorno de test de Mercado Pago, sin plata real. El vendedor usa credenciales de **usuario de prueba**; para pagar hay que loguearse con el **comprador de prueba** (no una cuenta real), si no MP tira "una de las partes es de prueba".
+
+1. En una ventana de **incógnito**, entrar a la tienda, agregar un producto y hacer checkout.
+2. En Mercado Pago, iniciar sesión con el **comprador de prueba**:
+   - Usuario: `TESTUSER2813426909791848214`
+   - Contraseña: `XljCkLo6TN`
+3. Pagar con una **tarjeta de prueba**, titular **APRO** (pago aprobado), DNI `12345678`:
+   - Mastercard `5031 7557 3453 0604` · CVV `123` · venc `11/30`
+4. El pago se aprueba → redirige a `/pago-completado` → el webhook confirma la orden → aparece en `/admin/sales`.
+
+> Credenciales de test de MP (sandbox), sólo para la corrección. Lista completa de tarjetas: https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/additional-content/test-cards
 
 ## 🌐 Deploy
 La aplicación está configurada para **Continuous Deployment (CD)** al hacer push a la rama principal en GitHub, impactando automáticamente en los servidores de **Vercel**.

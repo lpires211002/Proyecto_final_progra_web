@@ -33,7 +33,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_key_aqui
 MP_ACCESS_TOKEN=tu_token_aqui
 
 # URL pública y estable del deploy (evita redirecciones de MP a URLs de prueba)
-NEXT_PUBLIC_SITE_URL=https://tu-dominio.vercel.app
+NEXT_PUBLIC_APP_URL=https://tu-dominio.vercel.app
 
 # (Opcional pero recomendado) Service Role Key de Supabase.
 # La usa el servidor para registrar/confirmar órdenes salteando RLS.
@@ -70,10 +70,12 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
    - habilita la escritura de `products` sólo para superadmin,
    - crea las tablas `orders` y `order_items` con sus policies.
 2. (Opcional) Para subir imágenes de producto desde el panel, ejecutar `supabase_storage_product_images.sql` (crea el bucket público `product-images` y sus permisos). Si no, se usa la imagen por URL.
-3. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_SITE_URL` en el entorno (local y Vercel).
+3. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_APP_URL` en el entorno (local y Vercel).
 
 **Ventas y webhook de Mercado Pago:**
-El checkout registra cada orden como `pending` y setea `notification_url` → `/api/webhook`. Cuando MP confirma el pago, el webhook marca la orden como `approved` y se refleja en el resumen de ventas.
+El checkout registra cada orden como `pending`, setea `external_reference` (id de la orden) y `notification_url` → `/api/webhook`. Tras el pago, MP redirige a `back_urls` absolutas: `/pago-completado`, `/pago-fallido` o `/pago-pendiente` (con `auto_return: 'approved'`). Cuando MP confirma el pago, el webhook marca la orden como `approved` y se refleja en el resumen de ventas.
+
+**Pagos de prueba (sandbox):** para probar sin plata real, usar credenciales de **usuarios de prueba** (vendedor + comprador) creados desde la cuenta de developer de MP, no las de la cuenta real. Se ponen las credenciales del **vendedor de prueba** en `MP_ACCESS_TOKEN`/`MP_PUBLIC_KEY`, y se paga logueado como el **comprador de prueba** con una tarjeta de prueba (nombre del titular `APRO` para aprobar el pago). El error "una de las partes es de prueba" aparece cuando se mezclan credenciales reales con cuentas/tarjetas de prueba. Tarjetas: https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/additional-content/test-cards
 
 ## 🌐 Deploy
 La aplicación está configurada para **Continuous Deployment (CD)** al hacer push a la rama principal en GitHub, impactando automáticamente en los servidores de **Vercel**.

@@ -9,12 +9,13 @@ const client = new MercadoPagoConfig({
 });
 
 // URL pública y estable a la que MP redirige tras el pago y a la que manda
-// el webhook. Configurá NEXT_PUBLIC_SITE_URL con tu dominio real de Vercel
+// el webhook. Configurá NEXT_PUBLIC_APP_URL con tu dominio real de Vercel
 // para evitar redirecciones a URLs de preview/prueba.
 function getOrigin() {
-  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, '');
+  const configured = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXT_PUBLIC_SITE_URL;
+  if (configured) return configured.replace(/\/$/, '');
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return 'https://taiko-nina.vercel.app';
+  return 'https://proyecto-final-progra-web.vercel.app';
 }
 
 export async function POST(request) {
@@ -65,9 +66,9 @@ export async function POST(request) {
         external_reference: externalReference,
         notification_url: `${origin}/api/webhook`,
         back_urls: {
-          success: `${origin}/shop?status=success`,
-          failure: `${origin}/shop?status=failure`,
-          pending: `${origin}/shop?status=pending`
+          success: `${origin}/pago-completado`,
+          failure: `${origin}/pago-fallido`,
+          pending: `${origin}/pago-pendiente`
         },
         auto_return: 'approved'
       }

@@ -89,5 +89,6 @@ El pago se prueba en el entorno de test de Mercado Pago, sin plata real. El vend
 
 > Credenciales de test de MP (sandbox), sólo para la corrección. Lista completa de tarjetas: https://www.mercadopago.com.ar/developers/es/docs/checkout-pro/additional-content/test-cards
 
-## 🌐 Deploy
-La aplicación está configurada para **Continuous Deployment (CD)** al hacer push a la rama principal en GitHub, impactando automáticamente en los servidores de **Vercel**.
+## 🌐 CI/CD
+- **CI** — GitHub Actions (`.github/workflows/ci.yml`): en cada Pull Request y en push a `main`/`react` corre `lint` (informativo) y `build`. Si el build falla, el check queda en rojo. Como todas las páginas que consultan la BD son `force-dynamic`, el build no necesita variables de entorno.
+- **CD** — Vercel: cada push despliega automáticamente y cada PR genera un deploy de **preview**.

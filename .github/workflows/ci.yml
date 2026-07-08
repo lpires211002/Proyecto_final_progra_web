@@ -1,0 +1,36 @@
+name: CI
+
+# Integración continua: corre en cada Pull Request y en push a las ramas
+# principales. El deploy (CD) lo maneja Vercel automáticamente.
+on:
+  pull_request:
+  push:
+    branches: [main, react]
+
+jobs:
+  build:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Informativo: no bloquea el PR (así no rompe por warnings/estilo).
+      - name: Lint
+        run: npm run lint
+        continue-on-error: true
+
+      # Gate real: si el build falla, el check queda en rojo.
+      # Todas las páginas que consultan la BD son force-dynamic, así que
+      # el build no necesita variables de entorno.
+      - name: Build
+        run: npm run build

@@ -60,16 +60,16 @@ export default function CartSidebar() {
           ) : (
             <div className="space-y-6">
               {cart.map((item, index) => (
-                <div key={`${item.id}-${Math.random()}`} className="flex gap-4">
+                <div key={`${item.id}-${item.size}-${index}`} className="flex gap-4">
                   <div className="relative w-20 h-[106px] bg-[#e0e0e0] shrink-0">
                     {(item.image_url || item.img) && (
                       <Image src={item.image_url || item.img} alt={item.name} fill sizes="80px" className="object-cover" />
                     )}
                   </div>
-                  <div className="flex-1 flex flex-col justify-between py-1 text-zinc-900">
+                  <div className="flex-1 min-w-0 flex flex-col justify-between py-1 text-zinc-900">
                     <div>
-                      <div className="flex justify-between items-start mb-1">
-                        <h4 className="text-sm font-medium pr-4">{item.name}</h4>
+                      <div className="flex justify-between items-start mb-1 gap-2">
+                        <h4 className="text-sm font-medium min-w-0 break-words">{item.name}</h4>
                         <span className="text-sm font-medium shrink-0">${item.price * item.quantity}</span>
                       </div>
                       <p className="text-[10px] uppercase tracking-widest text-zinc-500">

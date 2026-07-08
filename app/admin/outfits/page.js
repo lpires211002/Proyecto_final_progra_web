@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import { useAppContext } from '@/context/AppContext';
+import AdminNav from '@/components/AdminNav';
 
 export default function AdminOutfits() {
   const { user, userRole, authLoading } = useAppContext();
@@ -232,6 +233,7 @@ export default function AdminOutfits() {
   return (
     <div className="min-h-screen pt-32 pb-24 px-6 md:px-12 bg-surface">
       <div className="max-w-[1200px] mx-auto">
+        <AdminNav />
         {/* Header */}
         <div className="flex justify-between items-end mb-12 border-b border-zinc-200 pb-8">
           <div>

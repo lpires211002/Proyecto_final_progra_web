@@ -7,7 +7,8 @@ import { useAppContext } from '@/context/AppContext';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const { setIsCartOpen, setIsSearchOpen, setIsAuthOpen, cartCount } = useAppContext();
+  const { setIsCartOpen, setIsSearchOpen, setIsAuthOpen, cartCount, userRole } = useAppContext();
+  const isSuperadmin = userRole === 'superadmin';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
@@ -51,6 +52,16 @@ export default function Navbar() {
           </div>
           {/* Right: Actions */}
           <div className="flex-1 flex items-center justify-end gap-3 lg:gap-8">
+            {isSuperadmin && (
+              <Link
+                href="/admin"
+                title="Panel de administración"
+                className="flex items-center gap-1.5 scale-100 active:scale-95 transition-transform"
+              >
+                <span className="material-symbols-outlined text-[20px] md:text-[24px]">admin_panel_settings</span>
+                <span className="hidden lg:inline font-medium tracking-[0.15em] text-[11px] uppercase">Admin</span>
+              </Link>
+            )}
             <button className="scale-100 active:scale-95 transition-transform" onClick={() => setIsSearchOpen(true)}>
               <span className="material-symbols-outlined text-[20px] md:text-[24px]">search</span>
             </button>
@@ -74,6 +85,12 @@ export default function Navbar() {
             <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="text-zinc-500 font-medium tracking-[0.15em] text-[12px] uppercase">Collection</Link>
             <Link href="/outfits" onClick={() => setMobileMenuOpen(false)} className="text-zinc-500 font-medium tracking-[0.15em] text-[12px] uppercase">Outfits</Link>
             <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-zinc-500 font-medium tracking-[0.15em] text-[12px] uppercase">Contact</Link>
+            {isSuperadmin && (
+              <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-1.5 text-zinc-950 font-semibold tracking-[0.15em] text-[12px] uppercase">
+                <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+                Admin Panel
+              </Link>
+            )}
           </div>
         )}
       </nav>

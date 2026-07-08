@@ -69,7 +69,7 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
    - asigna el rol `superadmin` a `superadminprograweb@gmail.com`,
    - habilita la escritura de `products` sólo para superadmin,
    - crea las tablas `orders` y `order_items` con sus policies.
-2. (Opcional) Para subir imágenes de producto desde el panel, crear un bucket **público** llamado `product-images` en Supabase → Storage. Si no, se usa la imagen por URL.
+2. (Opcional) Para subir imágenes de producto desde el panel, ejecutar `supabase_storage_product_images.sql` (crea el bucket público `product-images` y sus permisos). Si no, se usa la imagen por URL.
 3. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_SITE_URL` en el entorno (local y Vercel).
 
 **Ventas y webhook de Mercado Pago:**

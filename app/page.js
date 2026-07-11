@@ -14,6 +14,7 @@ export default function Home() {
     supabase
       .from('products')
       .select('*')
+      .eq('active', true)
       .order('created_at', { ascending: false })
       .limit(4)
       .then(({ data }) => { if (data) setNewArrivals(data); });

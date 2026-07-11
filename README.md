@@ -61,7 +61,7 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
 
 **Secciones del panel:**
 - **Outfits** (`/admin/outfits`) → alta/edición/baja de looks y sus productos.
-- **Productos y stock** (`/admin/products`) → CRUD de productos (nombre, precio, categoría, color, descripción, imagen por URL o upload) y stock por talle (xs/s/m/l).
+- **Productos y stock** (`/admin/products`) → CRUD de productos (nombre, precio, categoría, color, descripción, imagen por URL o upload), stock por talle (xs/s/m/l) y **activar/ocultar** de la tienda.
 - **Resumen de ventas** (`/admin/sales`) → facturación, órdenes, ticket promedio, unidades y productos más vendidos, leídos de la tabla `orders`.
 
 **Puesta en marcha (una sola vez):**
@@ -69,7 +69,7 @@ Cuando iniciás sesión con una cuenta superadmin aparece el botón **Admin** en
    - asigna el rol `superadmin` a `superadminprograweb@gmail.com`,
    - habilita la escritura de `products` sólo para superadmin,
    - crea las tablas `orders` y `order_items` con sus policies.
-2. Ejecutar `supabase_stock_on_sale.sql` (descuenta el stock del talle vendido cuando el pago se aprueba, de forma idempotente).
+2. Ejecutar `supabase_stock_on_sale.sql` (descuenta el stock del talle vendido cuando el pago se aprueba) y `supabase_product_active.sql` (flag para mostrar/ocultar productos en la tienda).
 3. (Opcional) Para subir imágenes de producto desde el panel, ejecutar `supabase_storage_product_images.sql` (crea el bucket público `product-images` y sus permisos). Si no, se usa la imagen por URL.
 4. (Recomendado) Definir `SUPABASE_SERVICE_ROLE_KEY` y `NEXT_PUBLIC_APP_URL` en el entorno (local y Vercel).
 

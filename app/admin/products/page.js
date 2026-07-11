@@ -8,7 +8,7 @@ import AdminNav from '@/components/AdminNav';
 const SIZES = ['xs', 's', 'm', 'l'];
 const EMPTY = {
   name: '', price: '', category: '', color: '', description: '', image_url: '',
-  stock_xs: 0, stock_s: 0, stock_m: 0, stock_l: 0,
+  stock_xs: 0, stock_s: 0, stock_m: 0, stock_l: 0, active: true,
 };
 
 function ProductsManager() {
@@ -57,6 +57,7 @@ function ProductsManager() {
       stock_s: p.stock_s ?? 0,
       stock_m: p.stock_m ?? 0,
       stock_l: p.stock_l ?? 0,
+      active: p.active ?? true,
     });
     setImageFile(null);
     setFormOpen(true);
@@ -99,6 +100,7 @@ function ProductsManager() {
       stock_s: parseInt(form.stock_s) || 0,
       stock_m: parseInt(form.stock_m) || 0,
       stock_l: parseInt(form.stock_l) || 0,
+      active: form.active,
     };
 
     try {
@@ -171,14 +173,18 @@ function ProductsManager() {
               </thead>
               <tbody className="divide-y divide-zinc-50">
                 {products.map((p) => (
-                  <tr key={p.id} className="hover:bg-zinc-50/60 transition-colors">
+                  <tr key={p.id} className={`hover:bg-zinc-50/60 transition-colors ${p.active === false ? 'opacity-50' : ''}`}>
                     <td className="p-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-14 bg-zinc-100 overflow-hidden shrink-0">
                           {p.image_url && <img src={p.image_url} alt="" className="w-full h-full object-cover" />}
                         </div>
                         <div className="min-w-0">
-                          <p className="font-medium text-zinc-900 truncate">{p.name}</p>
+                          <div className="flex items-center gap-2">
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${p.active === false ? 'bg-zinc-300' : 'bg-emerald-500'}`} title={p.active === false ? 'Oculto' : 'Visible'} />
+                            <p className="font-medium text-zinc-900 truncate">{p.name}</p>
+                            {p.active === false && <span className="text-[9px] uppercase tracking-widest text-zinc-400 border border-zinc-200 px-1.5 py-0.5 shrink-0">Oculto</span>}
+                          </div>
                           {p.color && <p className="text-[11px] text-zinc-400">{p.color}</p>}
                         </div>
                       </div>
@@ -284,6 +290,18 @@ function ProductsManager() {
                     </div>
                   ))}
                 </div>
+              </Field>
+
+              <Field label="Estado">
+                <button
+                  type="button"
+                  onClick={() => setField('active', !form.active)}
+                  className={`flex items-center gap-2 px-4 py-2 border text-[11px] uppercase tracking-widest transition-colors
+                    ${form.active ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-zinc-200 text-zinc-400'}`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${form.active ? 'bg-emerald-500' : 'bg-zinc-300'}`} />
+                  {form.active ? 'Activo · visible en la tienda' : 'Inactivo · oculto'}
+                </button>
               </Field>
 
               <button

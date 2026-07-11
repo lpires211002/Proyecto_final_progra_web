@@ -18,7 +18,7 @@ export const metadata = {
 
 export default async function Shop() {
   // Data is fetched on the server (React Server Component) instead of the browser.
-  const { data: products } = await supabase.from('products').select('*');
+  const { data: products } = await supabase.from('products').select('*').eq('active', true);
 
   return <ShopClient initialProducts={products ?? []} />;
 }

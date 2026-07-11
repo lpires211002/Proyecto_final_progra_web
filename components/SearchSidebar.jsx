@@ -14,7 +14,7 @@ export default function SearchSidebar() {
 
   useEffect(() => {
     if (isSearchOpen && allProducts.length === 0) {
-      supabase.from('products').select('*').then(({ data }) => {
+      supabase.from('products').select('*').eq('active', true).then(({ data }) => {
         if (data) setAllProducts(data);
       });
     }

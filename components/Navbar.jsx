@@ -86,8 +86,7 @@ export default function Navbar() {
             <Link href="/outfits" onClick={() => setMobileMenuOpen(false)} className="text-zinc-500 font-medium tracking-[0.15em] text-[12px] uppercase">Outfits</Link>
             <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-zinc-500 font-medium tracking-[0.15em] text-[12px] uppercase">Contact</Link>
             {isSuperadmin && (
-              <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-1.5 text-zinc-950 font-semibold tracking-[0.15em] text-[12px] uppercase">
-                <span className="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+              <Link href="/admin" onClick={() => setMobileMenuOpen(false)} className="mt-2 pt-6 border-t border-zinc-100 w-full text-center text-zinc-950 font-semibold tracking-[0.15em] text-[12px] uppercase">
                 Admin Panel
               </Link>
             )}

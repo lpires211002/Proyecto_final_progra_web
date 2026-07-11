@@ -76,7 +76,8 @@ export default function AuthModal() {
                   required 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email Address" 
+                  aria-label="Email"
+                  placeholder="Email Address"
                   className="w-full border-b border-zinc-300 py-3 bg-transparent text-sm font-medium focus:ring-0 focus:border-black placeholder:font-light"
                 />
               </div>
@@ -86,7 +87,8 @@ export default function AuthModal() {
                   required 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password" 
+                  aria-label="Contraseña"
+                  placeholder="Password"
                   className="w-full border-b border-zinc-300 py-3 bg-transparent text-sm font-medium focus:ring-0 focus:border-black placeholder:font-light"
                 />
               </div>

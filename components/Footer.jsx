@@ -58,8 +58,9 @@ export default function Footer() {
         <div>
           <h4 className="font-label text-[10px] uppercase tracking-[0.2em] mb-8 font-bold">Newsletter</h4>
           <form className="flex border-b border-zinc-300 py-2 relative" onSubmit={handleSubscribe}>
-            <input 
-              type="email" 
+            <input
+              type="email"
+              aria-label="Email para el newsletter"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}

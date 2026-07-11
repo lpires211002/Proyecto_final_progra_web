@@ -14,14 +14,14 @@ export default function Contact() {
         <form className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <input type="text" placeholder="Full Name" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm" />
+              <input type="text" aria-label="Nombre completo" placeholder="Full Name" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm" />
             </div>
             <div>
-              <input type="email" placeholder="Email Address" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm" />
+              <input type="email" aria-label="Email" placeholder="Email Address" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm" />
             </div>
           </div>
           <div>
-            <textarea placeholder="Your Message" rows="6" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm resize-none"></textarea>
+            <textarea aria-label="Mensaje" placeholder="Your Message" rows="6" className="w-full bg-transparent border-b border-zinc-300 py-4 focus:ring-0 focus:border-zinc-950 text-sm resize-none"></textarea>
           </div>
           <button type="button" className="bg-zinc-950 text-white px-12 py-4 font-label text-[11px] uppercase tracking-[0.2em] hover:bg-zinc-800 transition-colors">
             Send Inquiry

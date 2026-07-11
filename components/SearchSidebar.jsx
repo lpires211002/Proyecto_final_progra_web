@@ -54,6 +54,7 @@ export default function SearchSidebar() {
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            aria-label="Buscar productos"
             placeholder="Search collection..."
             className="w-full bg-transparent border-none text-xl md:text-4xl pl-9 md:pl-12 py-3 md:py-4 focus:ring-0 text-zinc-900 placeholder:text-zinc-200 font-serif italic"
           />

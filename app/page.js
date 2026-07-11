@@ -1,9 +1,26 @@
 'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { supabase } from '@/lib/supabase';
+import ProductCard from '@/components/ProductCard';
 
 export default function Home() {
+  const [newArrivals, setNewArrivals] = useState([]);
+
+  // "Novedades": últimas piezas del catálogo real (no hardcodeadas).
+  useEffect(() => {
+    supabase
+      .from('products')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(4)
+      .then(({ data }) => { if (data) setNewArrivals(data); });
+  }, []);
+
+  // Reveal on scroll. Se re-ejecuta cuando llegan las novedades para
+  // observar también esas tarjetas.
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -16,7 +33,7 @@ export default function Home() {
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [newArrivals]);
 
   return (
     <>
@@ -43,8 +60,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <section className="py-32 px-12 bg-zinc-50">
+      {/* New Arrivals — desde el catálogo */}
+      <section className="py-32 px-6 md:px-12 bg-zinc-50">
         <div className="max-w-[1600px] mx-auto">
           <div className="flex justify-between items-end mb-20 fade-up">
             <div>
@@ -55,51 +72,30 @@ export default function Home() {
               View All
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-1">
-            {/* Products mock inside New Arrivals */}
-            <div className="group cursor-pointer fade-up">
-              <Link href="/product/L'Aube Silk Slip Dress">
-                <div className="aspect-[3/4] overflow-hidden bg-zinc-200 mb-6 relative">
-                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo8cH7YuSdS_GwDAPSCsdThHkb_Vez7tn7I12cGZXK4MWb-xxgbV9VM71YtRqUFAY3RkHQydjLLffN_YWEBb8jS3gFjgMSp08fGhni1R1pqPY-dw5stdtOK0x10akFDGDhQM3ehmg5GvbIx_aiD2iIHycb1a6sFQEazhiX09MbtLePfmyJ2u5UFWnwMb08y_jmGCvPftA8bZTsD7OCK0fbHoLzNSn4D4Hb9O-jGSctQdnD1RmxCmtEkNg9vVEriUK1hjgPxWCRK6w" alt="" />
-                  <div className="absolute top-4 right-4 bg-white/50 backdrop-blur px-3 py-1 text-[10px] uppercase tracking-tighter">New</div>
-                </div>
-                <h4 className="font-label text-[11px] uppercase tracking-widest mb-1">L'Aube Silk Slip Dress</h4>
-              </Link>
-            </div>
-            <div className="group cursor-pointer fade-up delay-100">
-              <Link href="/product/Architectural Wool Blazer">
-                <div className="aspect-[3/4] overflow-hidden bg-zinc-200 mb-6 relative">
-                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJaKSXm46NogY8QpT0xvjoIweButcXDEgBbnq1fwjyTcDL0FHfOc78-Q6i2KEOlFtTN-vkTPP7gL8R_Sr6rQJbcZy2pn_53dzj34F9fsGqD7Zwvqz54dcqD1FwOhlDpg0-YLx25ZrcwKqflpEN2W2GAgISZGLaENfZ_kUyIe6cbyTjy3tAFO4v-unjXPJGUksD2z9LKI7E-y4zknjGVKwCxF1mmWGFLT9pEf8L5Z7F5TI55bJQcpBh6Zulsqx8OTh09tOCi95XhSs" alt="" />
-                </div>
-                <h4 className="font-label text-[11px] uppercase tracking-widest mb-1">Architectural Wool Blazer</h4>
-              </Link>
-            </div>
-            <div className="group cursor-pointer fade-up delay-300">
-              <Link href="/product/High-Rise Linen Trouser">
-                <div className="aspect-[3/4] overflow-hidden bg-zinc-200 mb-6 relative">
-                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyoCog4gPz6toSSZVoUKkEYS7yvXAGdP1HICNpvtRAmj4Pm4fcZ74drkJzoeUFifuLJWXJSUr5jGeomM5ev7dviuGK9Tg1ZvLZVfBc5slW-ogdlC5a62Fy2gZ2asJnAkfOaRlxqTf_UV2BnYI5DdsaqJI9n8Gt2p_qIYUyKU-2s7Qnyl03bNxIBMJ_8SoAQVzpXRfBG5bAWKPQFaOTgt9NduR0loK3wiSJnfvqP6VcGcfhwhdAAnK5qMc_KJCXjtNt59ngOEANDAQ" alt="" />
-                </div>
-                <h4 className="font-label text-[11px] uppercase tracking-widest mb-1">High-Rise Linen Trouser</h4>
-              </Link>
-            </div>
-            <div className="group cursor-pointer fade-up delay-500">
-              <Link href="/product/Double-Face Cashmere Coat">
-                <div className="aspect-[3/4] overflow-hidden bg-zinc-200 mb-6 relative">
-                  <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIeK20R4nKkMDQ15PnlfrdfhtPDk2r8fksRQA9jzLfTtB8PnAu5CAii0aDQHVk2IFQNicFhUQYTg6dWeSDw2sUC9mCoGY4y7eVcdxAQYfqEfxtndZ9J12dRvHee_0ZH3gvbmFic4sZiM3pyhVLKa72fJKzL7jmWBbpK78XGemnQ1Odyqc_OtfQkEzf9D_CRezMayAxjMpGGrkKEjylDCPSFgL1r1QAAh4rX6dKIgLiUHsfm9D-bsboXYIeEVtn_7hvA4k_ekMcQM8" alt="" />
-                </div>
-                <h4 className="font-label text-[11px] uppercase tracking-widest mb-1">Double-Face Cashmere Coat</h4>
-              </Link>
-            </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
+            {newArrivals.map((product, i) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                className={`fade-up ${['', 'delay-100', 'delay-300', 'delay-500'][i] || ''}`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* Featured Collections */}
-      <section className="py-24 px-12 bg-white">
+      <section className="py-24 px-6 md:px-12 bg-white">
         <div className="max-w-[1600px] mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-stretch">
             <div className="md:col-span-8 group relative overflow-hidden h-[600px] fade-up">
-              <img className="w-full h-full object-cover grayscale group-hover:scale-[1.02] transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQk7OKdgfnN5bgzIGFdu5jpwTTlS2QxrAa_bUL0bat10PohtTnrdDTJmctmgyJeI-VLpbCCPj3s2A1Aq7AAiRdT1hLk53jkwBigSiZ0X_tZrFSKRQYIdrpzxd4Hq2f86jsLNgZHGomp1_6c6ji80QDQzDMszhHxK7_RrZrpugIY7VtXR9XvPM9AvRVLguMqcJzyiNoYBo52QzbcLJlJjjW3i_8fyy0lwuOGjyTnfWLWpnZp3wrDRdFSrlY1_VG2eRze48yt3NULeU" alt=""/>
+              <Image
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQk7OKdgfnN5bgzIGFdu5jpwTTlS2QxrAa_bUL0bat10PohtTnrdDTJmctmgyJeI-VLpbCCPj3s2A1Aq7AAiRdT1hLk53jkwBigSiZ0X_tZrFSKRQYIdrpzxd4Hq2f86jsLNgZHGomp1_6c6ji80QDQzDMszhHxK7_RrZrpugIY7VtXR9XvPM9AvRVLguMqcJzyiNoYBo52QzbcLJlJjjW3i_8fyy0lwuOGjyTnfWLWpnZp3wrDRdFSrlY1_VG2eRze48yt3NULeU"
+                alt="Editorial de la colección cápsula L'Été Infini"
+                fill
+                sizes="(max-width: 768px) 100vw, 66vw"
+                className="object-cover grayscale group-hover:scale-[1.02] transition-transform duration-1000"
+              />
               <div className="absolute inset-0 bg-black/10"></div>
               <div className="absolute bottom-12 left-12 text-white">
                 <h3 className="serif-headline text-6xl mb-4">{`L'Ete Infini`}</h3>
@@ -108,8 +104,14 @@ export default function Home() {
               </div>
             </div>
             <div className="md:col-span-4 flex flex-col gap-12 fade-up delay-300">
-              <Link href="/shop" className="flex-1 group relative overflow-hidden bg-zinc-100 cursor-pointer block">
-                <img className="w-full h-full object-cover mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbdi2WRzhHN4RVsBoSqvp8Awdr9KiG0iBUarFmDAMwBqj_B36r-vd3En5SGUF0BvNCrHhxQKJWJKvpdfBwIrcaYnHS9MlFhvm0qlcmq7y2EslXFUxr9M4Q70YYYebb4Di-Vtr5kY6hr8xTwNX6OShZk4Zh8VuvyZPXGTK8Bd_NpaZJYYnvfSulnZchNKmDCPjRUADPvGkxynJ_Q6e9VIhOCbYMHAjPrJkUjcuanVscFFtvRPWpyK9b7wDePRqijY529CY2yQRckXo" alt="" />
+              <Link href="/shop" className="flex-1 min-h-[300px] group relative overflow-hidden bg-zinc-100 cursor-pointer block">
+                <Image
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbdi2WRzhHN4RVsBoSqvp8Awdr9KiG0iBUarFmDAMwBqj_B36r-vd3En5SGUF0BvNCrHhxQKJWJKvpdfBwIrcaYnHS9MlFhvm0qlcmq7y2EslXFUxr9M4Q70YYYebb4Di-Vtr5kY6hr8xTwNX6OShZk4Zh8VuvyZPXGTK8Bd_NpaZJYYnvfSulnZchNKmDCPjRUADPvGkxynJ_Q6e9VIhOCbYMHAjPrJkUjcuanVscFFtvRPWpyK9b7wDePRqijY529CY2yQRckXo"
+                  alt="The Essentials — piezas esenciales de la colección"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover mix-blend-multiply opacity-80 group-hover:scale-110 transition-transform duration-1000"
+                />
                 <div className="absolute inset-0 flex items-center justify-center p-8 text-center text-zinc-900">
                   <div>
                     <h4 className="serif-headline text-3xl mb-2">The Essentials</h4>
@@ -118,7 +120,7 @@ export default function Home() {
                   </div>
                 </div>
               </Link>
-              <div className="flex-1 bg-zinc-900 text-white p-12 flex flex-col justify-center items-center text-center">
+              <div className="flex-1 min-h-[300px] bg-zinc-900 text-white p-12 flex flex-col justify-center items-center text-center">
                 <span className="font-label text-[9px] uppercase tracking-[0.5em] mb-6">Discovery</span>
                 <h4 className="serif-headline text-2xl italic mb-8">Atelier Nina: Bespoke Tailoring Services</h4>
                 <p className="text-sm leading-relaxed opacity-70 mb-8 max-w-xs font-light">Elevate your wardrobe with personalized craftsmanship from our master tailors.</p>

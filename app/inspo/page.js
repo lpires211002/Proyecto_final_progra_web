@@ -58,7 +58,7 @@ export default function Inspo() {
         <div className="max-w-[1200px] mx-auto text-center fade-up">
           <span className="font-label text-[10px] uppercase tracking-[0.4em] text-zinc-400 mb-8 block">La Filosofía</span>
           <p className="serif-headline text-3xl md:text-6xl italic text-zinc-900 leading-[1.3] tracking-tight">
-            "No hacemos ropa para adornar el cuerpo, construimos refugios de tela para habitar el presente."
+            &ldquo;No hacemos ropa para adornar el cuerpo, construimos refugios de tela para habitar el presente.&rdquo;
           </p>
           <div className="mt-16 flex justify-center fade-up delay-500">
             <Link href="/shop" className="border border-zinc-300 text-zinc-800 px-12 py-4 font-label text-[10px] uppercase tracking-widest hover:bg-zinc-950 hover:text-white hover:border-zinc-950 transition-all duration-700">
@@ -75,8 +75,8 @@ export default function Inspo() {
             <div className="aspect-[4/5] bg-zinc-100 overflow-hidden group">
               <img 
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQk7OKdgfnN5bgzIGFdu5jpwTTlS2QxrAa_bUL0bat10PohtTnrdDTJmctmgyJeI-VLpbCCPj3s2A1Aq7AAiRdT1hLk53jkwBigSiZ0X_tZrFSKRQYIdrpzxd4Hq2f86jsLNgZHGomp1_6c6ji80QDQzDMszhHxK7_RrZrpugIY7VtXR9XvPM9AvRVLguMqcJzyiNoYBo52QzbcLJlJjjW3i_8fyy0lwuOGjyTnfWLWpnZp3wrDRdFSrlY1_VG2eRze48yt3NULeU"
-                className="w-full h-full object-cover grayscale brightness-95 group-hover:scale-105 transition-transform duration-[3s] ease-out" 
-                alt=""
+                className="w-full h-full object-cover grayscale brightness-95 group-hover:scale-105 transition-transform duration-[3s] ease-out"
+                alt="Detalle de confección artesanal de taiko nina"
               />
             </div>
             <div className="aspect-[4/5] bg-zinc-100 overflow-hidden group flex items-center justify-center p-12 md:p-24 text-center">
